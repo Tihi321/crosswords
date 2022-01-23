@@ -4,18 +4,26 @@
   import { onMount } from "svelte";
   let pageName = "Home Page";
 
-  let words: Array<string>;
+  let words: Array<string> = [];
 
   onMount(() => {
-    fetch(Endpoints.General).then((res) => {
-      console.log("res", res);
-    });
-    console.log("onMount");
+    fetch(Endpoints.General)
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        words = res.data.strings;
+      });
   });
 </script>
 
 <main>
   <h1>{pageName}!</h1>
+  {#each words as word, i}
+    <li>
+      {i + 1}: {word}
+    </li>
+  {/each}
   <p>Welcome this is my <b>{pageName}</b></p>
 </main>
 
