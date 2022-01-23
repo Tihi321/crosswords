@@ -25,12 +25,12 @@ jobs:
         name: "Checkout Source Code"
         
       - name: Setup Node.js environment
-        uses: actions/setup-node@v2.1.5
+        uses: actions/setup-node@v2.5.1
         with:
-          version: 12.x
+          node-version: 14.18.1
 
       # Runs a set of commands using the runners shell
-      - name: Build kobilica site
+      - name: Build crosswords site
         run: |
           yarn install
           yarn deploy
