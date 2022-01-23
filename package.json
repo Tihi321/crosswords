@@ -1,0 +1,26 @@
+{
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
+    "check": "svelte-check --tsconfig ./tsconfig.json"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.35",
+    "@tsconfig/svelte": "^3.0.0",
+    "node-sass": "^7.0.1",
+    "sass": "^1.49.0",
+    "svelte": "^3.46.2",
+    "svelte-check": "^2.3.0",
+    "svelte-preprocess": "^4.10.2",
+    "svelte-preprocess-sass": "^2.0.1",
+    "tslib": "^2.3.1",
+    "typescript": "^4.5.5",
+    "vite": "^2.7.13"
+  },
+  "dependencies": {
+    "svelte-routing": "^1.6.0",
+    "tsl-utils": "^1.0.12"
+  }
+}
