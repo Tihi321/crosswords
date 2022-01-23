@@ -2,7 +2,7 @@
   import { Router, Route } from "svelte-routing";
   import Home from "./pages/Home.svelte";
   import Api from "./pages/Api.svelte";
-  import Header from "./components/Header.svelte";
+  import Header from "./components/header/Header.svelte";
   import { Routes } from "./constants/enums";
   export let url = ""; //This property is necessary declare to avoid ignore the Router
 </script>

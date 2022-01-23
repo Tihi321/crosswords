@@ -1,9 +1,10 @@
 <script lang="ts">
   import { navigate } from "svelte-routing";
   import Logo from "./Logo.svelte";
-  import Container from "./Container.svelte";
+  import MenuItem from "./MenuItem.svelte";
+  import Container from "../common/Container.svelte";
   import { onMount, onDestroy } from "svelte";
-  import { Events, Routes } from "../constants";
+  import { Events, Routes } from "../../constants";
   import type { THistoryChangeArguments } from "tsl-utils";
 
   let appElement: HTMLElement;
@@ -37,11 +38,14 @@
     <div class="header">
       <button on:click={viewHome} class="logo"><Logo /></button>
       <ul>
-        <li class={path === Routes.Home && "active"}>
-          <button class="link" on:click={viewHome}>Home</button>
+        <li>
+          <MenuItem active={path === Routes.Home} on:click={viewHome} name="Home" />
         </li>
-        <li class={path === Routes.Api && "active"}>
-          <button class="link" on:click={viewApi}>Api</button>
+        <li>
+          <MenuItem active={path === Routes.Api} on:click={viewApi} name="Api" />
+        </li>
+        <li>
+          <a class="link" href={"/design"}>Storybook</a>
         </li>
       </ul>
     </div>
@@ -79,16 +83,13 @@
     }
 
     .link {
-      background: none;
-      border: none;
+      display: inline-block;
+      margin-left: 5px;
+      text-decoration: none;
       font-weight: 700;
       font-size: 18px;
       cursor: pointer;
       color: #2a2a57;
-    }
-
-    .active {
-      box-shadow: 0 5px 0 0 #2a2a57;
     }
   }
 
