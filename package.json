@@ -6,7 +6,8 @@
     "serve": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook  -o ./dist/design"
+    "build-storybook": "build-storybook  -o ./dist/design",
+    "deploy": "yarn build && yarn build-storybook"
   },
   "devDependencies": {
     "@babel/core": "^7.16.12",
