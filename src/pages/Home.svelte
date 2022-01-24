@@ -1,30 +1,33 @@
 <script lang="ts">
-  import { Endpoints } from "../constants";
+  import Crossword from "../components/crossword/Crossword.svelte";
 
-  import { onMount } from "svelte";
-  let pageName = "Home Page";
+  import { useGame } from "../hooks";
 
-  let words: Array<string> = [];
+  let pageName = "Crosswords";
 
-  onMount(() => {
-    fetch(Endpoints.General)
-      .then((res) => {
-        return res.json();
-      })
-      .then((res) => {
-        words = res.data.strings;
-      });
+  const { startGame, endGame, game } = useGame();
+
+  let gameStarted: boolean;
+
+  game.subscribe((value) => {
+    gameStarted = value.started;
   });
+
+  const switchGame = () => {
+    if (gameStarted) {
+      endGame();
+    } else {
+      startGame();
+    }
+  };
 </script>
 
 <main>
+  <button on:click={switchGame}>{gameStarted ? "End Game" : "New Game"}</button>
   <h1>{pageName}!</h1>
-  {#each words as word, i}
-    <li>
-      {i + 1}: {word}
-    </li>
-  {/each}
-  <p>Welcome this is my <b>{pageName}</b></p>
+  {#if gameStarted}
+    <Crossword />
+  {/if}
 </main>
 
 <style>
@@ -40,11 +43,5 @@
     text-transform: uppercase;
     font-size: 4em;
     font-weight: 100;
-  }
-
-  @media (min-width: 640px) {
-    main {
-      max-width: none;
-    }
   }
 </style>
