@@ -13,13 +13,16 @@
     "@babel/core": "^7.16.12",
     "@storybook/addon-actions": "^6.4.14",
     "@storybook/addon-essentials": "^6.4.14",
-    "@storybook/addon-links": "^6.4.14",
     "@storybook/addon-knobs": "^6.2.9",
+    "@storybook/addon-links": "^6.4.14",
     "@storybook/addon-svelte-csf": "^1.1.0",
     "@storybook/svelte": "^6.4.14",
     "@sveltejs/vite-plugin-svelte": "^1.0.0-next.35",
     "@tsconfig/svelte": "^3.0.0",
     "babel-loader": "^8.2.3",
+    "eslint": "^7.20.0",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.6",
     "node-sass": "^7.0.1",
     "sass": "^1.49.0",
     "svelte": "^3.46.2",
@@ -28,15 +31,13 @@
     "svelte-preprocess": "^4.10.2",
     "svelte-preprocess-sass": "^2.0.1",
     "tslib": "^2.3.1",
-    "eslint": "^7.20.0",
     "typescript": "^4.5.5",
-    "husky": "^4.2.5",
-    "lint-staged": "^10.2.6",
     "vite": "^2.7.13"
   },
   "dependencies": {
+    "lodash": "^4.17.21",
     "svelte-routing": "^1.6.0",
-    "tsl-utils": "^1.0.12"
+    "tsl-utils": "^1.0.14"
   },
   "husky": {
     "hooks": {

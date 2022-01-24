@@ -1,5 +1,2 @@
-import { route } from "../store";
-export const useView = () => {
-
-  return {route}
-}
+export * from "./useGame";
+export * from "./useWords";
