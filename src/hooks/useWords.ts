@@ -1,13 +1,25 @@
-import { words } from "../store/words";
+import { apiWords, crossWords } from "../store/words";
 
-export const useWords = () => {
+export const useApiWords = () => {
 
-  const setWords = (data) => {
-    words.set(data);
+  const setApiWords = (data) => {
+    apiWords.set(data);
   };
 
   return {
-    setWords,
-    words
+    setApiWords,
+    apiWords
+  }
+}
+
+export const useCrowwWords = () => {
+
+  const setCrossWords = (data) => {
+    crossWords.set(data);
+  };
+
+  return {
+    setCrossWords,
+    crossWords
   }
 }

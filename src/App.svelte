@@ -6,10 +6,10 @@
   import { Routes } from "./constants/enums";
   import { onMount } from "svelte";
   import { Endpoints } from "./constants/endpoints";
-  import { useWords } from "./hooks";
+  import { useApiWords } from "./hooks";
   export let url = ""; //This property is necessary declare to avoid ignore the Router
 
-  const { setWords } = useWords();
+  const { setApiWords } = useApiWords();
 
   onMount(() => {
     fetch(Endpoints.Random)
@@ -17,7 +17,7 @@
         return res.json();
       })
       .then((res) => {
-        setWords(res);
+        setApiWords(res);
       });
   });
 </script>

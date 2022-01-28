@@ -1,3 +1,4 @@
 import { writable } from 'svelte/store';
 
-export const words = writable([]);
+export const apiWords = writable([]);
+export const crossWords = writable({});

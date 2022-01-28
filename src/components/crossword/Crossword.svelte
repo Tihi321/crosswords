@@ -1,17 +1,32 @@
 <script lang="ts">
+  import get from "lodash/get";
+  import shuffle from "lodash/shuffle";
   import { generateCrosswordsArray } from "../../utils";
 
-  import { useWords } from "../../hooks";
+  import { useApiWords, useCrowwWords } from "../../hooks";
 
-  const { words } = useWords();
+  const { apiWords } = useApiWords();
+  const { setCrossWords, crossWords } = useCrowwWords();
 
   let wordsData: Array<string>;
+  let selectedWords: Array<string>;
 
-  words.subscribe((value) => {
+  apiWords.subscribe((value) => {
     wordsData = value;
   });
 
-  const checkTheLogic = () => generateCrosswordsArray(wordsData);
+  crossWords.subscribe((value) => {
+    selectedWords = get(value, ["selectedWords"], []);
+  });
+
+  const generateWordsArray = () => {
+    setCrossWords(generateCrosswordsArray(shuffle(wordsData)));
+  };
+
+  const randomizeWordsArray = () => {
+    console.log(shuffle(selectedWords));
+  };
 </script>
 
-<button on:click={checkTheLogic}>Logic</button>
+<button on:click={generateWordsArray}>Logic</button>
+<button on:click={randomizeWordsArray}>Randomize</button>
