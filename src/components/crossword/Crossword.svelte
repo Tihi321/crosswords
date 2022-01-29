@@ -9,10 +9,14 @@
   const { setCrossWords, crossWords } = useCrowwWords();
 
   let wordsData: Array<string>;
+  let namesData: Array<string>;
+  let lastNamesData: Array<string>;
   let selectedWords: Array<string>;
 
   apiWords.subscribe((value) => {
-    wordsData = value;
+    wordsData = get(value, ["words"], []);
+    namesData = get(value, ["names"], []);
+    lastNamesData = get(value, ["lastnames"], []);
   });
 
   crossWords.subscribe((value) => {

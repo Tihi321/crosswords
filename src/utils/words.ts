@@ -1,42 +1,56 @@
 import includes from "lodash/includes";
+import get from "lodash/get";
+import { rangeEach } from "tsl-utils";
 
-type TWordObject = {
-  string: string;
+export type TWordObject = {
+  detail: string;
+  name: string;
+  lenght: number;
   chars: string[];
+  firstChar: string;
   matches: any;
 }
 
-export const generateWordObject = (word: string): TWordObject => ({
-  string: word,
-  chars: word.split(""),
-  matches: {},
-})
+export const generateWordObject = (word: string): TWordObject => {
+
+  const name = get(word, ["name"]);
+
+  return ({
+    name,
+    detail: get(word, ["detail"]),
+    lenght: name.lenght,
+    chars: name.split(""),
+    firstChar: get(name, [0]),
+    matches: {},
+  })
+}
 
 export const addMatches = (wordsArray: TWordObject[]): TWordObject[] => {
   let returnArray = [];
 
-  for(var i = 0; i < wordsArray.length; i++){
-    const wordItem = {...wordsArray[i]};
+  rangeEach(wordsArray.length, wordsArrayIndex => {
+    const wordItem = {...wordsArray[wordsArrayIndex]};
 
-    for(var j = 0; j < wordItem.chars.length; j++){
-      const charItem = wordItem.chars[j];
-  
-      for(var k = 0; k < wordsArray.length; k++){
-        const innerWordItem = wordsArray[k];
+    rangeEach(wordItem.chars.length, wordCharsIndex => {
+      const charItem = wordItem.chars[wordCharsIndex];
+
+      rangeEach(wordsArray.length, innerWordsArrayIndex => {
+        const innerWordItem = wordsArray[innerWordsArrayIndex];
         const defaultTotalMatches = wordItem.matches[charItem] || [];
-  
-        if (wordItem.string !== innerWordItem.string) {
-          if (!includes(defaultTotalMatches, innerWordItem.string)) {
+
+        if (wordItem.name !== innerWordItem.name) {
+          if (!includes(defaultTotalMatches, innerWordItem.name)) {
             wordItem.matches = {
               ...wordItem.matches,
-              [charItem]: charItem === innerWordItem.chars[0] ? [...defaultTotalMatches, innerWordItem.string] : defaultTotalMatches
+              [charItem]: charItem === innerWordItem.chars[0] ? [...defaultTotalMatches, innerWordItem.name] : defaultTotalMatches
             };
           }
         }
-      }
-    }
+      });
+    });
+
     returnArray = [...returnArray, wordItem];
-  }
+  });
 
   return returnArray;
 }

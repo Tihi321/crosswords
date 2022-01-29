@@ -1,4 +1,5 @@
 <script lang="ts">
+  import get from "lodash/get";
   import { Router, Route } from "svelte-routing";
   import Home from "./pages/Home.svelte";
   import Api from "./pages/Api.svelte";
@@ -9,15 +10,15 @@
   import { useApiWords } from "./hooks";
   export let url = ""; //This property is necessary declare to avoid ignore the Router
 
-  const { setApiWords } = useApiWords();
+  const { addApiVocaularyWords } = useApiWords();
 
   onMount(() => {
-    fetch(Endpoints.Random)
+    fetch(Endpoints.Words)
       .then((res) => {
         return res.json();
       })
       .then((res) => {
-        setApiWords(res);
+        addApiVocaularyWords(get(res, ["data"]));
       });
   });
 </script>
