@@ -37,7 +37,7 @@
   "dependencies": {
     "lodash": "^4.17.21",
     "svelte-routing": "^1.6.0",
-    "tsl-utils": "^1.0.27"
+    "tsl-utils": "^1.0.28"
   },
   "husky": {
     "hooks": {

@@ -10,7 +10,7 @@
   import { useApiWords } from "./hooks";
   export let url = ""; //This property is necessary declare to avoid ignore the Router
 
-  const { addApiVocaularyWords } = useApiWords();
+  const { addApiVocaularyWords, addApiNamesWords, addApiLastNamesWords } = useApiWords();
 
   onMount(() => {
     fetch(Endpoints.Words)
@@ -19,6 +19,22 @@
       })
       .then((res) => {
         addApiVocaularyWords(get(res, ["data"]));
+      });
+
+    fetch(Endpoints.FirstNames)
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        addApiNamesWords(get(res, ["data"]));
+      });
+
+    fetch(Endpoints.LastNames)
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        addApiLastNamesWords(get(res, ["data"]));
       });
   });
 </script>

@@ -1,5 +1,11 @@
-import type { LogoType, LogoColor } from "../constants";
+export type TWordApi = Array<{
+  detail: string;
+  name: string;
+}>
 
-export type TLogo = LogoType;
-
-export type TLogoColor = LogoColor;
+export type TPeopleNamesInfo = {
+  name: string;
+  lastname: string;
+  fullName: string;
+  inicials: string;
+};

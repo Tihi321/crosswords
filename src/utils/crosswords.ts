@@ -5,6 +5,7 @@ import { rangeMap } from "tsl-utils";
 
 import { getRandomRangeItemsAndRemove, getRandomArrayItemAndRemove } from "./array";
 import { generateWordObject, addMatches, type TWordObject } from "./words";
+import type { TPeopleNamesInfo, TWordApi } from "../types";
 
 enum ECrosswordInfo {
   NumberOfRows = 30,
@@ -17,6 +18,7 @@ type TCrosswordWord = {
   detail: string;
   charIndex: number;
   end: boolean;
+  start: boolean;
 };
 
 type TCrosswordSpace = {
@@ -34,45 +36,64 @@ const emptySpace = {
   left: ECrosswordInfo.EmptySpace
 };
 
-const generateArrayRows = (initialWords: TWordObject[]): void => {
+const generateInitalHorizontalRows = (initialWords: TWordObject[]): { crosswordsArray: TCrosswordData; availableWords: TWordObject[]; } => {
   let availableWords = [...initialWords];
   let usedWords = [];
   let lastRowItems: TCrosswordRow = [];
 
   const crosswordsArray: TCrosswordData = rangeMap(ECrosswordInfo.NumberOfRows, rowsIndex => {
-    const isFirstRow = rowsIndex === 0;
+    const skippedRow = rowsIndex % 3 !== 0;
     let noWordsAvailable: boolean;
     let usedWord: TWordObject;
+    let usedWordIndex: number;
   
     const rowItems: TCrosswordRow = rangeMap(ECrosswordInfo.NumberOfColumns, columnsIndex => {
-      const isfirstColumn = columnsIndex === 0;
-
-      if (noWordsAvailable) {
+      if (noWordsAvailable || skippedRow) {
         return emptySpace;
       }
 
       if(isEmpty(usedWord)) {
         const maxWordLength = ECrosswordInfo.NumberOfColumns - columnsIndex;
-        const availableLengthWords = filter(availableWords, (word: TWordObject) => word.lenght < maxWordLength);
+        const availableLengthWords = filter(availableWords, (word: TWordObject) => word.chars.length < maxWordLength);
 
         if (!isEmpty(availableLengthWords)) {
           usedWord = {...availableLengthWords[0]};
           availableWords = filter(availableWords, (word: TWordObject) => word.name !== usedWord.name);
-          usedWords = [...usedWords, usedWord]
+          usedWords = [...usedWords, usedWord];
+          usedWordIndex = 0;
 
           return {
-            char: usedWord.chars.pop(),
+            char: usedWord.chars.shift(),
             top: ECrosswordInfo.EmptySpace,
             left: columnsIndex !== 0 ? {
               name: usedWord.name,
               detail: usedWord.detail,
               charIndex: 0,
-              end: false
+              end: false,
+              start: true
             } : ECrosswordInfo.EmptySpace
           }
         } else {
           noWordsAvailable = true;
 
+          return emptySpace;
+        }
+      } else {
+        if (usedWord.chars.length > 0) {
+          usedWordIndex = usedWordIndex + 1;
+          return {
+            char: usedWord.chars.shift(),
+            top: ECrosswordInfo.EmptySpace,
+            left: columnsIndex !== 0 ? {
+              name: usedWord.name,
+              detail: usedWord.detail,
+              charIndex: usedWordIndex,
+              end: usedWord.chars.length === 0,
+              start: false
+            } : ECrosswordInfo.EmptySpace
+          }
+        } else {
+          usedWord = undefined;
           return emptySpace;
         }
       }
@@ -82,9 +103,20 @@ const generateArrayRows = (initialWords: TWordObject[]): void => {
     return rowItems;
   });
 
+  return {
+    crosswordsArray,
+    availableWords,
+  }
+
 }
 
-export const generateCrosswordsArray = (initialWords: Array<string>) => {
+type TGenerateCrossword = {
+  words: TWordApi,
+  names: TPeopleNamesInfo
+
+};
+
+export const generateCrosswordsArray = ({words: initialWords, names}: TGenerateCrossword) => {
   const {
     randomItems: selectedWords
   } = getRandomRangeItemsAndRemove(initialWords, 300);
@@ -92,7 +124,11 @@ export const generateCrosswordsArray = (initialWords: Array<string>) => {
   const selectedWordsData = map(selectedWords, (word: string) => generateWordObject(word));
   const selectedWordsWithTotalMatches = addMatches(selectedWordsData);
 
-  generateArrayRows(selectedWordsWithTotalMatches);
+  const { crosswordsArray, availableWords } = generateInitalHorizontalRows(selectedWordsWithTotalMatches);
+
+  console.log("crosswordsArray", crosswordsArray);
+  console.log("availableWords", availableWords);
+  console.log("names", names);
 
   return {
     selectedWords: selectedWordsData,

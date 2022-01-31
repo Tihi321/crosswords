@@ -31,7 +31,7 @@ export const useApiWords = () => {
   }
 }
 
-export const useCrowwWords = () => {
+export const useCrossWords = () => {
 
   const setCrossWords = (data) => {
     crossWords.set(data);
