@@ -1,10 +1,9 @@
 <script lang="ts">
   import get from "lodash/get";
-  import shuffle from "lodash/shuffle";
   import { generateSelector } from "tsl-utils";
   import { generateCrosswordsArray } from "../../utils";
 
-  import { getRandomPeopleNames, getWordsData } from "../../selectors";
+  import { getRandomPeopleNames, getRandomizedWordsData } from "../../selectors";
 
   import { useApiWords, useCrossWords } from "../../hooks";
   import type { TPeopleNamesInfo, TWordApi } from "../../types";
@@ -25,13 +24,13 @@
 
   $: stateSelector = generateSelector(state);
 
-  $: wordsStateData = getWordsData(stateSelector) as TWordApi;
+  $: wordsData = getRandomizedWordsData(stateSelector) as TWordApi;
   $: fullPeopleNames = getRandomPeopleNames(stateSelector) as TPeopleNamesInfo;
 
   const generateWordsArray = () => {
     setCrossWords(
       generateCrosswordsArray({
-        words: shuffle(wordsStateData),
+        words: wordsData,
         names: fullPeopleNames,
       })
     );

@@ -9,6 +9,11 @@ export const getWordsData = (peopleNamesDataSelector) => combineSelector(
   state => get(state, ["words"], [])
 )
 
+export const getRandomizedWordsData = (peopleNamesDataSelector) => combineSelector(
+  getWordsData(peopleNamesDataSelector),
+  state => shuffle(state)
+)
+
 export const getPeopleNames = (peopleNamesDataSelector) => combineSelector(
   peopleNamesDataSelector,
   state => get(state, ["names"], [])
