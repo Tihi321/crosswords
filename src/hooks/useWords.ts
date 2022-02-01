@@ -1,4 +1,4 @@
-import { apiWords, crossWords } from "../store/words";
+import { apiWords, crossWord } from "../store/words";
 
 export const useApiWords = () => {
 
@@ -33,12 +33,28 @@ export const useApiWords = () => {
 
 export const useCrossWords = () => {
 
-  const setCrossWords = (data) => {
-    crossWords.set(data);
+  const resetCrossWord = () => {
+    crossWord.set({});
+  };
+
+  const addCrosswordTable = (data) => {
+    crossWord.update((state) => ({
+      ...state,
+      table: data
+    }));
+  };
+
+  const updateCrosswordOpenWords = (data) => {
+    crossWord.update((state) => ({
+      ...state,
+      openWords: []
+    }));
   };
 
   return {
-    setCrossWords,
-    crossWords
+    resetCrossWord,
+    addCrosswordTable,
+    updateCrosswordOpenWords,
+    crossWord
   }
 }

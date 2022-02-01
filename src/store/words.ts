@@ -5,4 +5,4 @@ export const apiWords = writable({
   names: [],
   lastnames: []
 });
-export const crossWords = writable({});
+export const crossWord = writable({});

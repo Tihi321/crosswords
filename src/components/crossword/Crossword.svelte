@@ -1,45 +1,44 @@
 <script lang="ts">
   import get from "lodash/get";
   import { generateSelector } from "tsl-utils";
-  import { generateCrosswordsArray } from "../../utils";
+  import { generateCrosswordsTable } from "../../utils";
 
-  import { getRandomPeopleNames, getRandomizedWordsData } from "../../selectors";
+  import { getRandomNameWords, getRandomizedWordsData } from "../../selectors";
 
   import { useApiWords, useCrossWords } from "../../hooks";
-  import type { TPeopleNamesInfo, TWordApi } from "../../types";
+  import type { TWordArray } from "../../types";
 
   const { apiWords } = useApiWords();
-  const { setCrossWords, crossWords } = useCrossWords();
+  const { addCrosswordTable, crossWord } = useCrossWords();
 
-  let state: any;
-  let selectedWords: Array<string>;
+  let apiWordsState: any;
+  let crossWordState: any;
 
   apiWords.subscribe((value) => {
-    state = value;
+    apiWordsState = value;
   });
 
-  crossWords.subscribe((value) => {
-    selectedWords = get(value, ["selectedWords"], []);
+  crossWord.subscribe((value) => {
+    crossWordState = value;
   });
 
-  $: stateSelector = generateSelector(state);
+  $: stateSelector = generateSelector(apiWordsState);
 
-  $: wordsData = getRandomizedWordsData(stateSelector) as TWordApi;
-  $: fullPeopleNames = getRandomPeopleNames(stateSelector) as TPeopleNamesInfo;
+  $: wordsData = getRandomizedWordsData(stateSelector) as TWordArray;
+  $: namesWordsData = getRandomNameWords(stateSelector) as TWordArray;
+
+  $: {
+    console.log("crossWordState", crossWordState);
+  }
 
   const generateWordsArray = () => {
-    setCrossWords(
-      generateCrosswordsArray({
+    addCrosswordTable(
+      generateCrosswordsTable({
         words: wordsData,
-        names: fullPeopleNames,
+        names: namesWordsData,
       })
     );
-  };
-
-  const generatePeopleNames = () => {
-    console.log(fullPeopleNames);
   };
 </script>
 
 <button on:click={generateWordsArray}>Logic</button>
-<button on:click={generatePeopleNames}>Randomize</button>

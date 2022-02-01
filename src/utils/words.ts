@@ -1,25 +1,23 @@
 import includes from "lodash/includes";
 import get from "lodash/get";
 import { rangeEach } from "tsl-utils";
+import type { TWordItem, TWordObject } from "../types";
 
-export type TWordObject = {
-  detail: string;
-  name: string;
-  lenght: number;
-  chars: string[];
-  firstChar: string;
-  matches: any;
-}
+export const generateWordItem = (name: string, detail: string): TWordItem => ({
+  detail,
+  name
+})
 
 export const generateWordObject = (word: string): TWordObject => {
 
-  const name = get(word, ["name"]);
+  const name: string = get(word, ["name"]);
+  const charsArray = name.split("");
 
   return ({
     name,
     detail: get(word, ["detail"]),
-    lenght: name.lenght,
-    chars: name.split(""),
+    length: charsArray.length,
+    chars: charsArray,
     firstChar: get(name, [0]),
     matches: {},
   })
