@@ -9,7 +9,7 @@ import type { TWordObject } from "./../types";
 
 
 export enum ECrosswordInfo {
-  NumberOfRows = 30,
+  NumberOfRows = 15,
   NumberOfColumns = 30,
   EmptySpace = 0,
 }

@@ -6,16 +6,17 @@
 <button class:active class="link" on:click>{name}</button>
 
 <style lang="scss">
+  @import "src/styles/all";
   .link {
     background: none;
     border: none;
     font-weight: 700;
-    font-size: 18px;
+    font-size: $menu-font-size;
+    color: $menu-color;
     cursor: pointer;
-    color: #2a2a57;
   }
 
   .active {
-    box-shadow: 0 5px 0 0 #2a2a57;
+    box-shadow: 0 5px 0 0 $menu-color;
   }
 </style>

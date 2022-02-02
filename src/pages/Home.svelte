@@ -1,9 +1,6 @@
 <script lang="ts">
   import Crossword from "../components/crossword/Crossword.svelte";
-
   import { useGame } from "../hooks";
-
-  let pageName = "Crosswords";
 
   const { startGame, endGame, game } = useGame();
 
@@ -23,25 +20,24 @@
 </script>
 
 <main>
-  <button on:click={switchGame}>{gameStarted ? "End Game" : "New Game"}</button>
-  <h1>{pageName}!</h1>
-  {#if gameStarted}
-    <Crossword />
-  {/if}
+  <div class="header">
+    <button on:click={switchGame}>{gameStarted ? "End Game" : "New Game"}</button>
+  </div>
+  <div class="table">
+    {#if gameStarted}
+      <Crossword />
+    {/if}
+  </div>
 </main>
 
 <style>
-  main {
+  .header {
+    padding: 10px 0;
     text-align: center;
-    padding: 1em;
-    max-width: 240px;
-    margin: 0 auto;
   }
-
-  h1 {
-    color: #ff3e00;
-    text-transform: uppercase;
-    font-size: 4em;
-    font-weight: 100;
+  .table {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 </style>

@@ -1,0 +1,21 @@
+$light-color: rgba(255, 255, 255, 1);
+$semi-light-color: rgba(255, 255, 255, 0.8);
+$dark-color: rgba(32, 32, 32, 1);
+$black-color: rgba(0, 0, 0, 1);
+$rhino-color: rgba(42, 42, 87, 1);
+
+$crossword-bg-color: $light-color;
+$crossword-shadow-color: $dark-color;
+$crossword-bg-success-color: rgba(76, 175, 80, 1);
+$crossword-input-border-color: rgba(255, 32, 32, 1);
+$crossword-empty-bg-color: $dark-color;
+$crossword-divider-bg-color: linear-gradient(
+  45deg,
+  $light-color 48%,
+  $dark-color 50%,
+  $light-color 52%
+);
+
+$header-bg-color: $semi-light-color;
+$menu-color: $rhino-color;
+$logo-color: $rhino-color;

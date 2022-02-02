@@ -7,6 +7,11 @@ import shuffle from "lodash/shuffle";
 import slice from "lodash/slice";
 import { generateWordItem } from "../utils";
 
+export const getCrosswordTableData = (crosswordsStateSelector) => combineSelector(
+  crosswordsStateSelector,
+  state => get(state, ["table"], [])
+)
+
 export const getWordsData = (peopleNamesDataSelector) => combineSelector(
   peopleNamesDataSelector,
   state => get(state, ["words"], [])

@@ -53,9 +53,10 @@
 </header>
 
 <style lang="scss">
+  @import "src/styles/all";
   header {
     height: 100px;
-    background: rgba(255, 255, 255, 0.8);
+    background: $header-bg-color;
 
     .header {
       display: flex;
@@ -83,13 +84,13 @@
     }
 
     .link {
+      font-size: $menu-font-size;
+      font-weight: 700;
       display: inline-block;
+      color: $menu-color;
+      cursor: pointer;
       margin-left: 5px;
       text-decoration: none;
-      font-weight: 700;
-      font-size: 18px;
-      cursor: pointer;
-      color: #2a2a57;
     }
   }
 
