@@ -8,8 +8,8 @@
 
   import { useApiWords, useCrossWords } from "../../hooks";
   import type { TWordArray } from "../../types";
-import Empty from "../table/Empty.svelte";
-import Letter from "../table/Letter.svelte";
+  import Empty from "../table/Empty.svelte";
+  import Letter from "../table/Letter.svelte";
 
   const { apiWords } = useApiWords();
   const { addCrosswordTable, crossWord } = useCrossWords();

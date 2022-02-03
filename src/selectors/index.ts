@@ -48,7 +48,8 @@ export const getRandomPeopleNames = (peopleNamesDataSelector) => combineSelector
   (names, lastnames) => map(names, (name, index) => {
     const lastname = get(lastnames, [index], "");
     return ({
-      fullName: `${name}${lastname}`,
+      name,
+      lastname,
       inicials: `${get(name, [0], "")}${get(lastname, [0], "")}`
     })
   })
@@ -57,16 +58,19 @@ export const getRandomPeopleNames = (peopleNamesDataSelector) => combineSelector
 export const getRandomNameWords = (peopleNamesDataSelector) => combineSelector(
   getRandomPeopleNames(peopleNamesDataSelector),
   (names) => {
-    let onlyInitialWords = [];
+    let onlyInitials = [];
+    let onlyLastnames = [];
     let onlyNames = [];
     forEach(names, name => {
-      onlyInitialWords = [...onlyInitialWords, get(name, ["inicials"])];
-      onlyNames = [...onlyNames, get(name, ["fullName"])];
+      onlyInitials = [...onlyInitials, get(name, ["inicials"])];
+      onlyLastnames = [...onlyLastnames, get(name, ["lastname"])];
+      onlyNames = [...onlyNames, get(name, ["name"])];
     });
 
     const nameWords = map(onlyNames, name => generateWordItem(name, "name"));
-    const initialWords = map(uniq(onlyInitialWords), initial => generateWordItem(initial, "initial"));
+    const lastnameWords = map(onlyLastnames, lastname => generateWordItem(lastname, "lastname"));
+    const initialWords = map(slice(uniq(onlyInitials), 0, 10), initial => generateWordItem(initial, "initial"));
 
-    return shuffle([...initialWords, ...nameWords]);
+    return shuffle(...nameWords, ...lastnameWords, ...initialWords);
   }
 )

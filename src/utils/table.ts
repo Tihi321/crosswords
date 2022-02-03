@@ -10,16 +10,13 @@ import type { TWordObject } from "./../types";
 
 export enum ECrosswordInfo {
   NumberOfRows = 15,
-  NumberOfColumns = 30,
+  NumberOfColumns = 25,
   EmptySpace = 0,
 }
 
-type TCrosswordWord = {
+export type TCrosswordWord = {
   name: string;
   detail: string;
-  charIndex: number;
-  end: boolean;
-  start: boolean;
 };
 
 export type TCrosswordItem = {
@@ -68,9 +65,6 @@ export const generateInitalHorizontalRows = (initialWords: TWordObject[]): { cro
             left: {
               name: usedWord.name,
               detail: usedWord.detail,
-              charIndex: 0,
-              end: false,
-              start: true
             }
           }
         } else {
@@ -84,13 +78,7 @@ export const generateInitalHorizontalRows = (initialWords: TWordObject[]): { cro
           return {
             char: usedWord.chars.shift(),
             top: ECrosswordInfo.EmptySpace,
-            left: columnsIndex !== 0 ? {
-              name: usedWord.name,
-              detail: usedWord.detail,
-              charIndex: usedWordIndex,
-              end: usedWord.chars.length === 0,
-              start: false
-            } : ECrosswordInfo.EmptySpace
+            left: ECrosswordInfo.EmptySpace
           }
         } else {
           usedWord = undefined;
@@ -135,7 +123,10 @@ export const addVerticalWords = ({ availableWords, crosswordsTable } :TAddVertic
               }
 
               if (index === word.length - 1) {
-                if (!crosswordsTable[rowIndex + index] || crosswordsTable[rowIndex + index][itemIndex].char === ECrosswordInfo.EmptySpace) {
+                const outOfBottomBoundry = !crosswordsTable[rowIndex + index + 1];
+                const rowBelowEmpty = crosswordsTable[rowIndex + index + 1] && crosswordsTable[rowIndex + index + 1][itemIndex].char === ECrosswordInfo.EmptySpace;
+  
+                if (outOfBottomBoundry || rowBelowEmpty) {
                   wordCanBeAdded.push(word);
                 }
               }
@@ -153,9 +144,6 @@ export const addVerticalWords = ({ availableWords, crosswordsTable } :TAddVertic
           top: {
             name: usedWord.name,
             detail: usedWord.detail,
-            charIndex: 0,
-            end: false,
-            start: true
           }
         }
       } else {

@@ -9,6 +9,4 @@ export type TWordObject = {
   name: string;
   length: number;
   chars: string[];
-  firstChar: string;
-  matches: any;
 }
