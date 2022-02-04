@@ -14,9 +14,15 @@ export enum ECrosswordInfo {
   EmptySpace = 0,
 }
 
+export enum ECrosswordType {
+  Left = "Left",
+  Top = "Top"
+}
+
 export type TCrosswordWord = {
   name: string;
   detail: string;
+  index?: number;
 };
 
 export type TCrosswordItem = {

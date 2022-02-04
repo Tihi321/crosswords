@@ -1,6 +1,7 @@
 <script>
   import { Meta, Template, Story } from "@storybook/addon-svelte-csf";
   import Details from "../Details.svelte";
+  import Letter from "../Letter.svelte";
 </script>
 
 <!-- More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export -->
@@ -16,7 +17,9 @@
 
 <!-- More on component templates: https://storybook.js.org/docs/svelte/writing-stories/introduction#using-args -->
 <Template let:args>
-  <Details top={args.top && 1} left={args.left && 2} />
+  <Details top={args.top && 1} left={args.left && 2}>
+    <Letter letter="h" show={true} />
+  </Details>
 </Template>
 
 <!-- More on args: https://storybook.js.org/docs/svelte/writing-stories/args -->

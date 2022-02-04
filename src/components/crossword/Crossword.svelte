@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { generateSelector } from "tsl-utils";
-  import { ECrosswordInfo, generateCrosswordsTable, type TCrosswordTable } from "../../utils";
+  import { ECrosswordInfo, generateCrosswordsTable, type TCrosswordTable, ECrosswordType } from "../../utils";
 
   import { getRandomNameWords, getRandomizedWordsData, getCrosswordTableData } from "../../selectors";
   import type { TCrosswordStore } from "../../types";
@@ -10,6 +10,8 @@
   import type { TWordArray } from "../../types";
   import Empty from "../table/Empty.svelte";
   import Letter from "../table/Letter.svelte";
+  import Details from "../table/Details.svelte";
+  import BasicContainer from "../table/BasicContainer.svelte";
 
   const { apiWords } = useApiWords();
   const { addCrosswordTable, crossWord } = useCrossWords();
@@ -33,12 +35,12 @@
   $: tableDataArray = getCrosswordTableData(crosswordStateSelector) as TCrosswordTable;
 
   onMount(() => {
-    addCrosswordTable(
-      generateCrosswordsTable({
+    const { table } = generateCrosswordsTable({
         words: wordsData,
         names: namesWordsData,
-      })
-    );
+      });
+
+    addCrosswordTable(table);
   });
 </script>
 
@@ -47,9 +49,13 @@
     <div class="row">
       {#each tableRow as cellData}
         {#if cellData.char === ECrosswordInfo.EmptySpace}
-          <Empty />
+          <BasicContainer><Empty transparent /></BasicContainer>
         {:else}
-          <Letter letter={cellData.char} />
+          <Details
+            left={cellData.left && cellData.left.index && cellData.left.index}
+            top={cellData.top && cellData.top.index && cellData.top.index}
+            ><Letter letter={cellData.char} /></Details
+          >
         {/if}
       {/each}
     </div>
@@ -59,8 +65,7 @@
 <style lang="scss">
   @import "src/styles/all";
   .table {
-    background-color: $crossword-bg-color;
-    box-shadow: 2px 2px 2px 0 $crossword-shadow-color;
+    filter: drop-shadow(0px 0px 8px $crossword-shadow-color);
     padding: 2px;
   }
 

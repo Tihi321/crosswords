@@ -5,22 +5,24 @@ import shuffle from "lodash/shuffle"
 import { getRandomRangeItemsAndRemove } from "./array";
 import { generateWordObject} from "./words";
 import type { TWordArray } from "../types";
-import { addVerticalWords, ECrosswordInfo, generateInitalHorizontalRows, type TCrosswordItem, type TCrosswordItems, type TCrosswordTable, type TCrosswordWord } from "./table";
+import { addVerticalWords, ECrosswordInfo, ECrosswordType, generateInitalHorizontalRows, type TCrosswordItem, type TCrosswordItems, type TCrosswordTable, type TCrosswordWord } from "./table";
 
 type TWordRowInfo = {
   rowIndex: number;
   itemIndex: number;
-  word: TCrosswordWord
+  word: TCrosswordWord;
+  type: ECrosswordType;
 };
-const generateWordRowInformation = ({rowIndex, itemIndex, word}): TWordRowInfo => ({
+const generateWordRowInformation = ({rowIndex, itemIndex, word, type}): TWordRowInfo => ({
   rowIndex,
   itemIndex,
-  word
+  word,
+  type
 })
 
 const populateFilledWordsLetters = (crosswordsTable :TCrosswordTable): TCrosswordTable => {
   let topWords: TWordRowInfo[] = [];
-  const updatedCrosswordTable = [...crosswordsTable];
+  let updatedCrosswordTable = [...crosswordsTable];
 
   forEach(crosswordsTable, (rowData: TCrosswordItems, rowIndex: number) => {
     forEach(rowData, (item: TCrosswordItem, itemIndex: number) => {
@@ -28,52 +30,112 @@ const populateFilledWordsLetters = (crosswordsTable :TCrosswordTable): TCrosswor
         topWords = [...topWords, generateWordRowInformation({
           rowIndex,
           itemIndex,
-          word: item.top
+          word: item.top,
+          type: ECrosswordType.Top
         })]
       }
     }) 
   });
 
-  forEach(topWords, (item: TWordRowInfo) => {
-    const letters = item.word.name.split("");
+  forEach(topWords, ({ rowIndex, itemIndex, word }: TWordRowInfo) => {
+    const letters = word.name.split("");
 
     forEach(letters, (letter: string, index: number) => {
-      updatedCrosswordTable[item.rowIndex + index][item.itemIndex] = {
-       ...updatedCrosswordTable[item.rowIndex + index][item.itemIndex],
-       char: letter
-      }
+      updatedCrosswordTable = map(updatedCrosswordTable, (rows: TCrosswordItems, rowInnerIndex: number) => {
+        return map(rows, (item: TCrosswordItem, itemInnerIndex: number) => {
+          const letterRowIndex = rowIndex + index;
+          if (letterRowIndex === rowInnerIndex && itemIndex === itemInnerIndex) {
+            return {
+              ...item,
+              char: letter
+            }
+          }
+  
+          return item;
+        })
+      });
     })
   })
 
   return updatedCrosswordTable;
 }
 
-const getWordsInformation = (crosswordsTable :TCrosswordTable): void => {
-  let topWords: TWordRowInfo[] = [];
-  let leftWords: TWordRowInfo[] = [];
-  const updatedCrosswordTable = [...crosswordsTable];
+const getWordsInformation = (crosswordsTable :TCrosswordTable): any => {
+  let words: TWordRowInfo[] = [];
+  let wordsData: any[] = [];
+  let updatedCrosswordTable = [...crosswordsTable];
+  let details: any = [];
 
   forEach(updatedCrosswordTable, (rowData: TCrosswordItems, rowIndex: number) => {
     forEach(rowData, (item: TCrosswordItem, itemIndex: number) => {
       if(item.top !== ECrosswordInfo.EmptySpace) {
-        topWords = [...topWords, generateWordRowInformation({
+        words = [...words, generateWordRowInformation({
           rowIndex,
           itemIndex,
-          word: item.top
+          word: item.top,
+          type: ECrosswordType.Top
         })]
       }
       if(item.left !== ECrosswordInfo.EmptySpace) {
-        leftWords = [...leftWords, generateWordRowInformation({
+        words = [...words, generateWordRowInformation({
           rowIndex,
           itemIndex,
-          word: item.left
+          word: item.left,
+          type: ECrosswordType.Left
         })]
       }
     }) 
   });
 
-  console.log("topWords", topWords);
-  console.log("leftWords", leftWords);
+  forEach(words, ({ rowIndex, itemIndex, word, type }: TWordRowInfo, index: number) => {
+    const wordIndex = index + 1;
+  
+    const detail = {
+      id: word.name,
+      index: wordIndex,
+      word
+    };
+
+    wordsData = [...wordsData, {
+      word,
+      rowIndex,
+      itemIndex
+    }];
+  
+    details = [...details, detail];
+
+    updatedCrosswordTable = map(updatedCrosswordTable, (rows: TCrosswordItems, rowInnerIndex: number) => {
+      return map(rows, (item: TCrosswordItem, itemInnerIndex: number) => {
+        if (rowIndex === rowInnerIndex && itemIndex === itemInnerIndex) {
+          if (type === ECrosswordType.Top) {
+            return {
+              ...item,
+              top: {
+                ...item.top,
+                index: wordIndex
+              }, 
+            }
+          } else {
+            return {
+              ...item,
+              left: {
+                ...item.left,
+                index: wordIndex
+              }, 
+            }
+          }
+        }
+
+        return item;
+      })
+    });
+  });
+
+  return {
+    details,
+    wordsData,
+    table: updatedCrosswordTable
+  };
 
 }
 
@@ -82,7 +144,7 @@ type TGenerateCrossword = {
   names: TWordArray,
 };
 
-export const generateCrosswordsTable = ({words: initialWords, names}: TGenerateCrossword): TCrosswordTable => {
+export const generateCrosswordsTable = ({words: initialWords, names}: TGenerateCrossword): any => {
   const {
     randomItems: selectedWords
   } = getRandomRangeItemsAndRemove(initialWords, 300);
@@ -96,7 +158,11 @@ export const generateCrosswordsTable = ({words: initialWords, names}: TGenerateC
   const filledCrossWordTable = addVerticalWords({ availableWords: availableWordsWithNames, crosswordsTable });
 
   const populatedTable = populateFilledWordsLetters(filledCrossWordTable);
-  getWordsInformation(populatedTable);
+  const { table: tableWithDetails, details, wordsData } = getWordsInformation(populatedTable);
 
-  return populatedTable
+  return {
+    table: tableWithDetails,
+    details,
+    wordsData
+  }
 }

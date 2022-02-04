@@ -31,6 +31,9 @@
     font-family: $font-family;
     font-size: $crossword-font-size;
     text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 100%;
     cursor: default;
   }
