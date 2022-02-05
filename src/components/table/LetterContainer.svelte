@@ -7,7 +7,6 @@
 
   div {
     @extend %square-size;
-    font-family: $font-family;
     background-color: $crossword-bg-color;
     user-select: text;
     text-align: center;

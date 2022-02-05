@@ -3,6 +3,9 @@
 
   export let left: number = undefined;
   export let top: number = undefined;
+
+  export let leftEnd: number = undefined;
+  export let topEnd: number = undefined;
 </script>
 
 <div class="container">
@@ -12,7 +15,9 @@
         {top}
       </div>
     {/if}
-    <slot />
+    <div class="content" class:left-end={leftEnd} class:top-end={topEnd}>
+      <slot />
+    </div>
     {#if left}
       <div class="detail left">
         {left}
@@ -27,10 +32,24 @@
   .container :global(.details) {
     position: relative;
     background-color: $boulder-color;
-    box-shadow: -1px -1px 0px 0px $crossword-shadow-color inset;
+  }
+
+  .content {
+    &.top-end {
+      filter: drop-shadow(1px 0px 0px black);
+    }
+    &.left-end {
+      filter: drop-shadow(0px 1px 0px black);
+    }
+
+    &.left-end.top-end {
+      filter: drop-shadow(1px 0px 0px black) drop-shadow(0px 1px 0px black);
+    }
   }
 
   .detail {
+    position: absolute;
+    z-index: 1;
     font-size: $detail-font-size;
     background-color: $rhino-color;
     color: $semi-light-color;
@@ -44,14 +63,12 @@
   }
 
   .left {
-    position: absolute;
     top: 50%;
     left: -10px;
     transform: translateY(-70%);
   }
 
   .top {
-    position: absolute;
     top: -10px;
     left: 50%;
     transform: translateX(-60%);

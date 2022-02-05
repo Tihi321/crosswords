@@ -65,7 +65,7 @@
 <style lang="scss">
   @import "src/styles/all";
   .table {
-    filter: drop-shadow(0px 0px 8px $crossword-shadow-color);
+    filter: $crossword-divider-filter;
     padding: 2px;
   }
 

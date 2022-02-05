@@ -28,7 +28,6 @@
   @import "src/styles/all";
 
   .letter {
-    font-family: $font-family;
     font-size: $crossword-font-size;
     text-transform: uppercase;
     display: flex;

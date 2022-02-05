@@ -47,7 +47,14 @@
   </Router>
 </main>
 
-<style>
+<style lang="scss">
+  @import "src/styles/all";
+  :global {
+    body {
+      @extend %default-body;
+    }
+  }
+
   main {
     min-height: 100vh;
     display: flex;
