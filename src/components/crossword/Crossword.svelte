@@ -1,20 +1,17 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { generateSelector } from "tsl-utils";
-  import { ECrosswordInfo, generateCrosswordsTable, type TCrosswordTable, ECrosswordType } from "../../utils";
+  import { generateCrosswordsTable, type TCrosswordTable, type TDetail } from "../../utils";
 
-  import { getRandomNameWords, getRandomizedWordsData, getCrosswordTableData } from "../../selectors";
+  import { getRandomizedWordsData, getCrosswordTableData, getCrosswordTableDetails } from "../../selectors";
   import type { TCrosswordStore } from "../../types";
 
   import { useApiWords, useCrossWords } from "../../hooks";
   import type { TWordArray } from "../../types";
-  import Empty from "../table/Empty.svelte";
-  import Letter from "../table/Letter.svelte";
-  import Details from "../table/Details.svelte";
-  import BasicContainer from "../table/BasicContainer.svelte";
+  import Table from "../table/Table.svelte";
 
   const { apiWords } = useApiWords();
-  const { addCrosswordTable, crossWord } = useCrossWords();
+  const { addCrosswordTable, addCrosswordDetails, crossWord } = useCrossWords();
 
   let apiWordsState: any;
   let crosswordState: TCrosswordStore;
@@ -27,50 +24,37 @@
     crosswordState = value;
   });
 
-  $: stateSelector = generateSelector(apiWordsState);
+  $: wordsStateSelector = generateSelector(apiWordsState);
   $: crosswordStateSelector = generateSelector(crosswordState);
 
-  $: wordsData = getRandomizedWordsData(stateSelector) as TWordArray;
-  $: namesWordsData = getRandomNameWords(stateSelector) as TWordArray;
+  $: wordsData = getRandomizedWordsData(wordsStateSelector) as TWordArray;
   $: tableDataArray = getCrosswordTableData(crosswordStateSelector) as TCrosswordTable;
+  $: wordsDetailsArray = getCrosswordTableDetails(crosswordStateSelector) as TDetail[];
 
   onMount(() => {
-    const { table } = generateCrosswordsTable({
-        words: wordsData,
-        names: namesWordsData,
+    const { table, details } = generateCrosswordsTable({
+        words: wordsData
       });
 
+    addCrosswordDetails(details);
     addCrosswordTable(table);
   });
 </script>
 
-<div class="table">
-  {#each tableDataArray as tableRow}
-    <div class="row">
-      {#each tableRow as cellData}
-        {#if cellData.char === ECrosswordInfo.EmptySpace}
-          <BasicContainer><Empty transparent /></BasicContainer>
-        {:else}
-          <Details
-            left={cellData.left && cellData.left.index && cellData.left.index}
-            top={cellData.top && cellData.top.index && cellData.top.index}
-            ><Letter letter={cellData.char} /></Details
-          >
-        {/if}
-      {/each}
-    </div>
-  {/each}
+<div class="container">
+  <Table tableData={tableDataArray} />
+  <ul class="info">
+    {#each wordsDetailsArray as infoRow}
+      <li class="row">
+        {infoRow.index}: {infoRow.description}
+      </li>
+    {/each}
+  </ul>
 </div>
 
 <style lang="scss">
   @import "src/styles/all";
-  .table {
-    filter: $crossword-divider-filter;
-    padding: 2px;
-  }
-
-  .row {
-    width: 100%;
-    display: flex;
+  .container {
+    padding-top: 20px;
   }
 </style>

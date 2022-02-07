@@ -50,8 +50,17 @@
 <style lang="scss">
   @import "src/styles/all";
   :global {
+    :root {
+      --primary-color: #{$primary-color};
+      --secondary-color: #{$secondary-color};
+    }
+
     body {
       @extend %default-body;
+    }
+
+    ul {
+      @extend %reset-list;
     }
   }
 

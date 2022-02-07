@@ -5,18 +5,25 @@ $black-color: rgba(0, 0, 0, 1);
 $rhino-color: rgba(42, 42, 87, 1);
 $boulder-color: rgba(116, 116, 116, 1);
 $highland-color: rgba(96, 146, 93, 1);
+$lynch-color: rgba(96, 125, 139, 1);
+$marino-color: rgba(63, 81, 181, 1);
 
-$app-bg-color: $highland-color;
+$primary-color: $lynch-color;
+$secondary-color: $marino-color;
+
+$app-bg-color: var(--primary-color);
+$crossword-details-color: var(--secondary-color);
 
 $crossword-bg-color: $light-color;
+$crossword-bg-effect-color: $boulder-color;
 $crossword-shadow-color: $dark-color;
-$crossword-bg-success-color: rgba(76, 175, 80, 1);
-$crossword-input-border-color: rgba(255, 32, 32, 1);
+
+$crossword-bg-success-color: $highland-color;
+$crossword-input-border-color: $rhino-color;
 $crossword-empty-bg-color: $dark-color;
-$crossword-divider-filter: drop-shadow(0px 1px 0px $dark-color) drop-shadow(1px 0px 0px $dark-color)
-  drop-shadow(0px -1px 0px $dark-color) drop-shadow(-1px 0px 0px $dark-color)
-  drop-shadow(0px 0px 3px $dark-color);
+$crossword-divider-filter: drop-shadow(0px 1px 0px $secondary-color)
+  drop-shadow(1px 0px 0px $secondary-color) drop-shadow(0px 0px 6px $dark-color);
 
 $header-bg-color: $semi-light-color;
-$menu-color: $rhino-color;
-$logo-color: $rhino-color;
+$menu-color: var(--secondary-color);
+$logo-color: var(--secondary-color);

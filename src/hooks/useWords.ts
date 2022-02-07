@@ -44,6 +44,13 @@ export const useCrossWords = () => {
     }));
   };
 
+  const addCrosswordDetails = (data) => {
+    crossWord.update((state) => ({
+      ...state,
+      details: data
+    }));
+  };
+
   const updateCrosswordOpenWords = (data) => {
     crossWord.update((state) => ({
       ...state,
@@ -53,6 +60,7 @@ export const useCrossWords = () => {
 
   return {
     resetCrossWord,
+    addCrosswordDetails,
     addCrosswordTable,
     updateCrosswordOpenWords,
     crossWord

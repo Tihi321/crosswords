@@ -1,70 +1,32 @@
-import map from "lodash/map"
 import forEach from "lodash/forEach"
+import map from "lodash/map"
 import shuffle from "lodash/shuffle"
 
 import { getRandomRangeItemsAndRemove } from "./array";
 import { generateWordObject} from "./words";
 import type { TWordArray } from "../types";
-import { addVerticalWords, ECrosswordInfo, ECrosswordType, generateInitalHorizontalRows, type TCrosswordItem, type TCrosswordItems, type TCrosswordTable, type TCrosswordWord } from "./table";
+import { addHorizontalWords, addVerticalWords, ECrosswordInfo, ECrosswordType, generateEmptyInitialTable, type TCrosswordItem, type TCrosswordItems, type TCrosswordTable } from "./table";
+import { generateWordRowInformation, populateHorizontalTableLetters, populateVerticalTableLetters, type TWordRowInfo } from "./populate";
 
-type TWordRowInfo = {
-  rowIndex: number;
-  itemIndex: number;
-  word: TCrosswordWord;
-  type: ECrosswordType;
+export type TDetail = {
+  id: string;
+  index: number;
+  description: string;
 };
-const generateWordRowInformation = ({rowIndex, itemIndex, word, type}): TWordRowInfo => ({
-  rowIndex,
-  itemIndex,
-  word,
-  type
-})
 
-const populateFilledWordsLetters = (crosswordsTable :TCrosswordTable): TCrosswordTable => {
-  let topWords: TWordRowInfo[] = [];
-  let updatedCrosswordTable = [...crosswordsTable];
 
-  forEach(crosswordsTable, (rowData: TCrosswordItems, rowIndex: number) => {
-    forEach(rowData, (item: TCrosswordItem, itemIndex: number) => {
-      if(item.top !== ECrosswordInfo.EmptySpace) {
-        topWords = [...topWords, generateWordRowInformation({
-          rowIndex,
-          itemIndex,
-          word: item.top,
-          type: ECrosswordType.Top
-        })]
-      }
-    }) 
-  });
-
-  forEach(topWords, ({ rowIndex, itemIndex, word }: TWordRowInfo) => {
-    const letters = word.name.split("");
-
-    forEach(letters, (letter: string, index: number) => {
-      updatedCrosswordTable = map(updatedCrosswordTable, (rows: TCrosswordItems, rowInnerIndex: number) => {
-        return map(rows, (item: TCrosswordItem, itemInnerIndex: number) => {
-          const letterRowIndex = rowIndex + index;
-          if (letterRowIndex === rowInnerIndex && itemIndex === itemInnerIndex) {
-            return {
-              ...item,
-              char: letter
-            }
-          }
-  
-          return item;
-        })
-      });
-    })
-  })
-
-  return updatedCrosswordTable;
+export type TCrosswordTableData = {
+  details: TDetail[];
+  table: TCrosswordTable;
+  wordsData: any;
 }
 
-const getWordsInformation = (crosswordsTable :TCrosswordTable): any => {
+
+const getWordsInformation = (crosswordsTable :TCrosswordTable): TCrosswordTableData => {
   let words: TWordRowInfo[] = [];
   let wordsData: any[] = [];
   let updatedCrosswordTable = [...crosswordsTable];
-  let details: any = [];
+  let details: TDetail[] = [];
 
   forEach(updatedCrosswordTable, (rowData: TCrosswordItems, rowIndex: number) => {
     forEach(rowData, (item: TCrosswordItem, itemIndex: number) => {
@@ -90,10 +52,10 @@ const getWordsInformation = (crosswordsTable :TCrosswordTable): any => {
   forEach(words, ({ rowIndex, itemIndex, word, type }: TWordRowInfo, index: number) => {
     const wordIndex = index + 1;
   
-    const detail = {
+    const detail: TDetail = {
       id: word.name,
       index: wordIndex,
-      word
+      description: word.detail
     };
 
     wordsData = [...wordsData, {
@@ -140,29 +102,24 @@ const getWordsInformation = (crosswordsTable :TCrosswordTable): any => {
 }
 
 type TGenerateCrossword = {
-  words: TWordArray,
-  names: TWordArray,
+  words: TWordArray
 };
 
-export const generateCrosswordsTable = ({words: initialWords, names}: TGenerateCrossword): any => {
+export const generateCrosswordsTable = ({words: initialWords}: TGenerateCrossword): TCrosswordTableData => {
   const {
     randomItems: selectedWords
-  } = getRandomRangeItemsAndRemove(initialWords, 300);
+  } = getRandomRangeItemsAndRemove(initialWords, 800);
 
   const selectedWordsData = map(selectedWords, (word: string) => generateWordObject(word));
-  const selectedNamesData = map(names, (word: string) => generateWordObject(word));
 
-  const { crosswordsTable, availableWords } = generateInitalHorizontalRows(selectedWordsData);
+  const emptyTable = generateEmptyInitialTable();
 
-  const availableWordsWithNames = shuffle([...availableWords, ...selectedNamesData]);
-  const filledCrossWordTable = addVerticalWords({ availableWords: availableWordsWithNames, crosswordsTable });
+  const {crosswordsTable: horizontalWordTable, availableWords: availableHorizontalWords } = addHorizontalWords({ availableWords: selectedWordsData, crosswordsTable: emptyTable });
+  const populatedHorizontalTable = populateHorizontalTableLetters(horizontalWordTable);
 
-  const populatedTable = populateFilledWordsLetters(filledCrossWordTable);
-  const { table: tableWithDetails, details, wordsData } = getWordsInformation(populatedTable);
+  const {crosswordsTable: verticalWordTable} = addVerticalWords({ availableWords: availableHorizontalWords, crosswordsTable :populatedHorizontalTable });
+  const populatedTable = populateVerticalTableLetters(verticalWordTable);
 
-  return {
-    table: tableWithDetails,
-    details,
-    wordsData
-  }
+;
+  return getWordsInformation(populatedTable)
 }

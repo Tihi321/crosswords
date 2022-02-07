@@ -7,6 +7,15 @@ import { rangeMap } from "tsl-utils";
 import { getRandomArrayIndex } from "./array";
 import type { TWordObject } from "./../types";
 
+type TAddWords = {
+  availableWords: TWordObject[],
+  crosswordsTable: TCrosswordTable
+};
+
+type TAddWordsTable = {
+  availableWords: TWordObject[],
+  crosswordsTable: TCrosswordTable
+};
 
 export enum ECrosswordInfo {
   NumberOfRows = 15,
@@ -23,12 +32,15 @@ export type TCrosswordWord = {
   name: string;
   detail: string;
   index?: number;
+  endIndex: number;
 };
 
 export type TCrosswordItem = {
   char: string | ECrosswordInfo.EmptySpace;
   top: TCrosswordWord | ECrosswordInfo.EmptySpace;
   left: TCrosswordWord | ECrosswordInfo.EmptySpace;
+  leftEnd?: boolean;
+  topEnd?: boolean;
 };
 
 export type TCrosswordItems = Array<TCrosswordItem>
@@ -40,82 +52,67 @@ const emptySpace = {
   left: ECrosswordInfo.EmptySpace
 };
 
-export const generateInitalHorizontalRows = (initialWords: TWordObject[]): { crosswordsTable: TCrosswordTable; availableWords: TWordObject[]; } => {
-  let availableWords = [...initialWords];
-  let usedWords = [];
+const everySecond = (index: number) => index % 2 !== 0;
+const everyThird = (index: number) => index % 3 !== 0;
 
-  const crosswordsTable: TCrosswordTable = rangeMap(ECrosswordInfo.NumberOfRows, rowsIndex => {
-    const skippedRow = rowsIndex % 3 !== 0;
-    let noWordsAvailable: boolean;
-    let usedWord: TWordObject;
-    let usedWordIndex: number;
+export const generateEmptyInitialTable = (): TCrosswordTable => rangeMap(ECrosswordInfo.NumberOfRows, () => rangeMap(ECrosswordInfo.NumberOfRows, () => emptySpace));
+
+export const addHorizontalWords = ({ availableWords, crosswordsTable } :TAddWords): TAddWordsTable => {
+  let usedAvailableWords = [...availableWords];
+
+  const updatedCrossword = map(crosswordsTable, (rowData: TCrosswordItems, rowIndex: number) => {
+    const skippedRow = everyThird(rowIndex);
+    const numberOfItems = rowData.length;
+    let noAvailableWords: boolean = false;
+    let usedwordLastIndex: number;
+
+    if (skippedRow) {
+      return rowData;
+    }
   
-    const rowItems: TCrosswordItems = rangeMap(ECrosswordInfo.NumberOfColumns, columnsIndex => {
-      if (noWordsAvailable || skippedRow) {
-        return emptySpace;
+    return map(rowData, (item: TCrosswordItem, itemIndex: number) => {
+      if (usedwordLastIndex && itemIndex < usedwordLastIndex + 1 || noAvailableWords) {
+        return item;
       }
 
-      if(isEmpty(usedWord)) {
-        const maxWordLength = ECrosswordInfo.NumberOfColumns - columnsIndex;
-        const availableLengthWords = filter(availableWords, (word: TWordObject) => word.chars.length < maxWordLength);
+      const maxWordLength = numberOfItems - itemIndex;
+      const availableLengthWords = filter(availableWords, (word: TWordObject) => word.chars.length < maxWordLength);
+      if (!isEmpty(availableLengthWords)) {
+        const usedWord :TWordObject = availableLengthWords[getRandomArrayIndex(availableLengthWords)];
+        usedAvailableWords = filter(usedAvailableWords, (word: TWordObject) => word.name !== usedWord.name);
+        const usedWordLength = usedWord.name.length;
+        usedwordLastIndex = itemIndex + usedWordLength;
 
-        if (!isEmpty(availableLengthWords)) {
-          usedWord = {...availableLengthWords[0]};
-          availableWords = filter(availableWords, (word: TWordObject) => word.name !== usedWord.name);
-          usedWords = [...usedWords, usedWord];
-          usedWordIndex = 0;
-
-          return {
-            char: usedWord.chars.shift(),
-            top: ECrosswordInfo.EmptySpace,
-            left: {
-              name: usedWord.name,
-              detail: usedWord.detail,
-            }
+        return {
+          ...item,
+          left: {
+            name: usedWord.name,
+            detail: usedWord.detail,
+            endIndex: itemIndex + usedWord.name.length
           }
-        } else {
-          noWordsAvailable = true;
-
-          return emptySpace;
         }
+        
       } else {
-        if (usedWord.chars.length > 0) {
-          usedWordIndex = usedWordIndex + 1;
-          return {
-            char: usedWord.chars.shift(),
-            top: ECrosswordInfo.EmptySpace,
-            left: ECrosswordInfo.EmptySpace
-          }
-        } else {
-          usedWord = undefined;
-          return emptySpace;
-        }
+        noAvailableWords = true;
+        return item;
       }
-    });
-
-    return rowItems;
-  });
+    })
+  })
 
   return {
-    crosswordsTable,
-    availableWords,
-  }
-
+    crosswordsTable: updatedCrossword,
+    availableWords: usedAvailableWords
+  };
 }
 
-type TAddVerticalWords = {
-  availableWords: TWordObject[],
-  crosswordsTable: TCrosswordTable
-};
-
-export const addVerticalWords = ({ availableWords, crosswordsTable } :TAddVerticalWords): TCrosswordTable => {
+export const addVerticalWords = ({ availableWords, crosswordsTable } :TAddWords): TAddWordsTable => {
   let usedAvailableWords = [...availableWords];
 
   const updatedCrossword = map(crosswordsTable, (rowData: TCrosswordItems, rowIndex: number) => {
     const isFirstRow = rowIndex === 0;
   
     return map(rowData, (item: TCrosswordItem, itemIndex: number) => {
-      const skippedItem = itemIndex % 2 !== 0;
+      const skippedItem = everySecond(rowIndex);
       const wordCanBeAdded = [];
 
       if(item.char !== ECrosswordInfo.EmptySpace && !skippedItem) {
@@ -150,6 +147,7 @@ export const addVerticalWords = ({ availableWords, crosswordsTable } :TAddVertic
           top: {
             name: usedWord.name,
             detail: usedWord.detail,
+            endIndex: rowIndex + usedWord.name.length
           }
         }
       } else {
@@ -158,5 +156,8 @@ export const addVerticalWords = ({ availableWords, crosswordsTable } :TAddVertic
     })
   })
 
-  return updatedCrossword;
+  return {
+    crosswordsTable: updatedCrossword,
+    availableWords: usedAvailableWords
+  };
 }
