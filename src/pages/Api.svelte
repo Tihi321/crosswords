@@ -2,13 +2,13 @@
   let pageName = "Api";
 </script>
 
-<main>
+<div>
   <h1>{pageName}!</h1>
   <p>Welcome this is my <b>{pageName}</b></p>
-</main>
+</div>
 
 <style>
-  main {
+  div {
     text-align: center;
     padding: 1em;
     max-width: 240px;
@@ -23,7 +23,7 @@
   }
 
   @media (min-width: 640px) {
-    main {
+    div {
       max-width: none;
     }
   }

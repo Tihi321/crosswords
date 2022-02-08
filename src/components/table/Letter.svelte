@@ -2,14 +2,14 @@
   import LetterContainer from "./LetterContainer.svelte";
   import { createEventDispatcher } from "svelte";
   export let letter: string;
-  export let show: boolean = true;
+  export let show: boolean = false;
   export let success: boolean = false;
 
   const dispatch = createEventDispatcher();
 
   function onInput(event: any) {
-    dispatch("change", {
-      value: event.target.value,
+    dispatch("input", {
+      value: event.target.value as string,
     });
   }
 </script>

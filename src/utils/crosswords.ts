@@ -1,32 +1,21 @@
 import forEach from "lodash/forEach"
 import map from "lodash/map"
-import shuffle from "lodash/shuffle"
 
 import { getRandomRangeItemsAndRemove } from "./array";
-import { generateWordObject} from "./words";
-import type { TWordArray } from "../types";
+import { generateWordObject, getWordsDetails, getWordsInformation} from "./words";
+import type { TDetails, TWordArray, TWordsInfo } from "../types";
 import { addHorizontalWords, addVerticalWords, ECrosswordInfo, ECrosswordType, generateEmptyInitialTable, type TCrosswordItem, type TCrosswordItems, type TCrosswordTable } from "./table";
 import { generateWordRowInformation, populateHorizontalTableLetters, populateVerticalTableLetters, type TWordRowInfo } from "./populate";
 
-export type TDetail = {
-  id: string;
-  index: number;
-  description: string;
-};
-
-
 export type TCrosswordTableData = {
-  details: TDetail[];
+  details: TDetails;
   table: TCrosswordTable;
-  wordsData: any;
+  words: TWordsInfo;
 }
 
-
-const getWordsInformation = (crosswordsTable :TCrosswordTable): TCrosswordTableData => {
+const getWordsData = (crosswordsTable :TCrosswordTable): TCrosswordTableData => {
   let words: TWordRowInfo[] = [];
-  let wordsData: any[] = [];
   let updatedCrosswordTable = [...crosswordsTable];
-  let details: TDetail[] = [];
 
   forEach(updatedCrosswordTable, (rowData: TCrosswordItems, rowIndex: number) => {
     forEach(rowData, (item: TCrosswordItem, itemIndex: number) => {
@@ -51,20 +40,6 @@ const getWordsInformation = (crosswordsTable :TCrosswordTable): TCrosswordTableD
 
   forEach(words, ({ rowIndex, itemIndex, word, type }: TWordRowInfo, index: number) => {
     const wordIndex = index + 1;
-  
-    const detail: TDetail = {
-      id: word.name,
-      index: wordIndex,
-      description: word.detail
-    };
-
-    wordsData = [...wordsData, {
-      word,
-      rowIndex,
-      itemIndex
-    }];
-  
-    details = [...details, detail];
 
     updatedCrosswordTable = map(updatedCrosswordTable, (rows: TCrosswordItems, rowInnerIndex: number) => {
       return map(rows, (item: TCrosswordItem, itemInnerIndex: number) => {
@@ -94,8 +69,8 @@ const getWordsInformation = (crosswordsTable :TCrosswordTable): TCrosswordTableD
   });
 
   return {
-    details,
-    wordsData,
+    details: getWordsDetails(words),
+    words: getWordsInformation(words),
     table: updatedCrosswordTable
   };
 
@@ -121,5 +96,5 @@ export const generateCrosswordsTable = ({words: initialWords}: TGenerateCrosswor
   const populatedTable = populateVerticalTableLetters(verticalWordTable);
 
 ;
-  return getWordsInformation(populatedTable)
+  return getWordsData(populatedTable)
 }

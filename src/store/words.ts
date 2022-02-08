@@ -5,4 +5,9 @@ export const apiWords = writable({
   names: [],
   lastnames: []
 });
-export const crossWord = writable({});
+export const crossWord = writable({
+  table: [],
+  details: [],
+  inputs: {},
+  words: {},
+});

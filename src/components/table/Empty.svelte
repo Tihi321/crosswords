@@ -12,7 +12,7 @@
     background-color: $crossword-empty-bg-color;
 
     &.transparent {
-      background-color: transparent;
+      opacity: 0.1;
     }
   }
 </style>

@@ -45,6 +45,7 @@ export const populateHorizontalTableLetters = (crosswordsTable :TCrosswordTable)
             return {
               ...item,
               char: letter,
+              show: false,
               leftEnd: itemInnerIndex === word.endIndex - 1
             }
           }
@@ -102,6 +103,7 @@ export const populateVerticalTableLetters = (crosswordsTable :TCrosswordTable): 
               return {
                 ...item,
                 char: letter,
+                show: false,
                 topEnd: rowInnerIndex === word.endIndex - 1
               }
             }

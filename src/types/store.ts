@@ -1,8 +1,15 @@
-import type { TDetail } from "src/utils";
+import type { TDetail } from "../types";
 import type { TCrosswordTable } from "../utils/table";
+import type { TWordInputs } from "./word";
+import type { EThemes } from "../constants";
 
 export type TCrosswordStore = {
   table: TCrosswordTable,
   details: TDetail[],
-  openWords: Array<string>
+  inputs: TWordInputs,
+  words: any,
+}
+
+export type TThemeStore = {
+  theme: EThemes,
 }

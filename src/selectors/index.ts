@@ -12,6 +12,16 @@ export const getCrosswordTableDetails = (crosswordsStateSelector) => combineSele
   state => get(state, ["details"], [])
 )
 
+export const getCrosswordTableInputs = (crosswordsStateSelector) => combineSelector(
+  crosswordsStateSelector,
+  state => get(state, ["inputs"], {})
+)
+
+export const getCrosswordTableWords = (crosswordsStateSelector) => combineSelector(
+  crosswordsStateSelector,
+  state => get(state, ["words"], [])
+)
+
 export const getCrosswordTableData = (crosswordsStateSelector) => combineSelector(
   crosswordsStateSelector,
   state => get(state, ["table"], [])

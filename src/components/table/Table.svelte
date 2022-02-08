@@ -1,27 +1,45 @@
 <script lang="ts">
+  import { createEventDispatcher } from "svelte";
   import { ECrosswordInfo, type TCrosswordTable } from "../../utils";
+  import type { TWordInputData } from "../../types";
 
   import Empty from "./Empty.svelte";
   import Letter from "./Letter.svelte";
   import Details from "./Details.svelte";
   import BasicContainer from "./BasicContainer.svelte";
-
+  
   export let tableData: TCrosswordTable;
+  
+  const dispatch = createEventDispatcher();
+  
+  function onInput({value, rowIndex, itemIndex} : TWordInputData) {
+    dispatch("input", {
+      value,
+      rowIndex,
+      itemIndex
+    });
+  }
 
 </script>
 
 <div class="table">
-  {#each tableData as tableRow}
+  {#each tableData as tableRow, rowIndex}
     <div class="row">
-      {#each tableRow as cellData}
-        {#if cellData.char === ECrosswordInfo.EmptySpace}
+      {#each tableRow as { left, char, top, leftEnd, topEnd, show }, itemIndex}
+        {#if char === ECrosswordInfo.EmptySpace}
           <BasicContainer><Empty transparent /></BasicContainer>
         {:else}
           <Details
-            left={cellData.left && cellData.left.index && cellData.left.index}
-            top={cellData.top && cellData.top.index && cellData.top.index}
-            leftEnd={cellData.leftEnd}
-            topEnd={cellData.topEnd}><Letter letter={cellData.char} /></Details
+            left={left && left.index && left.index}
+            top={top && top.index && top.index}
+            {leftEnd}
+            {topEnd}
+            ><Letter
+              on:input={(event) => onInput({ value: event.detail.value, rowIndex, itemIndex })}
+              success={show}
+              {show}
+              letter={char}
+            /></Details
           >
         {/if}
       {/each}

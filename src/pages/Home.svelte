@@ -19,7 +19,7 @@
   };
 </script>
 
-<main>
+<div>
   <div class="header">
     <button on:click={switchGame}>{gameStarted ? "End Game" : "New Game"}</button>
   </div>
@@ -28,7 +28,7 @@
       <Crossword />
     {/if}
   </div>
-</main>
+</div>
 
 <style>
   .header {

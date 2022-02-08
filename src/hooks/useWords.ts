@@ -1,4 +1,6 @@
 import { apiWords, crossWord } from "../store/words";
+import type { TWordInputData } from "../types";
+import { generateIndexKey } from "../utils/words";
 
 export const useApiWords = () => {
 
@@ -34,7 +36,12 @@ export const useApiWords = () => {
 export const useCrossWords = () => {
 
   const resetCrossWord = () => {
-    crossWord.set({});
+    crossWord.set({
+      table: [],
+      details: [],
+      words: [],
+      inputs: {}
+    });
   };
 
   const addCrosswordTable = (data) => {
@@ -51,10 +58,34 @@ export const useCrossWords = () => {
     }));
   };
 
-  const updateCrosswordOpenWords = (data) => {
+  const updateCrosswordInput = ({ value, rowIndex, itemIndex }: TWordInputData) => {
     crossWord.update((state) => ({
       ...state,
-      openWords: []
+      inputs: {
+        ...state.inputs,
+        [generateIndexKey(rowIndex, itemIndex)]: {
+          value,
+          rowIndex,
+          itemIndex
+        }
+      }
+    }));
+  };
+
+  const addCrosswordWords = (data) => {
+    crossWord.update((state) => ({
+      ...state,
+      words: data
+    }));
+  };
+
+  const updateCrosswordWord = (name, data) => {
+    crossWord.update((state) => ({
+      ...state,
+      words: {
+        ...state.words,
+        [name]: data
+      }
     }));
   };
 
@@ -62,7 +93,9 @@ export const useCrossWords = () => {
     resetCrossWord,
     addCrosswordDetails,
     addCrosswordTable,
-    updateCrosswordOpenWords,
+    updateCrosswordInput,
+    updateCrosswordWord,
+    addCrosswordWords,
     crossWord
   }
 }

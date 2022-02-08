@@ -37,6 +37,7 @@ export type TCrosswordWord = {
 
 export type TCrosswordItem = {
   char: string | ECrosswordInfo.EmptySpace;
+  show: boolean;
   top: TCrosswordWord | ECrosswordInfo.EmptySpace;
   left: TCrosswordWord | ECrosswordInfo.EmptySpace;
   leftEnd?: boolean;

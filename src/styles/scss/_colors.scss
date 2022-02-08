@@ -9,21 +9,31 @@ $lynch-color: rgba(96, 125, 139, 1);
 $marino-color: rgba(63, 81, 181, 1);
 
 $primary-color: $lynch-color;
-$secondary-color: $marino-color;
+$secondary-color: $rhino-color;
+$tertiary-color: $marino-color;
+$success-color: $highland-color;
+$fill-color: $boulder-color;
+$shadow-color: $dark-color;
+$text-color: $light-color;
+$header-color: $semi-light-color;
+$crossword-color: $light-color;
 
 $app-bg-color: var(--primary-color);
+
+$crossword-bg-color: var(--crossword-color);
+$crossword-bg-effect-color: var(--fill-color);
+$crossword-shadow-color: var(--shadow-color);
+
+$crossword-bg-success-color: var(--success-color);
+$crossword-input-border-color: var(--secondary-color);
+$crossword-empty-bg-color: var(--secondary-color);
+$crossword-divider-filter: drop-shadow(0px 0px 6px var(--shadow-color));
 $crossword-details-color: var(--secondary-color);
 
-$crossword-bg-color: $light-color;
-$crossword-bg-effect-color: $boulder-color;
-$crossword-shadow-color: $dark-color;
+$details-bg-color: var(--tertiary-color);
+$details-index-color: var(--secondary-color);
+$details-success-bg-color: var(--success-color);
 
-$crossword-bg-success-color: $highland-color;
-$crossword-input-border-color: $rhino-color;
-$crossword-empty-bg-color: $dark-color;
-$crossword-divider-filter: drop-shadow(0px 1px 0px $secondary-color)
-  drop-shadow(1px 0px 0px $secondary-color) drop-shadow(0px 0px 6px $dark-color);
-
-$header-bg-color: $semi-light-color;
+$header-bg-color: var(--header-color);
 $menu-color: var(--secondary-color);
 $logo-color: var(--secondary-color);
