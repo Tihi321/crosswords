@@ -4,8 +4,7 @@
   import { onMount } from "svelte";
   import Home from "./pages/Home.svelte";
   import About from "./pages/About.svelte";
-  import Modals from "./components/modal/modals.svelte";
-
+  import Modals from "./components/modal/Modals.svelte";
   import Header from "./components/header/Header.svelte";
   import { Routes } from "./constants/enums";
   import { useApiWords, useTheme, useLocalStorage, useSettings } from "./hooks";
