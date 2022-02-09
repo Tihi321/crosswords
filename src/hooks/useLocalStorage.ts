@@ -7,7 +7,12 @@ export const useLocalStorage = () => {
   const getLocalTheme = () => getItem(ELocalStorage.Theme);
   const setLocalTheme = (theme: EThemes) => setItem(ELocalStorage.Theme, theme);
 
+  const getLocalEndpoint = () => getItem(ELocalStorage.Endpoint);
+  const setLocalEndpoint = (endpoint: string) => setItem(ELocalStorage.Endpoint, endpoint);
+
   return {
+    getLocalEndpoint,
+    setLocalEndpoint,
     getLocalTheme,
     setLocalTheme
   }

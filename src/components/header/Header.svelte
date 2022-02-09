@@ -29,8 +29,8 @@
     navigate(Routes.Home);
   };
 
-  const viewApi = () => {
-    navigate(Routes.Api);
+  const viewAbout = () => {
+    navigate(Routes.About);
   };
 
   onMount(() => {
@@ -53,10 +53,7 @@
             <MenuItem active={path === Routes.Home} on:click={viewHome} name="Home" />
           </li>
           <li>
-            <MenuItem active={path === Routes.Api} on:click={viewApi} name="Api" />
-          </li>
-          <li>
-            <a class="link" href={"/design"}>Storybook</a>
+            <MenuItem active={path === Routes.About} on:click={viewAbout} name="About" />
           </li>
         </ul>
         <button class="theme-switcher" on:click={switchTheme}>{themeState}</button>

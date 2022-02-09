@@ -12,7 +12,7 @@ export type TWordObject = {
 }
 
 export type TDetail = {
-  id: string;
+  name: string;
   index: number;
   description: string;
   success: boolean;
@@ -25,7 +25,7 @@ export type TDetails = {
 export type TLettersInfo = {
   [key: string]: {
     char: string,
-    success: boolean
+    success: boolean,
   }
 };
 
@@ -33,7 +33,9 @@ export type TWordInfo = {
   wordIndex: number;
   name: string,
   letters: TLettersInfo,
-  success: boolean
+  success: boolean,
+  rowIndex: number[],
+  columnIndex: number[],
 };
 
 

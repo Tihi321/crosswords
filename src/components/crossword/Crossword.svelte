@@ -57,9 +57,14 @@
 </script>
 
 <div class="container">
-  <Table tableData={data.tableData} on:input={onInput} />
+  <Table
+    rowIndexes={data.successRowIndex}
+    columnIndexes={data.successColumnIndex}
+    tableData={data.tableData}
+    on:input={onInput}
+  />
   <div class="info">
-    <Info details={data.wordDetails} />
+    <Info details={data.wordDetails} successNames={data.successWordsNames} />
   </div>
 </div>
 

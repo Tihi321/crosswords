@@ -1,16 +1,23 @@
 <script lang="ts">
+  import map from "lodash/map";
+  import includes from "lodash/includes";
   import sortBy from "lodash/sortBy";
   import type { TDetails, TDetail } from "src/types";
 
   export let details: TDetails = {};
-  $: detailsArray = sortBy(details, (detail: TDetail) => detail.index);
+  export let successNames: string[] = [];
+  $: sortedDetails = sortBy(details, (detail: TDetail) => detail.index) as TDetail[];
+  $: wordsDetails = map(sortedDetails, (details: TDetail) => ({
+    ...details,
+    success: includes(successNames, details.name),
+  })) as TDetail[];
 </script>
 
 <ul class="info">
-  {#each detailsArray as { index, description, success }}
+  {#each wordsDetails as { index, description, success, name }}
     <li class="row">
       <div class="index" class:success>{index}</div>
-      <div class="descrition">{description}</div>
+      <div class="descrition">{description}-{name}</div>
     </li>
   {/each}
 </ul>

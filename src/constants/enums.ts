@@ -1,6 +1,6 @@
 export enum Routes {
   Home = "/",
-  Api = "/api",
+  About = "/about",
 };
 
 export enum Events {
@@ -14,4 +14,9 @@ export enum EThemes {
 
 export enum ELocalStorage {
   Theme = "crossword/ts-theme",
+  Endpoint = "crossword/ts-endpoint",
+}
+
+export enum EModals {
+  Api = "api",
 }

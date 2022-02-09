@@ -1,6 +1,7 @@
 $light-color: rgba(255, 255, 255, 1);
 $semi-light-color: rgba(255, 255, 255, 0.8);
 $dark-color: rgba(32, 32, 32, 1);
+$semi-dark-color: rgba(32, 32, 32, 0.4);
 $black-color: rgba(0, 0, 0, 1);
 $rhino-color: rgba(42, 42, 87, 1);
 $boulder-color: rgba(116, 116, 116, 1);
@@ -16,6 +17,7 @@ $fill-color: $boulder-color;
 $shadow-color: $dark-color;
 $text-color: $light-color;
 $header-color: $semi-light-color;
+$backdrop-color: $semi-dark-color;
 $crossword-color: $light-color;
 
 $app-bg-color: var(--primary-color);
@@ -34,6 +36,7 @@ $details-bg-color: var(--tertiary-color);
 $details-index-color: var(--secondary-color);
 $details-success-bg-color: var(--success-color);
 
+$modal-bg-color: var(--backdrop-color);
 $header-bg-color: var(--header-color);
 $menu-color: var(--secondary-color);
 $logo-color: var(--secondary-color);

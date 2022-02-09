@@ -20,7 +20,7 @@
       {letter}
     </div>
   {:else}
-    <input class="letter" on:input={onInput} maxlength={1} />
+    <input class="input letter" on:input={onInput} maxlength={1} />
   {/if}
 </LetterContainer>
 
@@ -41,13 +41,14 @@
     background-color: $crossword-bg-success-color;
   }
 
-  input {
+  .input {
     @extend %square-size;
     outline: 0;
     border: 0;
     padding: 0;
     text-align: center;
     background: none;
+    cursor: pointer;
 
     &:focus {
       box-shadow: inset 0 0 0 2px $crossword-input-border-color;

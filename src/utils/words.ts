@@ -1,3 +1,4 @@
+import uniqBy from "lodash/uniqBy"
 import forEach from "lodash/forEach"
 import get from "lodash/get";
 import lowerCase from "lodash/lowerCase";
@@ -17,7 +18,7 @@ export const generateWordObject = (word: string): TWordObject => {
   })
 }
 
-export const generateIndexKey = (rowIndex: number, itemIndex: number): string => `${rowIndex}${itemIndex}`
+export const generateIndexKey = (rowIndex: number, itemIndex: number): string => `${rowIndex}-${itemIndex}`;
 
 export const getWordsDetails = (words: TWordRowInfo[]): TDetails => {
   let details: TDetails = {};
@@ -26,7 +27,7 @@ export const getWordsDetails = (words: TWordRowInfo[]): TDetails => {
     const wordIndex = index + 1;
   
     const detail: TDetail = {
-      id: word.name,
+      name: word.name,
       index: wordIndex,
       description: word.detail,
       success: false
@@ -47,19 +48,27 @@ export const getWordsInformation = (words: TWordRowInfo[]): TWordsInfo => {
     const isLeft = type === ECrosswordType.Left;
     const letters = word.name.split("");
     let lettersData: TLettersInfo = {};
+    let rowIndexes: number[] = [];
+    let columnIndexes: number[] = [];
+
 
     forEach(letters, (letter: string, index: number) => {
       if(isLeft) {
         const letterItemIndex = itemIndex + index;
+        rowIndexes = [...rowIndexes, rowIndex];
+        columnIndexes = [...columnIndexes, letterItemIndex];
         lettersData = {
           ...lettersData,
           [generateIndexKey(rowIndex, letterItemIndex)]: {
             char: letter,
-            success: false,
+            success: false
           }
         };
       } else {
         const letterRowIndex = rowIndex + index;
+
+        rowIndexes = [...rowIndexes, letterRowIndex];
+        columnIndexes = [...columnIndexes, itemIndex];
     
         lettersData = {
           ...lettersData,
@@ -75,7 +84,9 @@ export const getWordsInformation = (words: TWordRowInfo[]): TWordsInfo => {
       wordIndex: index + 1,
       name: word.name,
       letters: lettersData,
-      success: false
+      success: false,
+      rowIndex: uniqBy(rowIndexes),
+      columnIndex: uniqBy(columnIndexes),
     }
 
     wordsData = {

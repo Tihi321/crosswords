@@ -1,6 +1,8 @@
 <script lang="ts">
+  import includes from "lodash/includes";
+  import map from "lodash/map";
   import { createEventDispatcher } from "svelte";
-  import { ECrosswordInfo, type TCrosswordTable } from "../../utils";
+  import { ECrosswordInfo, type TCrosswordTable, type TCrosswordItems, type TCrosswordItem } from "../../utils";
   import type { TWordInputData } from "../../types";
 
   import Empty from "./Empty.svelte";
@@ -9,6 +11,13 @@
   import BasicContainer from "./BasicContainer.svelte";
   
   export let tableData: TCrosswordTable;
+  export let rowIndexes: number[] = [];
+  export let columnIndexes: number[] = [];
+
+  $: tableDataWithShow = map(tableData, (rowData: TCrosswordItems, rowIndex: number) => map(rowData, (itemData: TCrosswordItem, itemIndex: number) => ({
+    ...itemData,
+    show: includes(rowIndexes, rowIndex) && includes(columnIndexes, itemIndex)
+  }))) as TCrosswordTable
   
   const dispatch = createEventDispatcher();
   
@@ -23,7 +32,7 @@
 </script>
 
 <div class="table">
-  {#each tableData as tableRow, rowIndex}
+  {#each tableDataWithShow as tableRow, rowIndex}
     <div class="row">
       {#each tableRow as { left, char, top, leftEnd, topEnd, show }, itemIndex}
         {#if char === ECrosswordInfo.EmptySpace}
