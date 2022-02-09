@@ -13,7 +13,7 @@
   import { EThemes } from "./constants";
   export let url = ""; //This property is necessary declare to avoid ignore the Router
 
-  const { addApiVocaularyWords, addApiNamesWords, addApiLastNamesWords } = useApiWords();
+  const { addApiVocaularyWords } = useApiWords();
   const { setLightTheme, setDarkTheme, theme } = useTheme();
   const { getLocalTheme } = useLocalStorage();
 
@@ -40,22 +40,6 @@
       })
       .then((res) => {
         addApiVocaularyWords(get(res, ["data"]));
-      });
-
-    fetch(Endpoints.FirstNames)
-      .then((res) => {
-        return res.json();
-      })
-      .then((res) => {
-        addApiNamesWords(get(res, ["data"]));
-      });
-
-    fetch(Endpoints.LastNames)
-      .then((res) => {
-        return res.json();
-      })
-      .then((res) => {
-        addApiLastNamesWords(get(res, ["data"]));
       });
   });
 </script>

@@ -1,14 +1,9 @@
 import forEach from "lodash/forEach"
 import get from "lodash/get";
 import lowerCase from "lodash/lowerCase";
-import type { TDetail, TDetails, TLettersInfo, TWordInfo, TWordItem, TWordObject, TWordsInfo } from "../types";
+import type { TDetail, TDetails, TLettersInfo, TWordInfo, TWordObject, TWordsInfo } from "../types";
 import type { TWordRowInfo } from "./populate";
 import { ECrosswordType } from "./table";
-
-export const generateWordItem = (name: string, detail: string): TWordItem => ({
-  detail,
-  name: lowerCase(name)
-})
 
 export const generateWordObject = (word: string): TWordObject => {
   const name: string = lowerCase(get(word, ["name"]));
