@@ -1,7 +1,8 @@
 <script lang="ts">
   import get from "lodash/get";
-  import { useModals, useSettings } from "../../hooks";
-  import { EModals } from "../../constants";
+  import { useModals, useSettings } from "../../../hooks";
+  import { EModals } from "../../../constants";
+  import Backdrop from "../common/Backdrop.svelte";
 
   const { closeModal } = useModals();
   const { settings, setEndpoint } = useSettings();
@@ -25,12 +26,14 @@
   }
 </script>
 
-<div class="api-modal">
-  api modal
-  <input class="input" value={endpoint} on:input={onInput} />
-  <button on:click={onSetEndpoint}>Set endpoint</button>
-  <button on:click={closeApiModal}>Close modal</button>
-</div>
+<Backdrop on:close={closeApiModal}>
+  <div class="api-modal">
+    api modal
+    <input class="input" value={endpoint} on:input={onInput} />
+    <button on:click={onSetEndpoint}>Set endpoint</button>
+    <button on:click={closeApiModal}>Close modal</button>
+  </div>
+</Backdrop>
 
 <style lang="scss">
   @import "src/styles/all";

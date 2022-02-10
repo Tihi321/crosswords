@@ -1,3 +1,4 @@
+export * from "./useBackdrop";
 export * from "./useGame";
 export * from "./useWords";
 export * from "./useTheme";

@@ -4,7 +4,7 @@
   import get from "lodash/get";
   import { useModals } from "../../hooks";
   import { EModals } from "../../constants";
-  import ApiModal from "./ApiModal.svelte";
+  import ApiModal from "./modals/ApiModal.svelte";
 
   const { modals } = useModals();
 
@@ -27,17 +27,17 @@
 <style lang="scss">
   @import "src/styles/all";
   .modals {
-    display: none;
+    @extend %absolute-centered;
+    width: 100%;
+    display: block;
     background-color: $modal-bg-color;
+    pointer-events: none;
+    transition: 0.25s opacity ease;
+    opacity: 0;
 
     &.active {
-      @extend %flex-centered;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      width: 100%;
+      opacity: 1;
+      pointer-events: all;
     }
   }
 </style>
