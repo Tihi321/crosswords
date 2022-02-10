@@ -3,7 +3,7 @@ import map from "lodash/map"
 
 import { getRandomRangeItemsAndRemove } from "./array";
 import { generateWordObject, getWordsDetails, getWordsInformation} from "./words";
-import type { TDetails, TWordArray, TWordsInfo } from "../types";
+import type { TDetails, TWordArray, TWordsInfo, TSettingOptions } from "../types";
 import { addHorizontalWords, addVerticalWords, ECrosswordInfo, ECrosswordType, generateEmptyInitialTable, type TCrosswordItem, type TCrosswordItems, type TCrosswordTable } from "./table";
 import { generateWordRowInformation, populateHorizontalTableLetters, populateVerticalTableLetters, type TWordRowInfo } from "./populate";
 
@@ -77,22 +77,23 @@ const getWordsData = (crosswordsTable :TCrosswordTable): TCrosswordTableData => 
 }
 
 type TGenerateCrossword = {
-  words: TWordArray
+  words: TWordArray,
+  settings: TSettingOptions
 };
 
-export const generateCrosswordsTable = ({words: initialWords}: TGenerateCrossword): TCrosswordTableData => {
+export const generateCrosswordsTable = ({words: initialWords, settings: { numberOfRows, numberOfColumns, wordLimit, skipHorizontal, skipVertical }}: TGenerateCrossword): TCrosswordTableData => {
   const {
     randomItems: selectedWords
-  } = getRandomRangeItemsAndRemove(initialWords, 800);
+  } = getRandomRangeItemsAndRemove(initialWords, wordLimit);
 
   const selectedWordsData = map(selectedWords, (word: string) => generateWordObject(word));
 
-  const emptyTable = generateEmptyInitialTable();
+  const emptyTable = generateEmptyInitialTable(numberOfRows, numberOfColumns);
 
-  const {crosswordsTable: horizontalWordTable, availableWords: availableHorizontalWords } = addHorizontalWords({ availableWords: selectedWordsData, crosswordsTable: emptyTable });
+  const {crosswordsTable: horizontalWordTable, availableWords: availableHorizontalWords } = addHorizontalWords({ availableWords: selectedWordsData, crosswordsTable: emptyTable, skip: skipVertical });
   const populatedHorizontalTable = populateHorizontalTableLetters(horizontalWordTable);
 
-  const {crosswordsTable: verticalWordTable} = addVerticalWords({ availableWords: availableHorizontalWords, crosswordsTable :populatedHorizontalTable });
+  const {crosswordsTable: verticalWordTable} = addVerticalWords({ availableWords: availableHorizontalWords, crosswordsTable :populatedHorizontalTable, skip: skipHorizontal });
   const populatedTable = populateVerticalTableLetters(verticalWordTable);
 
 ;

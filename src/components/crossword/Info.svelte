@@ -17,7 +17,7 @@
   {#each wordsDetails as { index, description, success, name }}
     <li class="row">
       <div class="index" class:success>{index}</div>
-      <div class="descrition">{description}-{name}</div>
+      <div class="descrition">{description}-{name}-({name.length})</div>
     </li>
   {/each}
 </ul>
@@ -25,10 +25,13 @@
 <style lang="scss">
   @import "src/styles/all";
   .info {
-    padding: 10px;
     background-color: $details-bg-color;
-    border-radius: 10px;
     color: $text-color;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
   }
 
   .row {

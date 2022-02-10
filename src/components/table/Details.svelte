@@ -33,13 +33,10 @@
     :global(.details) {
       position: relative;
       background-color: $crossword-bg-effect-color;
-    }
-    &.left-detail {
-      filter: drop-shadow(-2px 0px 0px $crossword-details-color);
-    }
 
-    &.top-detail {
-      filter: drop-shadow(0px -2px 0px $crossword-details-color);
+      &:hover {
+        filter: drop-shadow(1px 1px 2px $crossword-details-color);
+      }
     }
   }
 

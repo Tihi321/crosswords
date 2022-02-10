@@ -1,16 +1,12 @@
 <script lang="ts">
   import get from "lodash/get";
-  import { Router, Route } from "svelte-routing";
   import { onMount } from "svelte";
   import Home from "./pages/Home.svelte";
-  import About from "./pages/About.svelte";
   import Modals from "./components/modal/Modals.svelte";
   import Header from "./components/header/Header.svelte";
-  import { Routes } from "./constants/enums";
   import { useApiWords, useTheme, useLocalStorage, useSettings } from "./hooks";
   import type { TThemeStore } from "./types";
   import { EThemes } from "./constants";
-  export let url = ""; //This property is necessary declare to avoid ignore the Router
 
   const { settings, setEndpoint } = useSettings();
   const { addApiVocaularyWords } = useApiWords();
@@ -63,11 +59,8 @@
   class:dark-theme={themeState === EThemes.Dark}
 >
   <Modals />
-  <Router {url}>
-    <Header />
-    <Route path={Routes.About} component={About} />
-    <Route path={Routes.Home}><Home /></Route>
-  </Router>
+  <Header />
+  <Home />
 </main>
 
 <style lang="scss">
@@ -79,6 +72,14 @@
 
     ul {
       @extend %reset-list;
+    }
+
+    button {
+      @extend %reset-button;
+    }
+
+    a {
+      @extend %reset-link;
     }
   }
 
@@ -93,6 +94,7 @@
       --crossword-color: #{$crossword-color};
       --shadow-color: #{$shadow-color};
       --backdrop-color: #{$backdrop-color};
+      --modal-window-color: #{$modal-window-color};
       --header-color: #{$header-color};
     }
     &.dark-theme {
@@ -105,12 +107,13 @@
       --crossword-color: #{$crossword-color};
       --shadow-color: #{$shadow-color};
       --backdrop-color: #{$backdrop-color};
+      --modal-window-color: #{$modal-window-color};
       --header-color: #{$header-color};
     }
 
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
     background-color: $app-bg-color;
+    display: grid;
+    grid-template-rows: min-content 1fr;
   }
 </style>

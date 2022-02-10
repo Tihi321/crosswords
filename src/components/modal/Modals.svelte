@@ -4,7 +4,8 @@
   import get from "lodash/get";
   import { useModals } from "../../hooks";
   import { EModals } from "../../constants";
-  import ApiModal from "./modals/ApiModal.svelte";
+  import SettingsModal from "./modals/SettingsModal.svelte";
+  import AboutModal from "./modals/AboutModal.svelte";
 
   const { modals } = useModals();
 
@@ -15,12 +16,16 @@
   });
 
   $: anyModalActive = !isEmpty(activeModals);
-  $: activeApiModal = includes(activeModals, EModals.Api);
+  $: activeSettingsModal = includes(activeModals, EModals.Settings);
+  $: activeAboutModal = includes(activeModals, EModals.About);
 </script>
 
 <div class="modals" class:active={anyModalActive}>
-  {#if activeApiModal}
-    <ApiModal />
+  {#if activeSettingsModal}
+    <SettingsModal />
+  {/if}
+  {#if activeAboutModal}
+    <AboutModal />
   {/if}
 </div>
 

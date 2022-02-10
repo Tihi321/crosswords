@@ -31,3 +31,14 @@ export const getRandomizedWordsData = (wordsStateSelector) => combineSelector(
   getWordsData(wordsStateSelector),
   state => shuffle(state)
 )
+
+export const getSettingOptions = (settingsStateSelector) => combineSelector(
+  settingsStateSelector,
+  state => ({
+    numberOfRows: get(state, ["numberOfRows"]),
+    numberOfColumns: get(state, ["numberOfColumns"]),
+    wordLimit: get(state, ["wordLimit"]),
+    skipHorizontal: get(state, ["skipHorizontal"]),
+    skipVertical: get(state, ["skipVertical"]),
+  })
+)

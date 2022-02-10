@@ -11,8 +11,14 @@
     @extend %square-size;
     background-color: $crossword-empty-bg-color;
 
+    &:hover {
+      filter: drop-shadow(0px 0px 1px $crossword-details-color);
+    }
+
     &.transparent {
-      opacity: 0.1;
+      background-color: transparent;
+      box-shadow: 0 0 0 1px $crossword-empty-bg-color;
+      opacity: 0.4;
     }
   }
 </style>

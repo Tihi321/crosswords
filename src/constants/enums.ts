@@ -1,12 +1,3 @@
-export enum Routes {
-  Home = "/",
-  About = "/about",
-};
-
-export enum Events {
-  HistoryChanged = "HistoryChanged"
-};
-
 export enum EThemes {
   Dark = "Dark",
   Light = "Light"
@@ -15,8 +6,14 @@ export enum EThemes {
 export enum ELocalStorage {
   Theme = "crossword/ts-theme",
   Endpoint = "crossword/ts-endpoint",
+  Rows = "crossword/ts-rows",
+  Columns = "crossword/ts-columns",
+  WordLimit = "crossword/ts-word-limit",
+  SkipHorizontal = "crossword/ts-skip-horizontal",
+  SkipVertical = "crossword/ts-skip-vertical",
 }
 
 export enum EModals {
-  Api = "api",
+  Settings = "settings",
+  About = "about",
 }

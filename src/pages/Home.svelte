@@ -1,36 +1,38 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import Crossword from "../components/crossword/Crossword.svelte";
   import Menu from "../components/menu/Menu.svelte";
-  import { useGame } from "../hooks";
+  import { useGame, useLocalSettings } from "../hooks";
 
-  const { endGame, game } = useGame();
+  const { game } = useGame();
+  const { setLocalSettings } = useLocalSettings();
 
   let gameStarted: boolean;
 
   game.subscribe((value) => {
     gameStarted = value.started;
   });
+
+  onMount(() => {
+    setLocalSettings();
+  });
 </script>
 
-<div class="home">
+<div class="home" class:centered={!gameStarted}>
   {#if gameStarted}
-    <div class="crosswords">
-      <button on:click={endGame}>{"End Game and back to menu"}</button>
-      <div class="table">
-        <Crossword />
-      </div>
-    </div>
+    <Crossword />
   {:else}
-    <div class="menu">
-      <Menu />
-    </div>
+    <Menu />
   {/if}
 </div>
 
-<style>
-  .table {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+<style lang="scss">
+  @import "src/styles/all";
+  .home {
+    flex: 1;
+  }
+
+  .centered {
+    @extend %flex-centered;
   }
 </style>

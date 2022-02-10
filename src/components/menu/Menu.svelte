@@ -5,35 +5,46 @@
   const { startGame } = useGame();
   const { openModal } = useModals();
 
-  function openApiModal() {
-    openModal(EModals.Api);
+  function openSettingsModal() {
+    openModal(EModals.Settings);
+  }
+
+  function openAboutModal() {
+    openModal(EModals.About);
   }
 </script>
 
-<div>
-  <ul>
-    <li>
-      <button on:click={startGame}>New Game</button>
-    </li>
-    <li>
-      <button on:click={openApiModal}>Open Api modal</button>
-    </li>
-    <li>
-      <a class="link" href={"/design"}>Storybook</a>
-    </li>
-  </ul>
-</div>
+<ul class="menu">
+  <li class="menu-item">
+    <button class="contrast-button" on:click={startGame}>New Game</button>
+  </li>
+  <li class="menu-item">
+    <button class="contrast-button" on:click={openSettingsModal}>Settings</button>
+  </li>
+  <li class="menu-item">
+    <button class="contrast-button" on:click={openAboutModal}>About</button>
+  </li>
+  <li class="menu-item">
+    <a class="link" href={"/design"} target="_blank">Storybook</a>
+  </li>
+</ul>
 
 <style lang="scss">
   @import "src/styles/all";
 
-  div {
-    font-size: $crossword-font-size;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    cursor: default;
+  .link {
+    color: $button-color;
+  }
+
+  .menu {
+    text-align: center;
+  }
+
+  .menu-item {
+    margin-bottom: 10px;
+  }
+
+  .contrast-button {
+    @include contrast-button("big");
   }
 </style>

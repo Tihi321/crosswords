@@ -9,7 +9,8 @@ import type { TWordObject } from "./../types";
 
 type TAddWords = {
   availableWords: TWordObject[],
-  crosswordsTable: TCrosswordTable
+  crosswordsTable: TCrosswordTable,
+  skip: number
 };
 
 type TAddWordsTable = {
@@ -18,8 +19,6 @@ type TAddWordsTable = {
 };
 
 export enum ECrosswordInfo {
-  NumberOfRows = 15,
-  NumberOfColumns = 25,
   EmptySpace = 0,
 }
 
@@ -53,16 +52,15 @@ const emptySpace = {
   left: ECrosswordInfo.EmptySpace
 };
 
-const everySecond = (index: number) => index % 2 !== 0;
-const everyThird = (index: number) => index % 3 !== 0;
+const skipItem = (index: number, skip: number) => index % skip !== 0;
 
-export const generateEmptyInitialTable = (): TCrosswordTable => rangeMap(ECrosswordInfo.NumberOfRows, () => rangeMap(ECrosswordInfo.NumberOfRows, () => emptySpace));
+export const generateEmptyInitialTable = (numberOfRows: number, numberOfColumns: number): TCrosswordTable => rangeMap(numberOfRows, () => rangeMap(numberOfColumns, () => emptySpace));
 
-export const addHorizontalWords = ({ availableWords, crosswordsTable } :TAddWords): TAddWordsTable => {
+export const addHorizontalWords = ({ availableWords, crosswordsTable, skip } :TAddWords): TAddWordsTable => {
   let usedAvailableWords = [...availableWords];
 
   const updatedCrossword = map(crosswordsTable, (rowData: TCrosswordItems, rowIndex: number) => {
-    const skippedRow = everyThird(rowIndex);
+    const skippedRow = skipItem(rowIndex, skip);
     const numberOfItems = rowData.length;
     let noAvailableWords: boolean = false;
     let usedwordLastIndex: number;
@@ -106,14 +104,14 @@ export const addHorizontalWords = ({ availableWords, crosswordsTable } :TAddWord
   };
 }
 
-export const addVerticalWords = ({ availableWords, crosswordsTable } :TAddWords): TAddWordsTable => {
+export const addVerticalWords = ({ availableWords, crosswordsTable, skip } :TAddWords): TAddWordsTable => {
   let usedAvailableWords = [...availableWords];
 
   const updatedCrossword = map(crosswordsTable, (rowData: TCrosswordItems, rowIndex: number) => {
     const isFirstRow = rowIndex === 0;
   
     return map(rowData, (item: TCrosswordItem, itemIndex: number) => {
-      const skippedItem = everySecond(rowIndex);
+      const skippedItem = skipItem(rowIndex, skip);
       const wordCanBeAdded = [];
 
       if(item.char !== ECrosswordInfo.EmptySpace && !skippedItem) {

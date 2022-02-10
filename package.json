@@ -1,5 +1,6 @@
 {
   "version": "1.0.0",
+  "license" : "BSD-3-Clause",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -36,7 +37,6 @@
   },
   "dependencies": {
     "lodash": "^4.17.21",
-    "svelte-routing": "^1.6.0",
     "tsl-utils": "^1.0.28"
   },
   "husky": {

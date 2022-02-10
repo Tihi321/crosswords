@@ -11,6 +11,14 @@ export type TWordObject = {
   chars: string[];
 }
 
+export type TSettingOptions = {
+  numberOfRows: number,
+  numberOfColumns: number,
+  wordLimit: number,
+  skipHorizontal: number,
+  skipVertical: number,
+}
+
 export type TDetail = {
   name: string;
   index: number;
