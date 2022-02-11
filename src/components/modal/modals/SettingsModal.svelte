@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { t } from "svelte-i18n";
   import { useModals, useSettings } from "../../../hooks";
   import { EModals } from "../../../constants";
   import type { TSettingsStore } from "../../../types";
@@ -31,37 +32,37 @@
   }
 </script>
 
-<ModalWindow title="Settings" on:close={closeSettingsModal}>
+<ModalWindow title={$t("modal.title.settings")} on:close={closeSettingsModal}>
   <NumberGroup
-    title="Skip columns when generating table"
+    title={$t("modal.labels.skip_columns")}
     min={0}
     max={4}
     value={settingsState.skipVertical}
     on:input={(event) => updateSetting("skipVertical", event.detail)}
   />
   <NumberGroup
-    title="Skip rows when generating table"
+    title={$t("modal.labels.skip_rows")}
     min={0}
     max={4}
     value={settingsState.skipHorizontal}
     on:input={(event) => updateSetting("skipHorizontal", event.detail)}
   />
   <NumberGroup
-    title="Set number of columns"
+    title={$t("modal.labels.number_of_columns")}
     min={10}
     max={40}
     value={settingsState.numberOfColumns}
     on:input={(event) => updateSetting("numberOfColumns", event.detail)}
   />
   <NumberGroup
-    title="Set number of rows"
+    title={$t("modal.labels.number_of_rows")}
     min={10}
     max={40}
     value={settingsState.numberOfRows}
     on:input={(event) => updateSetting("numberOfRows", event.detail)}
   />
   <NumberGroup
-    title="Set word limits"
+    title={$t("modal.labels.word_limit")}
     min={10}
     buttons={false}
     useMax={false}
@@ -69,11 +70,11 @@
     on:input={(event) => updateSetting("wordLimit", event.detail)}
   />
   <TextGroup
-    title="Set custom endpoint"
+    title={$t("modal.labels.custom_engpoint")}
     value={settingsState.endpoint}
     on:input={(event) => updateSetting("endpoint", event.detail)}
   />
-  <button class="set-button" on:click={setStoreState}>Set</button>
+  <button class="set-button" on:click={setStoreState}>{$t("modal.save")}</button>
 </ModalWindow>
 
 <style lang="scss">

@@ -3,7 +3,7 @@ import { useLocalStorage } from "./useLocalStorage";
 import type { TSettingsStore } from "../types";
 
 export const useSettings = () => {
-  const { setLocalEndpoint, setLocalRows, setLocalColumns, setLocalWordLimit, setLocalSkipVertical, setLocalSkipHorizontal } = useLocalStorage();
+  const { setLocalEndpoint, setLocalSettings } = useLocalStorage();
 
   const setEndpoint = (newEndpoint: string) => {
     setLocalEndpoint(newEndpoint);
@@ -13,74 +13,21 @@ export const useSettings = () => {
     }));
   };
 
-  const setRows = (numberOfRows: number) => {
-    setLocalRows(numberOfRows);
-    settings.update((state) => ({
-      ...state,
-      numberOfRows
-    }));
-  };
-
-  const setColumns = (numberOfColumns: number) => {
-    setLocalColumns(numberOfColumns);
-    settings.update((state) => ({
-      ...state,
-      numberOfColumns
-    }));
-  };
-
-  const setWordLimit = (wordLimit: number) => {
-    setLocalWordLimit(wordLimit);
-    settings.update((state) => ({
-      ...state,
-      wordLimit
-    }));
-  };
-
-  const setSkipHorizontal = (skipHorizontal: number) => {
-    setLocalSkipHorizontal(skipHorizontal);
-    settings.update((state) => ({
-      ...state,
-      skipHorizontal
-    }));
-  };
-
-  const setSkipVertical = (skipVertical: number) => {
-    setLocalSkipVertical(skipVertical);
-    settings.update((state) => ({
-      ...state,
-      skipVertical
-    }));
-  };
-
   const setState = (newState: TSettingsStore) => {
-    const { endpoint, numberOfRows, numberOfColumns, wordLimit, skipHorizontal, skipVertical } = newState;
-
-    setLocalEndpoint(endpoint);
-    setLocalSkipVertical(skipVertical);
-    setLocalSkipHorizontal(skipHorizontal);
-    setLocalWordLimit(wordLimit);
-    setLocalColumns(numberOfColumns);
-    setLocalRows(numberOfRows);
-  
+    setLocalSettings(newState);
     settings.update((state) => ({
       ...state,
-      endpoint,
-      numberOfRows,
-      numberOfColumns,
-      wordLimit,
-      skipHorizontal,
-      skipVertical
+      endpoint: newState.endpoint || state.endpoint,
+      numberOfRows: newState.numberOfRows || state.numberOfRows,
+      numberOfColumns: newState.numberOfColumns || state.numberOfColumns,
+      wordLimit: newState.wordLimit || state.wordLimit,
+      skipHorizontal: newState.skipHorizontal || state.skipHorizontal,
+      skipVertical: newState.skipVertical || state.skipVertical
     }));
   };
 
   return {
     setEndpoint,
-    setRows,
-    setColumns,
-    setWordLimit,
-    setSkipHorizontal,
-    setSkipVertical,
     setState,
     settings
   }

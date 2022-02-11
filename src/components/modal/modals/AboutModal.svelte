@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { t } from "svelte-i18n";
   import { useModals } from "../../../hooks";
   import { EModals } from "../../../constants";
   import ModalWindow from "../common/ModalWindow.svelte";
@@ -10,7 +11,7 @@
   }
 </script>
 
-<ModalWindow title="About" on:close={closeSettingsModal}>
+<ModalWindow title={$t("modal.title.about")} on:close={closeSettingsModal}>
   <div class="descrition">
     Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione corrupti sed dolorem, ex illum
     natus quia nostrum tempora. Voluptatibus consequatur culpa aliquid amet eum enim labore

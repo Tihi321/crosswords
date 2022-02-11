@@ -1,0 +1,31 @@
+{
+  "languages": {
+    "croatian": "Croatian",
+    "english": "English"
+  },
+  "main_menu": {
+    "title": "New game",
+    "settings": "Settings",
+    "about": "About"
+  },
+  "modal": {
+    "close_modal": "Close modal",
+    "save": "Save",
+    "title": {
+      "settings": "Settings",
+      "about": "About"
+    },
+    "labels": {
+      "skip_columns": "Skip columns",
+      "skip_rows": "Skip rows",
+      "number_of_columns": "Number of columns",
+      "number_of_rows": "Number of rows",
+      "word_limit": "Words limit",
+      "custom_engpoint": "Custom endpoint"
+    }
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark"
+  }
+}

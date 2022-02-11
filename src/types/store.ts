@@ -4,12 +4,12 @@ import type { TWordInputs } from "./word";
 import type { EThemes } from "../constants";
 
 export type TSettingsStore = {
-  endpoint: string,
-  numberOfRows: number,
-  numberOfColumns: number,
-  wordLimit: number,
-  skipHorizontal: number,
-  skipVertical: number,
+  endpoint?: string,
+  numberOfRows?: number,
+  numberOfColumns?: number,
+  wordLimit?: number,
+  skipHorizontal?: number,
+  skipVertical?: number,
 }
 
 export type TCrosswordStore = {

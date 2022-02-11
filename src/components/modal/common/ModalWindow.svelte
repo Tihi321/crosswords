@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { t } from "svelte-i18n";
   import { createEventDispatcher } from "svelte";
   import Backdrop from "./Backdrop.svelte";
   export let title: string;
@@ -16,7 +17,7 @@
     <div class="content">
       <slot />
     </div>
-    <button class="close-button window-item" on:click={onClose}>Close modal</button>
+    <button class="close-button window-item" on:click={onClose}>{$t("modal.close_modal")}</button>
   </div>
 </Backdrop>
 

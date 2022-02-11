@@ -1,23 +1,16 @@
 <script lang="ts">
   import Logo from "./Logo.svelte";
   import Container from "../common/Container.svelte";
+  import ThemeSwitcher from "./ThemeSwitcher.svelte";
+  import LanguageSwitcher from "./LanguageSwitcher.svelte";
   import { useGame } from "../../hooks";
-  import type { EThemes } from "../../constants";
-  import type { TThemeStore } from "../../types";
-  import { useTheme } from "../../hooks";
 
   const { endGame, game } = useGame();
-  const { theme, switchTheme } = useTheme();
 
-  let themeState: EThemes;
   let gameStarted: boolean;
 
   game.subscribe((value) => {
     gameStarted = value.started;
-  });
-
-  theme.subscribe((value: TThemeStore) => {
-    themeState = value.theme;
   });
 </script>
 
@@ -29,7 +22,8 @@
         {#if gameStarted}
           <button on:click={endGame} class="end-game-button">Back to menu</button>
         {/if}
-        <button class="theme-switcher" on:click={switchTheme}>{themeState}</button>
+        <LanguageSwitcher />
+        <ThemeSwitcher />
       </div>
     </div>
   </Container>
@@ -56,10 +50,5 @@
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-
-  .theme-switcher {
-    @include contrast-button("small");
-    margin-left: 10px;
   }
 </style>

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { t } from "svelte-i18n";
   import { EModals } from "../../constants";
   import { useGame, useModals } from "../../hooks";
 
@@ -16,13 +17,13 @@
 
 <ul class="menu">
   <li class="menu-item">
-    <button class="contrast-button" on:click={startGame}>New Game</button>
+    <button class="contrast-button" on:click={startGame}>{$t("main_menu.title")}</button>
   </li>
   <li class="menu-item">
-    <button class="contrast-button" on:click={openSettingsModal}>Settings</button>
+    <button class="contrast-button" on:click={openSettingsModal}>{$t("main_menu.settings")}</button>
   </li>
   <li class="menu-item">
-    <button class="contrast-button" on:click={openAboutModal}>About</button>
+    <button class="contrast-button" on:click={openAboutModal}>{$t("main_menu.about")}</button>
   </li>
   <li class="menu-item">
     <a class="link" href={"/design"} target="_blank">Storybook</a>

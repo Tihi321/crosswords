@@ -1,6 +1,7 @@
 export * from "./useBackdrop";
 export * from "./useGame";
 export * from "./useCrossWord";
+export * from "./useTranslations";
 export * from "./useLocalSettings";
 export * from "./useWords";
 export * from "./useTheme";

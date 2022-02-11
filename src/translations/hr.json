@@ -1,0 +1,31 @@
+{
+  "languages": {
+    "croatian": "Hrvatski",
+    "english": "Engleski"
+  },
+  "main_menu": {
+    "title": "Nova igra",
+    "settings": "Opcije",
+    "about": "O autoru"
+  },
+  "modal": {
+    "close_modal": "Zatvori",
+    "save": "Spremi",
+    "title": {
+      "settings": "Opcije",
+      "about": "O autoru"
+    },
+    "labels": {
+      "skip_columns": "Preskoči kolone",
+      "skip_rows": "Preskoči redove",
+      "number_of_columns": "Broj kolona",
+      "number_of_rows": "Broj redova",
+      "word_limit": "Limit riječi",
+      "custom_engpoint": "Prilagođen endpoint"
+    }
+  },
+  "theme": {
+    "light": "Svijetla",
+    "dark": "Tamna"
+  }
+}

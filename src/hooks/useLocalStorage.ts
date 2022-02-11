@@ -1,4 +1,7 @@
 import { ELocalStorage, EThemes } from "../constants";
+import type { TSettingsStore } from "../types";
+
+const getNumberValue = (value?: string) => value && Number(value)
 
 export const useLocalStorage = () => {
   const getItem = (key: string) => localStorage.getItem(key);
@@ -10,34 +13,64 @@ export const useLocalStorage = () => {
   const getLocalEndpoint = () => getItem(ELocalStorage.Endpoint);
   const setLocalEndpoint = (endpoint: string) => setItem(ELocalStorage.Endpoint, endpoint);
 
-  const getLocalRows = () => getItem(ELocalStorage.Rows);
-  const setLocalRows = (rows: number) => setItem(ELocalStorage.Rows, rows as unknown as string);
+  const getLocalLanguage = () => getItem(ELocalStorage.Language);
+  const setLocalLanguage = (language: string) => setItem(ELocalStorage.Language, language);
 
-  const getLocalColumns = () => getItem(ELocalStorage.Columns);
-  const setLocalColumns = (columns: number) => setItem(ELocalStorage.Columns, columns as unknown as string);
+  const getLocalRows = () => getNumberValue(getItem(ELocalStorage.Rows));
+  const setLocalRows = (rows: number) => setItem(ELocalStorage.Rows, `${rows}`);
 
-  const getLocalWordLimit = () => getItem(ELocalStorage.WordLimit);
-  const setLocalWordLimit = (limit: number) => setItem(ELocalStorage.WordLimit, limit as unknown as string);
+  const getLocalColumns = () => getNumberValue(getItem(ELocalStorage.Columns));
+  const setLocalColumns = (columns: number) => setItem(ELocalStorage.Columns, `${columns}`);
 
-  const getLocalSkipVertical = () => getItem(ELocalStorage.SkipVertical);
-  const setLocalSkipVertical = (skip: number) => setItem(ELocalStorage.SkipVertical, skip as unknown as string);
+  const getLocalWordLimit = () => getNumberValue(getItem(ELocalStorage.WordLimit));
+  const setLocalWordLimit = (limit: number) => setItem(ELocalStorage.WordLimit, `${limit}`);
 
-  const getLocalSkipHorizontal = () => getItem(ELocalStorage.SkipHorizontal);
-  const setLocalSkipHorizontal = (skip: number) => setItem(ELocalStorage.SkipHorizontal, skip as unknown as string);
+  const getLocalSkipVertical = () => getNumberValue(getItem(ELocalStorage.SkipVertical));
+  const setLocalSkipVertical = (skip: number) => setItem(ELocalStorage.SkipVertical, `${skip}`);
+
+  const getLocalSkipHorizontal = () => getNumberValue(getItem(ELocalStorage.SkipHorizontal));
+  const setLocalSkipHorizontal = (skip: number) => setItem(ELocalStorage.SkipHorizontal, `${skip}`);
+
+  const setLocalSettings = (newState: TSettingsStore) => {
+    const { endpoint, numberOfRows, numberOfColumns, wordLimit, skipHorizontal, skipVertical } = newState;
+
+    if (endpoint) {
+      setLocalEndpoint(endpoint);
+    }
+
+    if (skipVertical) {
+      setLocalSkipVertical(skipVertical);
+    }
+
+    if (skipHorizontal) {
+      setLocalSkipHorizontal(skipHorizontal);
+    }
+
+    if (wordLimit) {
+      setLocalWordLimit(wordLimit);
+    }
+
+    if (numberOfColumns) {
+      setLocalColumns(numberOfColumns);
+    }
+
+    if (numberOfRows) {
+      setLocalRows(numberOfRows);
+    }
+  
+  }
 
   return {
+    getLocalLanguage,
+    setLocalLanguage,
+    setLocalSettings,
     getLocalEndpoint,
     setLocalEndpoint,
     getLocalRows,
-    setLocalRows,
     getLocalColumns,
-    setLocalColumns,
     getLocalWordLimit,
-    setLocalWordLimit,
     getLocalSkipVertical,
-    setLocalSkipVertical,
     getLocalSkipHorizontal,
-    setLocalSkipHorizontal,
     getLocalTheme,
     setLocalTheme
   }

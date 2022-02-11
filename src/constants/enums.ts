@@ -5,6 +5,7 @@ export enum EThemes {
 
 export enum ELocalStorage {
   Theme = "crossword/ts-theme",
+  Language = "crossword/ts-language",
   Endpoint = "crossword/ts-endpoint",
   Rows = "crossword/ts-rows",
   Columns = "crossword/ts-columns",
@@ -16,4 +17,9 @@ export enum ELocalStorage {
 export enum EModals {
   Settings = "settings",
   About = "about",
+}
+
+export enum ELanguages {
+  English = "en",
+  Croatian = "hr",
 }

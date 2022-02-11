@@ -90,10 +90,10 @@ export const generateCrosswordsTable = ({words: initialWords, settings: { number
 
   const emptyTable = generateEmptyInitialTable(numberOfRows, numberOfColumns);
 
-  const {crosswordsTable: horizontalWordTable, availableWords: availableHorizontalWords } = addHorizontalWords({ availableWords: selectedWordsData, crosswordsTable: emptyTable, skip: skipVertical });
+  const {crosswordsTable: horizontalWordTable, availableWords: availableHorizontalWords } = addHorizontalWords({ availableWords: selectedWordsData, crosswordsTable: emptyTable, skip: skipHorizontal });
   const populatedHorizontalTable = populateHorizontalTableLetters(horizontalWordTable);
 
-  const {crosswordsTable: verticalWordTable} = addVerticalWords({ availableWords: availableHorizontalWords, crosswordsTable :populatedHorizontalTable, skip: skipHorizontal });
+  const {crosswordsTable: verticalWordTable} = addVerticalWords({ availableWords: availableHorizontalWords, crosswordsTable :populatedHorizontalTable, skip: skipVertical });
   const populatedTable = populateVerticalTableLetters(verticalWordTable);
 
 ;
