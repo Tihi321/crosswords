@@ -1,8 +1,8 @@
-import { Endpoints } from "../constants/endpoints";
 import { writable } from 'svelte/store';
 
 export const settings = writable({
-  endpoint: Endpoints.Words as string,
+  endpoint: "",
+  useCustomEndpoint: false,
   numberOfRows: 15,
   numberOfColumns: 25,
   wordLimit: 800,

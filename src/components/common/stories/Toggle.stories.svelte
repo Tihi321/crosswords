@@ -1,30 +1,26 @@
 <script>
   import { Meta, Template, Story } from "@storybook/addon-svelte-csf";
-  import Details from "../Details.svelte";
-  import Letter from "../Letter.svelte";
-  import ThemeContainer from "../../common/ThemeContainer.svelte";
+  import Toggle from "../Toggle.svelte";
+  import ThemeContainer from "../ThemeContainer.svelte";
+
+  let toggled = true;
 </script>
 
 <!-- More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export -->
 <!-- More on argTypes: https://storybook.js.org/docs/svelte/api/argtypes -->
-<Meta
-  title="Table/Details"
-  component={Details}
-  argTypes={{
-    top: { defaultValue: true, control: "boolean" },
-    topEnd: { defaultValue: true, control: "boolean" },
-    left: { defaultValue: true, control: "boolean" },
-    leftEnd: { defaultValue: true, control: "boolean" },
-  }}
-/>
+<Meta title="Buttons/Toggle" component={Toggle} />
 
 <!-- More on component templates: https://storybook.js.org/docs/svelte/writing-stories/introduction#using-args -->
 <Template let:args>
   <ThemeContainer>
     <div class="container">
-      <Details top={args.top && 1} left={args.left && 2}>
-        <Letter letter="h" show={true} />
-      </Details>
+      <Toggle
+        on:change={(event) => {
+          toggled = event.detail.value;
+        }}
+        value={toggled}
+        {...args}
+      />
     </div>
   </ThemeContainer>
 </Template>

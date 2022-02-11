@@ -5,6 +5,7 @@ import type { EThemes } from "../constants";
 
 export type TSettingsStore = {
   endpoint?: string,
+  useCustomEndpoint?: boolean,
   numberOfRows?: number,
   numberOfColumns?: number,
   wordLimit?: number,

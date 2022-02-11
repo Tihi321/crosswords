@@ -1,4 +1,5 @@
 import { apiWords } from "../store/words";
+import { fetchWords } from "../utils";
 
 export const useApiWords = () => {
 
@@ -9,7 +10,14 @@ export const useApiWords = () => {
     }));
   };
 
+  const fetchApiVocabularyWords = (url) => {
+    fetchWords(url, (data) => {
+      addApiVocaularyWords(data);
+    })
+  }
+
   return {
+    fetchApiVocabularyWords,
     addApiVocaularyWords,
     apiWords
   }

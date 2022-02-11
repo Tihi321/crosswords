@@ -1,16 +1,24 @@
 <script lang="ts">
-  import { onMount } from "svelte";
+  import get from "lodash/get";
   import { t } from "svelte-i18n";
   import { ELanguages } from "../../constants";
-  import { useTranslations, useLocalStorage } from "../../hooks";
+  import { getLocalizedEndpoint } from "../../utils";
+  import { useTranslations, useSettings, useApiWords } from "../../hooks";
 
-  const { setCroatian, setEnglish, locale, setLocale } = useTranslations();
-  const { getLocalLanguage } = useLocalStorage();
+  const { setCroatian, setEnglish, locale } = useTranslations();
+  const { settings } = useSettings();
+  const { fetchApiVocabularyWords } = useApiWords();
 
   let language: string;
 
   locale.subscribe((lang) => {
     language = lang;
+  });
+
+  let useLocalEndpoint: boolean;
+
+  settings.subscribe((data) => {
+    useLocalEndpoint = get(data, ["useCustomEndpoint"]);
   });
 
   function onChange(event) {
@@ -19,15 +27,11 @@
     } else {
       setEnglish();
     }
-  }
 
-  onMount(() => {
-    const localLanguage = getLocalLanguage();
-
-    if (localLanguage) {
-      setLocale(localLanguage);
+    if (!useLocalEndpoint) {
+      fetchApiVocabularyWords(getLocalizedEndpoint(event.target.value));
     }
-  });
+  }
 </script>
 
 <select name="languages" on:change={onChange}>

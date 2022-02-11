@@ -72,7 +72,9 @@
   <TextGroup
     title={$t("modal.labels.custom_engpoint")}
     value={settingsState.endpoint}
+    toggle={settingsState.useCustomEndpoint}
     on:input={(event) => updateSetting("endpoint", event.detail)}
+    on:toggle={(event) => updateSetting("useCustomEndpoint", event.detail)}
   />
   <button class="set-button" on:click={setStoreState}>{$t("modal.save")}</button>
 </ModalWindow>

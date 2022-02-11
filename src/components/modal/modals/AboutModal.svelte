@@ -12,19 +12,36 @@
 </script>
 
 <ModalWindow title={$t("modal.title.about")} on:close={closeSettingsModal}>
-  <div class="descrition">
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione corrupti sed dolorem, ex illum
-    natus quia nostrum tempora. Voluptatibus consequatur culpa aliquid amet eum enim labore
-    laboriosam eaque debitis provident.
+  <div class="center">
+    <ul>
+      <li>
+        <span class="label">{$t("about.author")}</span>
+        : Tihomir Selak
+      </li>
+      <li>
+        <span class="label">{$t("about.license")}</span>
+        : MIT
+      </li>
+      <li>
+        <span class="label">{$t("about.repository")}</span>
+        : <a href="https://github.com/Tihi321/crosswords" target="_blank">Github</a>
+      </li>
+    </ul>
   </div>
 </ModalWindow>
 
 <style lang="scss">
   @import "src/styles/all";
 
-  .descrition {
+  .center {
+    @extend %flex-centered;
+    height: 100%;
     font-size: $default-font-size;
     color: $button-color;
     font-weight: normal;
+  }
+
+  .label {
+    font-weight: bold;
   }
 </style>

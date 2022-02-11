@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { t } from "svelte-i18n";
   import Logo from "./Logo.svelte";
   import Container from "../common/Container.svelte";
   import ThemeSwitcher from "./ThemeSwitcher.svelte";
@@ -20,9 +21,10 @@
       <button on:click={endGame} class="logo"><Logo /></button>
       <div>
         {#if gameStarted}
-          <button on:click={endGame} class="end-game-button">Back to menu</button>
+          <button on:click={endGame} class="end-game-button">{$t("header.back_to_menu")}</button>
+        {:else}
+          <LanguageSwitcher />
         {/if}
-        <LanguageSwitcher />
         <ThemeSwitcher />
       </div>
     </div>

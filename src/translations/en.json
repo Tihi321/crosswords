@@ -1,4 +1,7 @@
 {
+  "header": {
+    "back_to_menu": "Back to menu"
+  },
   "languages": {
     "croatian": "Croatian",
     "english": "English"
@@ -27,5 +30,10 @@
   "theme": {
     "light": "Light",
     "dark": "Dark"
+  },
+  "about": {
+    "author": "Author",
+    "license": "License",
+    "repository": "Code"
   }
 }

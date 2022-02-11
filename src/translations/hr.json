@@ -1,4 +1,7 @@
 {
+  "header": {
+    "back_to_menu": "Natrag na meni"
+  },
   "languages": {
     "croatian": "Hrvatski",
     "english": "Engleski"
@@ -6,14 +9,14 @@
   "main_menu": {
     "title": "Nova igra",
     "settings": "Opcije",
-    "about": "O autoru"
+    "about": "Info"
   },
   "modal": {
     "close_modal": "Zatvori",
     "save": "Spremi",
     "title": {
       "settings": "Opcije",
-      "about": "O autoru"
+      "about": "Info"
     },
     "labels": {
       "skip_columns": "Preskoči kolone",
@@ -27,5 +30,10 @@
   "theme": {
     "light": "Svijetla",
     "dark": "Tamna"
+  },
+  "about": {
+    "author": "Autor",
+    "license": "Licenca",
+    "repository": "Kod"
   }
 }
