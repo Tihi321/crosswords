@@ -61,9 +61,9 @@
     addCrosswordTable(table);
   });
 
-  function onInput(event: any) {
+  const onInput = (event: any) => {
     updateCrosswordInput(event.detail as TWordInputData);
-  }
+  };
 </script>
 
 <div class="container">
@@ -83,10 +83,11 @@
 <style lang="scss">
   @import "src/styles/all";
   .container {
-    padding: 20px;
+    height: 100%;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 50px;
   }
 
   .table {
@@ -94,6 +95,7 @@
   }
 
   .info {
-    max-width: 900px;
+    flex: 1;
+    max-width: 1024px;
   }
 </style>

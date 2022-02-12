@@ -13,23 +13,23 @@
 
   const dispatch = createEventDispatcher();
 
-  function onInput(event) {
+  const onInput = (event) => {
     dispatch("input", Number(event.target.value));
-  }
+  };
 
-  function add(number: number) {
+  const add = (number: number) => {
     const addedNumber = value + number;
     if (addedNumber <= max || !useMax) {
       dispatch("input", addedNumber);
     }
-  }
+  };
 
-  function sub(number: number) {
+  const sub = (number: number) => {
     const subedNumber = value - number;
     if (subedNumber >= min) {
       dispatch("input", subedNumber);
     }
-  }
+  };
 </script>
 
 <InputGroup {title}>

@@ -4,8 +4,9 @@ import forEach from "lodash/forEach"
 import isEmpty from "lodash/isEmpty"
 import { rangeMap } from "tsl-utils";
 
+import { ECrosswordInfo } from "../constants";
 import { getRandomArrayIndex } from "./array";
-import type { TWordObject } from "./../types";
+import type { TCrosswordItem, TCrosswordItems, TCrosswordTable, TWordObject } from "./../types";
 
 type TAddWords = {
   availableWords: TWordObject[],
@@ -17,34 +18,6 @@ type TAddWordsTable = {
   availableWords: TWordObject[],
   crosswordsTable: TCrosswordTable
 };
-
-export enum ECrosswordInfo {
-  EmptySpace = 0,
-}
-
-export enum ECrosswordType {
-  Left = "Left",
-  Top = "Top"
-}
-
-export type TCrosswordWord = {
-  name: string;
-  detail: string;
-  index?: number;
-  endIndex: number;
-};
-
-export type TCrosswordItem = {
-  char: string | ECrosswordInfo.EmptySpace;
-  show: boolean;
-  top: TCrosswordWord | ECrosswordInfo.EmptySpace;
-  left: TCrosswordWord | ECrosswordInfo.EmptySpace;
-  leftEnd?: boolean;
-  topEnd?: boolean;
-};
-
-export type TCrosswordItems = Array<TCrosswordItem>
-export type TCrosswordTable = Array<TCrosswordItems>
 
 const emptySpace = {
   char: ECrosswordInfo.EmptySpace,

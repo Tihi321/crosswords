@@ -1,15 +1,20 @@
 @mixin contrast-button($size: "small") {
   color: $button-color;
+  transition: 0.2s color ease;
+  font-weight: bold;
 
   @if $size == "small" {
-    border: 1px solid $button-bg-color;
     font-size: $contrast-button-font-small-size;
   } @else {
-    border: 3px solid $button-bg-color;
     font-size: $contrast-button-font-size;
   }
 
+  &:hover {
+    color: $button-hover-color;
+  }
+
   &:disabled {
+    color: $button-color;
     opacity: 0.5;
     cursor: default;
   }

@@ -6,21 +6,14 @@
 
 <style lang="scss">
   .container {
-    flex: 1;
-    height: 100%;
     display: flex;
     justify-content: center;
-    padding: 15px;
+    padding: 24px;
+    min-height: 100vh;
   }
 
   .container-inner {
     width: 100%;
-    max-width: 900px;
-  }
-
-  @media (min-width: 480px) {
-    .container {
-      padding: 24px;
-    }
+    max-width: 1284px;
   }
 </style>

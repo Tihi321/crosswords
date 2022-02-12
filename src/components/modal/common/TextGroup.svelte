@@ -9,13 +9,13 @@
 
   const dispatch = createEventDispatcher();
 
-  function onInput(event) {
+  const onInput = (event) => {
     dispatch("input", event.target.value);
-  }
+  };
 
-  function onToggle(event) {
+  const onToggle = (event) => {
     dispatch("toggle", event.detail.value);
-  }
+  };
 </script>
 
 <InputGroup {title}>

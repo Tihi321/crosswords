@@ -1,27 +1,43 @@
 <script lang="ts">
   import BasicContainer from "./BasicContainer.svelte";
+  import Tooltip from "../tooltip/Tooltip.svelte";
+  import type { TCrosswordWord } from "../../types";
+  import { ETooltipPlacement } from "../../constants";
 
-  export let left: number = undefined;
-  export let top: number = undefined;
+  export let left: TCrosswordWord = undefined;
+  export let top: TCrosswordWord = undefined;
 
   export let leftEnd: boolean = undefined;
   export let topEnd: boolean = undefined;
+
+  $: leftIndex = left && left.index;
+  $: topIndex = top && top.index;
 </script>
 
 <div class="container" class:top-detail={Boolean(top)} class:left-detail={Boolean(left)}>
   <BasicContainer class="details">
-    {#if top}
-      <div class="detail top">
-        {top}
-      </div>
+    {#if topIndex}
+      <Tooltip hideArrow placement={ETooltipPlacement.Bottom}>
+        <span slot="tooltip">
+          {top.detail}
+        </span>
+        <div class="detail top">
+          {topIndex}
+        </div>
+      </Tooltip>
     {/if}
     <div class="content" class:left-end={leftEnd} class:top-end={topEnd}>
       <slot />
     </div>
-    {#if left}
-      <div class="detail left">
-        {left}
-      </div>
+    {#if leftIndex}
+      <Tooltip hideArrow placement={ETooltipPlacement.Bottom}>
+        <span slot="tooltip">
+          {left.detail}
+        </span>
+        <div class="detail left">
+          {leftIndex}
+        </div>
+      </Tooltip>
     {/if}
   </BasicContainer>
 </div>
@@ -32,25 +48,27 @@
   .container {
     :global(.details) {
       position: relative;
-      background-color: $crossword-bg-effect-color;
 
       &:hover {
-        filter: drop-shadow(1px 1px 2px $crossword-details-color);
+        background-color: $crossword-details-effects-color;
       }
+    }
+
+    :global(.tooltip-container) {
+      position: static;
     }
   }
 
   .content {
     &.top-end {
-      filter: drop-shadow(0px 3px 0px $crossword-details-color);
+      box-shadow: 0 -4px 0 0 $crossword-details-effects-color inset;
     }
     &.left-end {
-      filter: drop-shadow(3px 0px 0px $crossword-details-color);
+      box-shadow: -4px 0 0 0 $crossword-details-effects-color inset;
     }
 
     &.left-end.top-end {
-      filter: drop-shadow(3px 0px 0px $crossword-details-color)
-        drop-shadow(0px 3px 0px $crossword-details-color);
+      box-shadow: -4px -4px 0 0 $crossword-details-effects-color inset;
     }
   }
 
@@ -58,8 +76,8 @@
     position: absolute;
     z-index: 1;
     font-size: $detail-font-size;
-    background-color: $crossword-details-color;
-    color: $semi-light-color;
+    background-color: $crossword-details-bg-color;
+    color: $crossword-details-color;
     border-radius: 50%;
     display: flex;
     align-items: center;

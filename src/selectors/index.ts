@@ -1,6 +1,12 @@
 import { combineSelector } from "tsl-utils";
 import get from "lodash/get";
+import map from "lodash/map";
 import shuffle from "lodash/shuffle";
+
+export const getCrosswordTableWords = (crosswordsStateSelector) => combineSelector(
+  crosswordsStateSelector,
+  state => get(state, ["words"], [])
+)
 
 export const getCrosswordTableDetails = (crosswordsStateSelector) => combineSelector(
   crosswordsStateSelector,
@@ -10,11 +16,6 @@ export const getCrosswordTableDetails = (crosswordsStateSelector) => combineSele
 export const getCrosswordTableInputs = (crosswordsStateSelector) => combineSelector(
   crosswordsStateSelector,
   state => get(state, ["inputs"], {})
-)
-
-export const getCrosswordTableWords = (crosswordsStateSelector) => combineSelector(
-  crosswordsStateSelector,
-  state => get(state, ["words"], [])
 )
 
 export const getCrosswordTableData = (crosswordsStateSelector) => combineSelector(
@@ -27,8 +28,16 @@ export const getWordsData = (wordsStateSelector) => combineSelector(
   state => get(state, ["words"], [])
 )
 
-export const getRandomizedWordsData = (wordsStateSelector) => combineSelector(
+export const getWordsRemovedSpacesData = (wordsStateSelector) => combineSelector(
   getWordsData(wordsStateSelector),
+  words => map(words, word => ({
+    ...word,
+    name: word.name.replace(/\s/g, '')
+  }))
+)
+
+export const getRandomizedWordsData = (wordsStateSelector) => combineSelector(
+  getWordsRemovedSpacesData(wordsStateSelector),
   state => shuffle(state)
 )
 

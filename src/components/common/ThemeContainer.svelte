@@ -28,35 +28,17 @@
 
     a {
       @extend %reset-link;
+      color: $link-color;
     }
   }
 
   .styles {
+    @include add-custom-variables($theme-colors, shared, color);
     &.light-theme {
-      --primary-color: #{$primary-color};
-      --secondary-color: #{$secondary-color};
-      --tertiary-color: #{$tertiary-color};
-      --success-color: #{$success-color};
-      --fill-color: #{$fill-color};
-      --text-color: #{$text-color};
-      --crossword-color: #{$crossword-color};
-      --shadow-color: #{$shadow-color};
-      --backdrop-color: #{$backdrop-color};
-      --modal-window-color: #{$modal-window-color};
-      --header-color: #{$header-color};
+      @include add-custom-variables($theme-colors, light, color);
     }
     &.dark-theme {
-      --primary-color: #{$primary-color};
-      --secondary-color: #{$secondary-color};
-      --tertiary-color: #{$tertiary-color};
-      --success-color: #{$success-color};
-      --fill-color: #{$fill-color};
-      --text-color: #{$text-color};
-      --crossword-color: #{$crossword-color};
-      --shadow-color: #{$shadow-color};
-      --backdrop-color: #{$backdrop-color};
-      --modal-window-color: #{$modal-window-color};
-      --header-color: #{$header-color};
+      @include add-custom-variables($theme-colors, dark, color);
     }
   }
 </style>

@@ -1,0 +1,5 @@
+@mixin add-custom-variables($map, $key, $suffix) {
+  @each $modifier, $value in map-get-strict($map, $key) {
+    --#{$modifier}-#{$suffix}: #{$value};
+  }
+}

@@ -21,6 +21,10 @@
   @import "src/styles/all";
   .theme-switcher {
     @include contrast-button("small");
-    margin-left: 10px;
+    margin-left: 15px;
+    color: $theme-btn-color;
+    background-color: $theme-btn-bg-color;
+    padding: 10px 15px;
+    border-radius: 5px;
   }
 </style>

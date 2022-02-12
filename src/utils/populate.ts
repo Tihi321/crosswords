@@ -1,14 +1,9 @@
 import map from "lodash/map"
 import forEach from "lodash/forEach"
 
-import { ECrosswordInfo, ECrosswordType, type TCrosswordItem, type TCrosswordItems, type TCrosswordTable, type TCrosswordWord } from "./table";
+import { ECrosswordInfo, ECrosswordType } from "../constants";
+import type { TCrosswordItem, TCrosswordItems, TCrosswordTable, TWordRowInfo } from "../types";
 
-export type TWordRowInfo = {
-  rowIndex: number;
-  itemIndex: number;
-  word: TCrosswordWord;
-  type: ECrosswordType;
-};
 export const generateWordRowInformation = ({rowIndex, itemIndex, word, type}): TWordRowInfo => ({
   rowIndex,
   itemIndex,

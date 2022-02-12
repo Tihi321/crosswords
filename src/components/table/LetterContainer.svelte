@@ -7,7 +7,7 @@
 
   div {
     @extend %square-size;
-    background-color: $crossword-bg-color;
+    box-shadow: 0 0 0 1px $crossword-letter-border-color;
     user-select: text;
     text-align: center;
     text-transform: uppercase;

@@ -1,9 +1,12 @@
 <script lang="ts">
   import get from "lodash/get";
   import { t } from "svelte-i18n";
+  import Dropdown from "../select/Dropdown.svelte";
+
   import { ELanguages } from "../../constants";
   import { getLocalizedEndpoint } from "../../utils";
   import { useTranslations, useSettings, useApiWords } from "../../hooks";
+  import type { TDropdownItems, TDropdownItem } from "../../types";
 
   const { setCroatian, setEnglish, locale } = useTranslations();
   const { settings } = useSettings();
@@ -15,30 +18,48 @@
     language = lang;
   });
 
+  $: selectedItem = {
+    id: language,
+    value: language === ELanguages.Croatian ? $t("languages.croatian") : $t("languages.english"),
+  } as TDropdownItem;
+
+  const languageItems: TDropdownItems = [
+    {
+      id: ELanguages.Croatian,
+      value: $t("languages.croatian"),
+    },
+    {
+      id: ELanguages.English,
+      value: $t("languages.english"),
+    },
+  ];
+
   let useLocalEndpoint: boolean;
 
   settings.subscribe((data) => {
     useLocalEndpoint = get(data, ["useCustomEndpoint"]);
   });
 
-  function onChange(event) {
-    if (event.target.value === ELanguages.Croatian) {
+  const onChange = (event) => {
+    const item = event.detail as TDropdownItem;
+    if (item.id === ELanguages.Croatian) {
       setCroatian();
     } else {
       setEnglish();
     }
-
     if (!useLocalEndpoint) {
-      fetchApiVocabularyWords(getLocalizedEndpoint(event.target.value));
+      fetchApiVocabularyWords(getLocalizedEndpoint(item.id));
     }
-  }
+  };
 </script>
 
-<select name="languages" on:change={onChange}>
-  <option value={ELanguages.Croatian} selected={language === ELanguages.Croatian}
-    >{$t("languages.croatian")}</option
-  >
-  <option value={ELanguages.English} selected={language !== ELanguages.Croatian}
-    >{$t("languages.english")}</option
-  >
-</select>
+<div class="language-switcher">
+  <Dropdown selected={selectedItem} items={languageItems} on:change={onChange} />
+</div>
+
+<style lang="scss">
+  @import "src/styles/all";
+  .language-switcher {
+    width: 120px;
+  }
+</style>

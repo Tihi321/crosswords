@@ -7,11 +7,11 @@
 
   const dispatch = createEventDispatcher();
 
-  function onInput(event: any) {
+  const onInput = (event: any) => {
     dispatch("input", {
       value: event.target.value as string,
     });
-  }
+  };
 </script>
 
 <LetterContainer>
@@ -29,6 +29,8 @@
 
   .letter {
     font-size: $crossword-font-size;
+    background-color: $crossword-bg-color;
+    color: $crossword-text-color;
     text-transform: uppercase;
     display: flex;
     align-items: center;

@@ -2,16 +2,11 @@ import forEach from "lodash/forEach"
 import map from "lodash/map"
 
 import { getRandomRangeItemsAndRemove } from "./array";
+import { ECrosswordInfo, ECrosswordType } from "../constants";
 import { generateWordObject, getWordsDetails, getWordsInformation} from "./words";
-import type { TDetails, TWordArray, TWordsInfo, TSettingOptions } from "../types";
-import { addHorizontalWords, addVerticalWords, ECrosswordInfo, ECrosswordType, generateEmptyInitialTable, type TCrosswordItem, type TCrosswordItems, type TCrosswordTable } from "./table";
-import { generateWordRowInformation, populateHorizontalTableLetters, populateVerticalTableLetters, type TWordRowInfo } from "./populate";
-
-export type TCrosswordTableData = {
-  details: TDetails;
-  table: TCrosswordTable;
-  words: TWordsInfo;
-}
+import type { TWordArray, TSettingOptions, TCrosswordTable, TCrosswordTableData, TWordRowInfo, TCrosswordItems, TCrosswordItem } from "../types";
+import { addHorizontalWords, addVerticalWords, generateEmptyInitialTable } from "./table";
+import { generateWordRowInformation, populateHorizontalTableLetters, populateVerticalTableLetters } from "./populate";
 
 const getWordsData = (crosswordsTable :TCrosswordTable): TCrosswordTableData => {
   let words: TWordRowInfo[] = [];
@@ -96,6 +91,5 @@ export const generateCrosswordsTable = ({words: initialWords, settings: { number
   const {crosswordsTable: verticalWordTable} = addVerticalWords({ availableWords: availableHorizontalWords, crosswordsTable :populatedHorizontalTable, skip: skipVertical });
   const populatedTable = populateVerticalTableLetters(verticalWordTable);
 
-;
   return getWordsData(populatedTable)
 }

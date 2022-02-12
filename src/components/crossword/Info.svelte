@@ -1,8 +1,11 @@
 <script lang="ts">
+  import { t } from "svelte-i18n";
   import map from "lodash/map";
   import includes from "lodash/includes";
   import sortBy from "lodash/sortBy";
-  import type { TDetails, TDetail } from "src/types";
+  import Accordion from "../accordion/Accordion.svelte";
+
+  import type { TDetails, TDetail } from "../../types";
 
   export let details: TDetails = {};
   export let successNames: string[] = [];
@@ -13,40 +16,48 @@
   })) as TDetail[];
 </script>
 
-<ul class="info">
-  {#each wordsDetails as { index, description, success, name }}
-    <li class="row">
-      <div class="index" class:success>{index}</div>
-      <div class="descrition">{description} ({name.length})</div>
-    </li>
-  {/each}
-</ul>
+<Accordion open={true}>
+  <span slot="title">
+    {$t("game.details_title")}
+  </span>
+  <ul class="info">
+    {#each wordsDetails as { index, description, success, name }}
+      <li class="row">
+        <div class="index" class:success>{index}</div>
+        <div class="description">{description} ({name.length})</div>
+      </li>
+    {/each}
+  </ul>
+</Accordion>
 
 <style lang="scss">
   @import "src/styles/all";
   .info {
-    background-color: $details-bg-color;
-    color: $text-color;
-    padding: 10px;
     border-radius: 10px;
     margin: 0;
+    font-size: 14px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   }
 
   .row {
     display: flex;
     align-items: center;
+    padding: 5px 0;
   }
 
   .index {
     @extend %flex-centered;
-    background-color: $details-index-color;
     border-radius: 50%;
     margin-right: 10px;
     width: 35px;
     height: 35px;
     font-weight: bold;
+    border: 1px solid $details-border-color;
+  }
+
+  .description {
+    width: 100%;
   }
 
   .success {

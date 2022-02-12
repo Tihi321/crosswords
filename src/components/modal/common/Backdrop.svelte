@@ -1,9 +1,14 @@
 <script lang="ts">
-  import { useBackdrop } from "../../../hooks";
-  const { onClose, slotName } = useBackdrop();
+  import { useAvoidElementEvent } from "../../../hooks";
+  const slotName = "backdrop-slot";
+  const { onEventCallback } = useAvoidElementEvent({
+    datasetName: "backdrop",
+    slotName,
+    dispatchEventName: "close",
+  });
 </script>
 
-<div class="backdrop" on:click={onClose}>
+<div class="backdrop" on:click={onEventCallback}>
   <span data-backdrop={slotName}>
     <slot />
   </span>

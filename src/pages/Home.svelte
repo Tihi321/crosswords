@@ -18,21 +18,8 @@
   });
 </script>
 
-<div class="home" class:centered={!gameStarted}>
-  {#if gameStarted}
-    <Crossword />
-  {:else}
-    <Menu />
-  {/if}
-</div>
-
-<style lang="scss">
-  @import "src/styles/all";
-  .home {
-    flex: 1;
-  }
-
-  .centered {
-    @extend %flex-centered;
-  }
-</style>
+{#if gameStarted}
+  <Crossword />
+{:else}
+  <Menu />
+{/if}

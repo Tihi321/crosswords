@@ -5,11 +5,11 @@
 
   export let value: boolean = false;
 
-  function onChange() {
+  const onChange = () => {
     dispatch("change", {
       value: !value,
     });
-  }
+  };
 </script>
 
 <div class="container" on:click={onChange}>

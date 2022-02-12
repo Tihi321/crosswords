@@ -34,8 +34,9 @@
   .modals {
     @extend %absolute-centered;
     width: 100%;
+    z-index: 1;
     display: block;
-    background-color: $modal-bg-color;
+    background-color: $modal-backdrop-bg-color;
     pointer-events: none;
     transition: 0.25s opacity ease;
     opacity: 0;

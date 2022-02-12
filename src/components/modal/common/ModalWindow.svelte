@@ -38,14 +38,14 @@
   }
 
   .window-item {
-    color: $default-text-color;
+    color: $modal-window-items-color;
+    background: $modal-window-items-bg-color;
     font-weight: normal;
     padding: 5px;
     text-align: center;
   }
 
   .title {
-    background-color: $modal-window-title-bg-color;
     margin: 0;
     border-radius: 5px 5px 0 0;
   }
@@ -54,6 +54,6 @@
     padding: 5px;
     width: 100%;
     border-radius: 0 0 5px 5px;
-    background-color: $modal-window-close-bg-color;
+    background: $modal-window-items-bg-color;
   }
 </style>

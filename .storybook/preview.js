@@ -3,15 +3,11 @@ import { withKnobs } from '@storybook/addon-knobs';
 
 export const parameters = {
   backgrounds: {
-    default: 'default',
+    default: 'dark',
     values: [
       {
-        name: 'default',
-        value: 'rgba(96, 146, 93, 1)',
-      },
-      {
         name: 'dark',
-        value: 'rgba(32, 32, 32, 1',
+        value: 'rgba(35, 39, 57, 1)',
       },
       {
         name: 'light',

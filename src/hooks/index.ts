@@ -1,4 +1,5 @@
-export * from "./useBackdrop";
+export * from "./useAvoidElementCallback";
+export * from "./useAvoidElementEvent";
 export * from "./useGame";
 export * from "./useCrossWord";
 export * from "./useTranslations";
