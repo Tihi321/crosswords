@@ -1,8 +1,7 @@
 <script lang="ts">
   import BasicContainer from "./BasicContainer.svelte";
-  import Tooltip from "../tooltip/Tooltip.svelte";
+  import { Tooltip, ETooltipPlacement } from "ts-components-library";
   import type { TCrosswordWord } from "../../types";
-  import { ETooltipPlacement } from "../../constants";
 
   export let left: TCrosswordWord = undefined;
   export let top: TCrosswordWord = undefined;

@@ -1,14 +1,14 @@
-import { addMessages, init, getLocaleFromNavigator } from 'svelte-i18n';
+import { addMessages, getLocaleFromNavigator, init } from "svelte-i18n";
 
-import en from './translations/en.json';
-import hr from './translations/hr.json';
+import en from "./translations/en.json";
+import hr from "./translations/hr.json";
 
 export const registerTranslations = () => {
-  addMessages('en', en);
-  addMessages('hr', hr);
-  
+  addMessages("en", en);
+  addMessages("hr", hr);
+
   init({
-    fallbackLocale: 'en',
+    fallbackLocale: "en",
     initialLocale: getLocaleFromNavigator(),
   });
-}
+};

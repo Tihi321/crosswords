@@ -1,24 +1,23 @@
 import { game } from "../store/game";
 
 export const useGame = () => {
-
   const setGameStart = () => {
     game.update((state) => ({
       ...state,
-      started: true
+      started: true,
     }));
   };
 
   const setGameEnd = () => {
     game.update((state) => ({
       ...state,
-      started: false
+      started: false,
     }));
   };
 
   return {
     startGame: setGameStart,
     endGame: setGameEnd,
-    game
-  }
-}
+    game,
+  };
+};

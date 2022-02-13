@@ -1,7 +1,7 @@
-import { writable } from 'svelte/store';
+import { writable } from "svelte/store";
 
 export const apiWords = writable({
-  words: []
+  words: [],
 });
 export const crossWord = writable({
   table: [],

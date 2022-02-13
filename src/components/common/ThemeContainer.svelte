@@ -33,12 +33,14 @@
   }
 
   .styles {
-    @include add-custom-variables($theme-colors, shared, color);
+    @include add-map-modifiers($theme-colors, shared, color);
     &.light-theme {
-      @include add-custom-variables($theme-colors, light, color);
+      @include add-map-modifiers($theme-colors, light, color);
     }
     &.dark-theme {
-      @include add-custom-variables($theme-colors, dark, color);
+      @include add-map-modifiers($theme-colors, dark, color);
     }
+
+    @include add-map-modifiers(map-get-strict($theme-colors, libraries), ts-components, color);
   }
 </style>

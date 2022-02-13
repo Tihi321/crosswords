@@ -1,12 +1,11 @@
 <script lang="ts">
   import get from "lodash/get";
   import { t } from "svelte-i18n";
-  import Dropdown from "../select/Dropdown.svelte";
+  import { Dropdown } from "ts-components-library";
 
   import { ELanguages } from "../../constants";
   import { getLocalizedEndpoint } from "../../utils";
   import { useTranslations, useSettings, useApiWords } from "../../hooks";
-  import type { TDropdownItems, TDropdownItem } from "../../types";
 
   const { setCroatian, setEnglish, locale } = useTranslations();
   const { settings } = useSettings();
@@ -21,9 +20,9 @@
   $: selectedItem = {
     id: language,
     value: language === ELanguages.Croatian ? $t("languages.croatian") : $t("languages.english"),
-  } as TDropdownItem;
+  };
 
-  const languageItems: TDropdownItems = [
+  const languageItems = [
     {
       id: ELanguages.Croatian,
       value: $t("languages.croatian"),
@@ -41,7 +40,7 @@
   });
 
   const onChange = (event) => {
-    const item = event.detail as TDropdownItem;
+    const item = event.detail;
     if (item.id === ELanguages.Croatian) {
       setCroatian();
     } else {

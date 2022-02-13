@@ -1,29 +1,29 @@
-import isEqual from "lodash/isEqual";
 import filter from "lodash/filter";
+import isEqual from "lodash/isEqual";
 import uniqBy from "lodash/uniqBy";
-import { modals } from "../store/modals";
+
 import type { EModals } from "../constants";
+import { modals } from "../store/modals";
 
 export const useModals = () => {
-
   const closeModals = () => {
     modals.update((state) => ({
       ...state,
-      active: []
+      active: [],
     }));
   };
 
   const openModal = (name: EModals) => {
     modals.update((state) => ({
       ...state,
-      active: uniqBy([...state.active, name])
+      active: uniqBy([...state.active, name]),
     }));
   };
 
   const closeModal = (name: EModals) => {
     modals.update((state) => ({
       ...state,
-      active: filter(state.active, activeName => !isEqual(activeName, name))
+      active: filter(state.active, (activeName) => !isEqual(activeName, name)),
     }));
   };
 
@@ -31,6 +31,6 @@ export const useModals = () => {
     closeModals,
     closeModal,
     openModal,
-    modals
-  }
-}
+    modals,
+  };
+};

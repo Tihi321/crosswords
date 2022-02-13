@@ -1,48 +1,58 @@
-import uniqBy from "lodash/uniqBy"
-import forEach from "lodash/forEach"
+import forEach from "lodash/forEach";
 import get from "lodash/get";
 import lowerCase from "lodash/lowerCase";
-import type { TDetail, TDetails, TLettersInfo, TWordInfo, TWordObject, TWordsInfo, TWordRowInfo } from "../types";
+import uniqBy from "lodash/uniqBy";
+
 import { ECrosswordType } from "../constants";
+import type {
+  TDetail,
+  TDetails,
+  TLettersInfo,
+  TWordInfo,
+  TWordObject,
+  TWordRowInfo,
+  TWordsInfo,
+} from "../types";
 
 export const generateWordObject = (word: string): TWordObject => {
   const name: string = lowerCase(get(word, ["name"]));
   const charsArray = name.split("");
 
-  return ({
+  return {
     name,
     detail: get(word, ["detail"]),
     length: charsArray.length,
     chars: charsArray,
-  })
-}
+  };
+};
 
-export const generateIndexKey = (rowIndex: number, itemIndex: number): string => `${rowIndex}-${itemIndex}`;
+export const generateIndexKey = (rowIndex: number, itemIndex: number): string =>
+  `${rowIndex}-${itemIndex}`;
 
 export const getWordsDetails = (words: TWordRowInfo[]): TDetails => {
   let details: TDetails = {};
 
   forEach(words, ({ word }: TWordRowInfo, index: number) => {
     const wordIndex = index + 1;
-  
+
     const detail: TDetail = {
       name: word.name,
       index: wordIndex,
       description: word.detail,
-      success: false
+      success: false,
     };
 
     details = {
       ...details,
-      [word.name]: detail
+      [word.name]: detail,
     };
   });
 
   return details;
-}
+};
 
 export const getWordsInformation = (words: TWordRowInfo[]): TWordsInfo => {
-  let wordsData: TWordsInfo = {}
+  let wordsData: TWordsInfo = {};
   forEach(words, ({ rowIndex, itemIndex, word, type }: TWordRowInfo, index: number) => {
     const isLeft = type === ECrosswordType.Left;
     const letters = word.name.split("");
@@ -50,31 +60,30 @@ export const getWordsInformation = (words: TWordRowInfo[]): TWordsInfo => {
     let rowIndexes: number[] = [];
     let columnIndexes: number[] = [];
 
-
-    forEach(letters, (letter: string, index: number) => {
-      if(isLeft) {
-        const letterItemIndex = itemIndex + index;
+    forEach(letters, (letter: string, letterIndex: number) => {
+      if (isLeft) {
+        const letterItemIndex = itemIndex + letterIndex;
         rowIndexes = [...rowIndexes, rowIndex];
         columnIndexes = [...columnIndexes, letterItemIndex];
         lettersData = {
           ...lettersData,
           [generateIndexKey(rowIndex, letterItemIndex)]: {
             char: letter,
-            success: false
-          }
+            success: false,
+          },
         };
       } else {
         const letterRowIndex = rowIndex + index;
 
         rowIndexes = [...rowIndexes, letterRowIndex];
         columnIndexes = [...columnIndexes, itemIndex];
-    
+
         lettersData = {
           ...lettersData,
           [generateIndexKey(letterRowIndex, itemIndex)]: {
             char: letter,
-            success: false
-          }
+            success: false,
+          },
         };
       }
     });
@@ -86,13 +95,13 @@ export const getWordsInformation = (words: TWordRowInfo[]): TWordsInfo => {
       success: false,
       rowIndex: uniqBy(rowIndexes),
       columnIndex: uniqBy(columnIndexes),
-    }
+    };
 
     wordsData = {
       ...wordsData,
-      [word.name]: wordInfo
-    }
+      [word.name]: wordInfo,
+    };
   });
 
   return wordsData;
-}
+};

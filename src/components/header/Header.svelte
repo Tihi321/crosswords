@@ -1,7 +1,6 @@
 <script lang="ts">
-  import { ETooltipPlacement, ETooltipTrigger } from "../../constants";
   import { t } from "svelte-i18n";
-  import Tooltip from "../tooltip/Tooltip.svelte";
+  import { Tooltip, ETooltipTrigger, ETooltipPlacement } from "ts-components-library";
   import Logo from "../common/Logo.svelte";
   import ThemeSwitcher from "./ThemeSwitcher.svelte";
   import LanguageSwitcher from "./LanguageSwitcher.svelte";

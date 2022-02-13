@@ -1,7 +1,8 @@
 import isUndefined from "lodash/isUndefined";
+
 import { settings } from "../store/settings";
-import { useLocalStorage } from "./useLocalStorage";
 import type { TSettingsStore } from "../types";
+import { useLocalStorage } from "./useLocalStorage";
 
 export const useSettings = () => {
   const { setLocalEndpoint, setLocalSettings, setLocalUseCustomEndpoint } = useLocalStorage();
@@ -27,18 +28,20 @@ export const useSettings = () => {
     settings.update((state) => ({
       ...state,
       endpoint: newState.endpoint || state.endpoint,
-      useCustomEndpoint: !isUndefined(newState.useCustomEndpoint) ? newState.useCustomEndpoint : state.useCustomEndpoint,
+      useCustomEndpoint: !isUndefined(newState.useCustomEndpoint)
+        ? newState.useCustomEndpoint
+        : state.useCustomEndpoint,
       numberOfRows: newState.numberOfRows || state.numberOfRows,
       numberOfColumns: newState.numberOfColumns || state.numberOfColumns,
       wordLimit: newState.wordLimit || state.wordLimit,
       skipHorizontal: newState.skipHorizontal || state.skipHorizontal,
-      skipVertical: newState.skipVertical || state.skipVertical
+      skipVertical: newState.skipVertical || state.skipVertical,
     }));
   };
 
   return {
     setEndpoint,
     setState,
-    settings
-  }
-}
+    settings,
+  };
+};

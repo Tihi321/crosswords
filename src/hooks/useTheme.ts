@@ -1,5 +1,5 @@
-import { theme } from "../store/theme";
 import { EThemes } from "../constants";
+import { theme } from "../store/theme";
 import { useLocalStorage } from "./useLocalStorage";
 
 export const useTheme = () => {
@@ -8,26 +8,26 @@ export const useTheme = () => {
   const setLightTheme = () => {
     theme.update((state) => ({
       ...state,
-      theme: EThemes.Light
+      theme: EThemes.Light,
     }));
   };
 
   const setDarkTheme = () => {
     theme.update((state) => ({
       ...state,
-      theme: EThemes.Dark
+      theme: EThemes.Dark,
     }));
   };
 
   const switchTheme = () => {
     theme.update((state) => {
-      const theme = state.theme === EThemes.Light ? EThemes.Dark : EThemes.Light;
-    
-      setLocalTheme(theme);
-      return ({
+      const newTheme = state.theme === EThemes.Light ? EThemes.Dark : EThemes.Light;
+
+      setLocalTheme(newTheme);
+      return {
         ...state,
-        theme
-      })
+        theme: newTheme,
+      };
     });
   };
 
@@ -35,6 +35,6 @@ export const useTheme = () => {
     setLightTheme,
     setDarkTheme,
     switchTheme,
-    theme
-  }
-}
+    theme,
+  };
+};

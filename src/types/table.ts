@@ -5,8 +5,7 @@ export type TCrosswordTableData = {
   details: TDetails;
   table: TCrosswordTable;
   words: TWordsInfo;
-}
-
+};
 
 export type TCrosswordWord = {
   name: string;
@@ -24,8 +23,8 @@ export type TCrosswordItem = {
   topEnd?: boolean;
 };
 
-export type TCrosswordItems = Array<TCrosswordItem>
-export type TCrosswordTable = Array<TCrosswordItems>
+export type TCrosswordItems = Array<TCrosswordItem>;
+export type TCrosswordTable = Array<TCrosswordItems>;
 
 export type TWordRowInfo = {
   rowIndex: number;

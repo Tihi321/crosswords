@@ -4,5 +4,5 @@ export enum ECrosswordInfo {
 
 export enum ECrosswordType {
   Left = "Left",
-  Top = "Top"
+  Top = "Top",
 }

@@ -1,35 +1,42 @@
-import filter from "lodash/filter"
-import map from "lodash/map"
-import forEach from "lodash/forEach"
-import isEmpty from "lodash/isEmpty"
+import filter from "lodash/filter";
+import forEach from "lodash/forEach";
+import isEmpty from "lodash/isEmpty";
+import map from "lodash/map";
 import { rangeMap } from "tsl-utils";
 
 import { ECrosswordInfo } from "../constants";
-import { getRandomArrayIndex } from "./array";
 import type { TCrosswordItem, TCrosswordItems, TCrosswordTable, TWordObject } from "./../types";
+import { getRandomArrayIndex } from "./array";
 
 type TAddWords = {
-  availableWords: TWordObject[],
-  crosswordsTable: TCrosswordTable,
-  skip: number
+  availableWords: TWordObject[];
+  crosswordsTable: TCrosswordTable;
+  skip: number;
 };
 
 type TAddWordsTable = {
-  availableWords: TWordObject[],
-  crosswordsTable: TCrosswordTable
+  availableWords: TWordObject[];
+  crosswordsTable: TCrosswordTable;
 };
 
 const emptySpace = {
   char: ECrosswordInfo.EmptySpace,
   top: ECrosswordInfo.EmptySpace,
-  left: ECrosswordInfo.EmptySpace
+  left: ECrosswordInfo.EmptySpace,
 };
 
 const skipItem = (index: number, skip: number) => index % skip !== 0;
 
-export const generateEmptyInitialTable = (numberOfRows: number, numberOfColumns: number): TCrosswordTable => rangeMap(numberOfRows, () => rangeMap(numberOfColumns, () => emptySpace));
+export const generateEmptyInitialTable = (
+  numberOfRows: number,
+  numberOfColumns: number
+): TCrosswordTable => rangeMap(numberOfRows, () => rangeMap(numberOfColumns, () => emptySpace));
 
-export const addHorizontalWords = ({ availableWords, crosswordsTable, skip } :TAddWords): TAddWordsTable => {
+export const addHorizontalWords = ({
+  availableWords,
+  crosswordsTable,
+  skip,
+}: TAddWords): TAddWordsTable => {
   let usedAvailableWords = [...availableWords];
 
   const updatedCrossword = map(crosswordsTable, (rowData: TCrosswordItems, rowIndex: number) => {
@@ -41,17 +48,24 @@ export const addHorizontalWords = ({ availableWords, crosswordsTable, skip } :TA
     if (skippedRow) {
       return rowData;
     }
-  
+
     return map(rowData, (item: TCrosswordItem, itemIndex: number) => {
-      if (usedwordLastIndex && itemIndex < usedwordLastIndex + 1 || noAvailableWords) {
+      if ((usedwordLastIndex && itemIndex < usedwordLastIndex + 1) || noAvailableWords) {
         return item;
       }
 
       const maxWordLength = numberOfItems - itemIndex;
-      const availableLengthWords = filter(availableWords, (word: TWordObject) => word.chars.length < maxWordLength);
+      const availableLengthWords = filter(
+        availableWords,
+        (word: TWordObject) => word.chars.length < maxWordLength
+      );
       if (!isEmpty(availableLengthWords)) {
-        const usedWord :TWordObject = availableLengthWords[getRandomArrayIndex(availableLengthWords)];
-        usedAvailableWords = filter(usedAvailableWords, (word: TWordObject) => word.name !== usedWord.name);
+        const usedWord: TWordObject =
+          availableLengthWords[getRandomArrayIndex(availableLengthWords)];
+        usedAvailableWords = filter(
+          usedAvailableWords,
+          (word: TWordObject) => word.name !== usedWord.name
+        );
         const usedWordLength = usedWord.name.length;
         usedwordLastIndex = itemIndex + usedWordLength;
 
@@ -60,47 +74,63 @@ export const addHorizontalWords = ({ availableWords, crosswordsTable, skip } :TA
           left: {
             name: usedWord.name,
             detail: usedWord.detail,
-            endIndex: itemIndex + usedWord.name.length
-          }
-        }
-        
+            endIndex: itemIndex + usedWord.name.length,
+          },
+        };
       } else {
         noAvailableWords = true;
         return item;
       }
-    })
-  })
+    });
+  });
 
   return {
     crosswordsTable: updatedCrossword,
-    availableWords: usedAvailableWords
+    availableWords: usedAvailableWords,
   };
-}
+};
 
-export const addVerticalWords = ({ availableWords, crosswordsTable, skip } :TAddWords): TAddWordsTable => {
+export const addVerticalWords = ({
+  availableWords,
+  crosswordsTable,
+  skip,
+}: TAddWords): TAddWordsTable => {
   let usedAvailableWords = [...availableWords];
 
   const updatedCrossword = map(crosswordsTable, (rowData: TCrosswordItems, rowIndex: number) => {
     const isFirstRow = rowIndex === 0;
-  
+
     return map(rowData, (item: TCrosswordItem, itemIndex: number) => {
       const skippedItem = skipItem(rowIndex, skip);
       const wordCanBeAdded = [];
 
-      if(item.char !== ECrosswordInfo.EmptySpace && !skippedItem) {
-        if (isFirstRow || crosswordsTable[rowIndex - 1][itemIndex].char === ECrosswordInfo.EmptySpace) {
-          const wordsWithSameFirstLetter = filter(usedAvailableWords, (word: TWordObject) => word.chars[0] === item.char);
+      if (item.char !== ECrosswordInfo.EmptySpace && !skippedItem) {
+        if (
+          isFirstRow ||
+          crosswordsTable[rowIndex - 1][itemIndex].char === ECrosswordInfo.EmptySpace
+        ) {
+          const wordsWithSameFirstLetter = filter(
+            usedAvailableWords,
+            (word: TWordObject) => word.chars[0] === item.char
+          );
 
           forEach(wordsWithSameFirstLetter, (word: TWordObject) => {
             for (let index = 0; index < word.length; index++) {
-              if (!crosswordsTable[rowIndex + index] || crosswordsTable[rowIndex + index][itemIndex].char !== ECrosswordInfo.EmptySpace && word.chars[index] !== crosswordsTable[rowIndex + index][itemIndex].char) {
+              if (
+                !crosswordsTable[rowIndex + index] ||
+                (crosswordsTable[rowIndex + index][itemIndex].char !== ECrosswordInfo.EmptySpace &&
+                  word.chars[index] !== crosswordsTable[rowIndex + index][itemIndex].char)
+              ) {
                 break;
               }
 
               if (index === word.length - 1) {
                 const outOfBottomBoundry = !crosswordsTable[rowIndex + index + 1];
-                const rowBelowEmpty = crosswordsTable[rowIndex + index + 1] && crosswordsTable[rowIndex + index + 1][itemIndex].char === ECrosswordInfo.EmptySpace;
-  
+                const rowBelowEmpty =
+                  crosswordsTable[rowIndex + index + 1] &&
+                  crosswordsTable[rowIndex + index + 1][itemIndex].char ===
+                    ECrosswordInfo.EmptySpace;
+
                 if (outOfBottomBoundry || rowBelowEmpty) {
                   wordCanBeAdded.push(word);
                 }
@@ -111,25 +141,28 @@ export const addVerticalWords = ({ availableWords, crosswordsTable, skip } :TAdd
       }
 
       if (!isEmpty(wordCanBeAdded)) {
-        const usedWord :TWordObject = wordCanBeAdded[getRandomArrayIndex(wordCanBeAdded)];
-        usedAvailableWords = filter(usedAvailableWords, (word: TWordObject) => word.name !== usedWord.name);
+        const usedWord: TWordObject = wordCanBeAdded[getRandomArrayIndex(wordCanBeAdded)];
+        usedAvailableWords = filter(
+          usedAvailableWords,
+          (word: TWordObject) => word.name !== usedWord.name
+        );
 
         return {
           ...item,
           top: {
             name: usedWord.name,
             detail: usedWord.detail,
-            endIndex: rowIndex + usedWord.name.length
-          }
-        }
+            endIndex: rowIndex + usedWord.name.length,
+          },
+        };
       } else {
         return item;
       }
-    })
-  })
+    });
+  });
 
   return {
     crosswordsTable: updatedCrossword,
-    availableWords: usedAvailableWords
+    availableWords: usedAvailableWords,
   };
-}
+};

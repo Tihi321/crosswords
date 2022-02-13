@@ -3,7 +3,7 @@
   import map from "lodash/map";
   import includes from "lodash/includes";
   import sortBy from "lodash/sortBy";
-  import Accordion from "../accordion/Accordion.svelte";
+  import { Accordion } from "ts-components-library";
 
   import type { TDetails, TDetail } from "../../types";
 

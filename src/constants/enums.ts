@@ -1,6 +1,6 @@
 export enum EThemes {
   Dark = "Dark",
-  Light = "Light"
+  Light = "Light",
 }
 
 export enum ELocalStorage {

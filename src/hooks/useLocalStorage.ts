@@ -1,10 +1,11 @@
 import isUndefined from "lodash/isUndefined";
+
 import { ELocalStorage, EThemes } from "../constants";
 import type { TSettingsStore } from "../types";
 
 const getNumberValue = (value?: string) => value && Number(value);
 const getBooleanValue = (value?: string) => value && value === "true";
-const setBooleanStringValue = (value: boolean) => value ? "true" : "false";
+const setBooleanStringValue = (value: boolean) => (value ? "true" : "false");
 
 export const useLocalStorage = () => {
   const getItem = (key: string) => localStorage.getItem(key);
@@ -17,7 +18,8 @@ export const useLocalStorage = () => {
   const setLocalEndpoint = (endpoint: string) => setItem(ELocalStorage.Endpoint, endpoint);
 
   const getLocalUseCustomEndpoint = () => getBooleanValue(getItem(ELocalStorage.UseCustomEndpoint));
-  const setLocalUseCustomEndpoint = (useEndpoint: boolean) => setItem(ELocalStorage.UseCustomEndpoint, setBooleanStringValue(useEndpoint));
+  const setLocalUseCustomEndpoint = (useEndpoint: boolean) =>
+    setItem(ELocalStorage.UseCustomEndpoint, setBooleanStringValue(useEndpoint));
 
   const getLocalLanguage = () => getItem(ELocalStorage.Language);
   const setLocalLanguage = (language: string) => setItem(ELocalStorage.Language, language);
@@ -38,7 +40,15 @@ export const useLocalStorage = () => {
   const setLocalSkipHorizontal = (skip: number) => setItem(ELocalStorage.SkipHorizontal, `${skip}`);
 
   const setLocalSettings = (newState: TSettingsStore) => {
-    const { endpoint, numberOfRows, numberOfColumns, wordLimit, skipHorizontal, skipVertical, useCustomEndpoint } = newState;
+    const {
+      endpoint,
+      numberOfRows,
+      numberOfColumns,
+      wordLimit,
+      skipHorizontal,
+      skipVertical,
+      useCustomEndpoint,
+    } = newState;
 
     if (endpoint) {
       setLocalEndpoint(endpoint);
@@ -67,8 +77,7 @@ export const useLocalStorage = () => {
     if (numberOfRows) {
       setLocalRows(numberOfRows);
     }
-  
-  }
+  };
 
   return {
     getLocalLanguage,
@@ -84,6 +93,6 @@ export const useLocalStorage = () => {
     getLocalSkipVertical,
     getLocalSkipHorizontal,
     getLocalTheme,
-    setLocalTheme
-  }
-}
+    setLocalTheme,
+  };
+};

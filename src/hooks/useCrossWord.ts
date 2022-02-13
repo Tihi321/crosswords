@@ -1,32 +1,37 @@
 import { generateSelector } from "tsl-utils";
-import {crossWord } from "../store/words";
-import type { TWordInputData, TDetails, TWordInputs, TWordsInfo } from "../types";
+
+import {
+  getCrosswordTableData,
+  getCrosswordTableDetails,
+  getCrosswordTableInputs,
+  getCrosswordTableWords,
+} from "../selectors";
+import { crossWord } from "../store/words";
+import type { TCrosswordTable, TDetails, TWordInputData, TWordInputs, TWordsInfo } from "../types";
+import { getCrosswordData } from "../utils";
 import { generateIndexKey } from "../utils/words";
-import { getCrosswordData, type TCrosswordTable } from "../utils";
-import { getCrosswordTableData, getCrosswordTableDetails, getCrosswordTableInputs, getCrosswordTableWords } from "../selectors";
 
 export const useCrossWord = () => {
-
   const resetCrossWord = () => {
     crossWord.set({
       table: [],
       details: [],
       words: [],
-      inputs: {}
+      inputs: {},
     });
   };
 
   const addCrosswordTable = (data) => {
     crossWord.update((state) => ({
       ...state,
-      table: data
+      table: data,
     }));
   };
 
   const addCrosswordDetails = (data) => {
     crossWord.update((state) => ({
       ...state,
-      details: data
+      details: data,
     }));
   };
 
@@ -38,16 +43,16 @@ export const useCrossWord = () => {
         [generateIndexKey(rowIndex, itemIndex)]: {
           value,
           rowIndex,
-          itemIndex
-        }
-      }
+          itemIndex,
+        },
+      },
     }));
   };
 
   const addCrosswordWords = (data) => {
     crossWord.update((state) => ({
       ...state,
-      words: data
+      words: data,
     }));
   };
 
@@ -56,21 +61,21 @@ export const useCrossWord = () => {
       ...state,
       words: {
         ...state.words,
-        [name]: data
-      }
+        [name]: data,
+      },
     }));
   };
 
   const generateTableData = (crossWordState) => {
     const crosswordStateSelector = generateSelector(crossWordState);
-  
+
     return getCrosswordData({
       tableData: getCrosswordTableData(crosswordStateSelector) as TCrosswordTable,
       wordDetails: getCrosswordTableDetails(crosswordStateSelector) as TDetails,
-      inputsState:  getCrosswordTableInputs(crosswordStateSelector) as TWordInputs,
-      wordsInfo: getCrosswordTableWords(crosswordStateSelector) as TWordsInfo
-    })
-  }
+      inputsState: getCrosswordTableInputs(crosswordStateSelector) as TWordInputs,
+      wordsInfo: getCrosswordTableWords(crosswordStateSelector) as TWordsInfo,
+    });
+  };
 
   return {
     resetCrossWord,
@@ -81,5 +86,5 @@ export const useCrossWord = () => {
     addCrosswordWords,
     crossWord,
     generateTableData,
-  }
-}
+  };
+};
