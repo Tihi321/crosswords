@@ -1,5 +1,7 @@
 import filter from "lodash/filter";
 import forEach from "lodash/forEach";
+import get from "lodash/get";
+import includes from "lodash/includes";
 import isEmpty from "lodash/isEmpty";
 import map from "lodash/map";
 import { rangeMap } from "tsl-utils";
@@ -37,7 +39,7 @@ export const addHorizontalWords = ({
   crosswordsTable,
   skip,
 }: TAddWords): TAddWordsTable => {
-  let usedAvailableWords = [...availableWords];
+  let usedWordsNames = [];
 
   const updatedCrossword = map(crosswordsTable, (rowData: TCrosswordItems, rowIndex: number) => {
     const skippedRow = skipItem(rowIndex, skip);
@@ -55,17 +57,20 @@ export const addHorizontalWords = ({
       }
 
       const maxWordLength = numberOfItems - itemIndex;
+
       const availableLengthWords = filter(
         availableWords,
-        (word: TWordObject) => word.chars.length < maxWordLength
+        (word: TWordObject) =>
+          word.chars.length < maxWordLength && !includes(usedWordsNames, word.name)
       );
+
       if (!isEmpty(availableLengthWords)) {
-        const usedWord: TWordObject =
-          availableLengthWords[getRandomArrayIndex(availableLengthWords)];
-        usedAvailableWords = filter(
-          usedAvailableWords,
-          (word: TWordObject) => word.name !== usedWord.name
-        );
+        const usedWord: TWordObject = get(availableLengthWords, [
+          getRandomArrayIndex(availableLengthWords),
+        ]);
+
+        usedWordsNames = [...usedWordsNames, usedWord.name];
+
         const usedWordLength = usedWord.name.length;
         usedwordLastIndex = itemIndex + usedWordLength;
 
@@ -86,7 +91,7 @@ export const addHorizontalWords = ({
 
   return {
     crosswordsTable: updatedCrossword,
-    availableWords: usedAvailableWords,
+    availableWords: filter(availableWords, (word) => !includes(usedWordsNames, word.name)),
   };
 };
 
@@ -95,7 +100,7 @@ export const addVerticalWords = ({
   crosswordsTable,
   skip,
 }: TAddWords): TAddWordsTable => {
-  let usedAvailableWords = [...availableWords];
+  let usedWordsNames = [];
 
   const updatedCrossword = map(crosswordsTable, (rowData: TCrosswordItems, rowIndex: number) => {
     const isFirstRow = rowIndex === 0;
@@ -110,8 +115,9 @@ export const addVerticalWords = ({
           crosswordsTable[rowIndex - 1][itemIndex].char === ECrosswordInfo.EmptySpace
         ) {
           const wordsWithSameFirstLetter = filter(
-            usedAvailableWords,
-            (word: TWordObject) => word.chars[0] === item.char
+            availableWords,
+            (word: TWordObject) =>
+              word.chars[0] === item.char && !includes(usedWordsNames, word.name)
           );
 
           forEach(wordsWithSameFirstLetter, (word: TWordObject) => {
@@ -141,11 +147,9 @@ export const addVerticalWords = ({
       }
 
       if (!isEmpty(wordCanBeAdded)) {
-        const usedWord: TWordObject = wordCanBeAdded[getRandomArrayIndex(wordCanBeAdded)];
-        usedAvailableWords = filter(
-          usedAvailableWords,
-          (word: TWordObject) => word.name !== usedWord.name
-        );
+        const usedWord: TWordObject = get(wordCanBeAdded, [getRandomArrayIndex(wordCanBeAdded)]);
+
+        usedWordsNames = [...usedWordsNames, usedWord.name];
 
         return {
           ...item,
@@ -163,6 +167,6 @@ export const addVerticalWords = ({
 
   return {
     crosswordsTable: updatedCrossword,
-    availableWords: usedAvailableWords,
+    availableWords: filter(availableWords, (word) => !includes(usedWordsNames, word.name)),
   };
 };

@@ -4,6 +4,7 @@
   export let letter: string;
   export let show: boolean = false;
   export let success: boolean = false;
+  export let secondary: boolean = false;
 
   const dispatch = createEventDispatcher();
 
@@ -16,7 +17,7 @@
 
 <LetterContainer>
   {#if show}
-    <div class="letter" class:success>
+    <div class="letter" class:success class:secondary>
       {letter}
     </div>
   {:else}
@@ -37,6 +38,10 @@
     justify-content: center;
     height: 100%;
     cursor: default;
+  }
+
+  .secondary {
+    background-color: $crossword-bg-secondary-color;
   }
 
   .success {

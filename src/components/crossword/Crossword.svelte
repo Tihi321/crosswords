@@ -51,10 +51,6 @@
 
   $: data = generateTableData(crosswordState);
 
-  $: {
-    console.log("data", data);
-  }
-
   onMount(() => {
     const { table, details, words } = generateCrosswordsTable({
       words: wordsData,
@@ -78,7 +74,7 @@
 {:else}
   <div class="table-container">
     <div class="table">
-      <Table successIndexes={data.successIndexes} tableData={data.tableData} on:input={onInput} />
+      <Table lettersState={data.lettersState} tableData={data.tableData} on:input={onInput} />
     </div>
     <div class="info">
       <Info details={data.wordDetails} successNames={data.successWordsNames} />

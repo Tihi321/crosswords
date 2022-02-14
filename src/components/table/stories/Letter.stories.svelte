@@ -14,6 +14,7 @@
   argTypes={{
     show: { defaultValue: false, control: "boolean" },
     success: { defaultValue: false, control: "boolean" },
+    secondary: { defaultValue: false, control: "boolean" },
   }}
 />
 

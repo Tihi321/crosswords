@@ -68,7 +68,10 @@ export const getWordsInformation = (words: TWordRowInfo[]): TWordsInfo => {
           ...lettersData,
           [generateIndexKey(rowIndex, letterItemIndex)]: {
             char: letter,
+            shownChar: letter,
             success: false,
+            used: false,
+            included: false,
           },
         };
       } else {
@@ -81,7 +84,10 @@ export const getWordsInformation = (words: TWordRowInfo[]): TWordsInfo => {
           ...lettersData,
           [generateIndexKey(letterRowIndex, itemIndex)]: {
             char: letter,
+            shownChar: letter,
             success: false,
+            used: false,
+            included: false,
           },
         };
       }
@@ -92,6 +98,7 @@ export const getWordsInformation = (words: TWordRowInfo[]): TWordsInfo => {
       name: word.name,
       letters: lettersData,
       success: false,
+      used: false,
       rowIndex: rowIndexes,
       columnIndex: columnIndexes,
     };

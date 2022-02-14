@@ -36,7 +36,10 @@ export type TDetails = {
 export type TLettersInfo = {
   [key: string]: {
     char: string;
+    shownChar: string;
     success: boolean;
+    used: boolean;
+    included: boolean;
   };
 };
 
@@ -45,6 +48,7 @@ export type TWordInfo = {
   name: string;
   letters: TLettersInfo;
   success: boolean;
+  used: boolean;
   rowIndex: number[];
   columnIndex: number[];
 };

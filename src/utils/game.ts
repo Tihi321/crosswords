@@ -1,14 +1,16 @@
 import every from "lodash/every";
 import filter from "lodash/filter";
-import flatten from "lodash/flatten";
 import get from "lodash/get";
+import includes from "lodash/includes";
+import isEmpty from "lodash/isEmpty";
 import isEqual from "lodash/isEqual";
 import lowerCase from "lodash/lowerCase";
 import map from "lodash/map";
+import reduce from "lodash/reduce";
 import size from "lodash/size";
 import { objectMap } from "tsl-utils";
 
-import type { TCrosswordTable, TDetails, TWordInputs, TWordsInfo } from "../types";
+import type { TCrosswordTable, TDetails, TLettersInfo, TWordInputs, TWordsInfo } from "../types";
 
 type TCrosswordArgs = {
   tableData: TCrosswordTable;
@@ -18,7 +20,7 @@ type TCrosswordArgs = {
 };
 
 type TCrosswordData = {
-  successIndexes: Array<Array<number>>;
+  lettersState: TLettersInfo;
   successWordsNames: string[];
   tableData: TCrosswordTable;
   wordDetails: TDetails;
@@ -28,30 +30,40 @@ type TCrosswordData = {
 const getWordsData = (wordsInfo: TWordsInfo, key: string) =>
   map(wordsInfo, (wordInfo) => get(wordInfo, [key]));
 
-const getSuccessIndexesData = (wordsInfo: TWordsInfo[]) =>
-  flatten(
-    map(wordsInfo, (wordInfo) => {
-      const columns = get(wordInfo, ["columnIndex"]);
-      const rows = get(wordInfo, ["rowIndex"]);
-
-      return map(columns, (column, index) => [get(rows, [index]), column]);
+const getLettersState = (wordsInfo: TWordsInfo): TLettersInfo =>
+  reduce(
+    map(wordsInfo, (wordInfo) => get(wordInfo, ["letters"])),
+    (result, value) => ({
+      ...result,
+      ...value,
     })
   );
 
-const updateSuccessWords = (wordsInfo: TWordsInfo, inputsState: TWordInputs): TWordsInfo =>
+const updateWordsData = (wordsInfo: TWordsInfo, inputsState: TWordInputs): TWordsInfo =>
   objectMap(wordsInfo, (values) => {
-    const updatedLettersWithSuccess = objectMap(get(values, ["letters"]), (value, key) => ({
-      ...value,
-      success: isEqual(
-        lowerCase(get(inputsState, [key, "value"])),
-        lowerCase(get(value, ["char"]))
-      ),
-    }));
+    const word = get(values, ["name"]);
+
+    const updatedLetters = objectMap(get(values, ["letters"]), (value, key) => {
+      const inputUsed = !isEmpty(get(inputsState, [key, "value"]));
+
+      return {
+        ...value,
+        shownChar: inputUsed ? get(inputsState, [key, "value"]) : get(value, ["char"]),
+        used: inputUsed,
+        included:
+          inputUsed && includes(lowerCase(word), lowerCase(get(inputsState, [key, "value"]))),
+        success: isEqual(
+          lowerCase(get(inputsState, [key, "value"])),
+          lowerCase(get(value, ["char"]))
+        ),
+      };
+    });
 
     return {
       ...values,
-      letters: updatedLettersWithSuccess,
-      success: every(updatedLettersWithSuccess, (value) => get(value, ["success"])),
+      letters: updatedLetters,
+      used: every(updatedLetters, (value) => get(value, ["used"])),
+      success: every(updatedLetters, (value) => get(value, ["success"])),
     };
   }) as TWordsInfo;
 
@@ -61,12 +73,13 @@ export const getCrosswordData = ({
   inputsState,
   wordsInfo,
 }: TCrosswordArgs): TCrosswordData => {
-  const updatedWordsInfo = updateSuccessWords(wordsInfo, inputsState);
+  const updatedWordsInfo = updateWordsData(wordsInfo, inputsState);
   const successWordsData = filter(updatedWordsInfo, (wordInfo) => get(wordInfo, ["success"]));
+  const usedWordsData = filter(updatedWordsInfo, (wordInfo) => get(wordInfo, ["used"]));
 
   return {
     tableData,
-    successIndexes: getSuccessIndexesData(successWordsData),
+    lettersState: getLettersState(usedWordsData),
     successWordsNames: getWordsData(successWordsData, "name"),
     wordDetails,
     allWordsSuccess: isEqual(size(updatedWordsInfo), size(successWordsData)),

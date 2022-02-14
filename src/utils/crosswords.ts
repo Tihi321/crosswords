@@ -1,6 +1,6 @@
-import find from "lodash/find";
 import forEach from "lodash/forEach";
-import isEqual from "lodash/isEqual";
+import get from "lodash/get";
+import isEmpty from "lodash/isEmpty";
 import map from "lodash/map";
 
 import { ECrosswordInfo, ECrosswordType } from "../constants";
@@ -9,6 +9,7 @@ import type {
   TCrosswordItems,
   TCrosswordTable,
   TCrosswordTableData,
+  TLettersInfo,
   TSettingOptions,
   TWordArray,
   TWordRowInfo,
@@ -20,7 +21,12 @@ import {
   populateVerticalTableLetters,
 } from "./populate";
 import { addHorizontalWords, addVerticalWords, generateEmptyInitialTable } from "./table";
-import { generateWordObject, getWordsDetails, getWordsInformation } from "./words";
+import {
+  generateIndexKey,
+  generateWordObject,
+  getWordsDetails,
+  getWordsInformation,
+} from "./words";
 
 const getWordsTableData = (crosswordsTable: TCrosswordTable): TCrosswordTableData => {
   let words: TWordRowInfo[] = [];
@@ -92,20 +98,17 @@ const getWordsTableData = (crosswordsTable: TCrosswordTable): TCrosswordTableDat
   };
 };
 
-export const addShowToTableRowItemLetters = (
+export const addCharInfo = (
   tableData: TCrosswordTable,
-  successIndexes: Array<Array<number>>
+  lettersState: TLettersInfo
 ): TCrosswordTable => {
   const updatedData = map(tableData, (rowData: TCrosswordItems, rowIndex: number) =>
-    map(rowData, (itemData: TCrosswordItem, itemIndex: number) => ({
+    map(rowData, (itemData: TCrosswordItem, columnIndex: number) => ({
       ...itemData,
-      show: Boolean(
-        find(
-          successIndexes,
-          (indexPair: number[]) =>
-            isEqual(indexPair[0], rowIndex) && isEqual(indexPair[1], itemIndex)
-        )
-      ),
+      shownChar: get(lettersState, [generateIndexKey(rowIndex, columnIndex), "shownChar"]),
+      success: get(lettersState, [generateIndexKey(rowIndex, columnIndex), "success"], false),
+      included: get(lettersState, [generateIndexKey(rowIndex, columnIndex), "included"], false),
+      show: !isEmpty(get(lettersState, [generateIndexKey(rowIndex, columnIndex)])),
     }))
   );
 

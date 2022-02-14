@@ -1,10 +1,8 @@
 <script lang="ts">
-  import includes from "lodash/includes";
-  import map from "lodash/map";
   import { createEventDispatcher } from "svelte";
-  import type { TWordInputData, TCrosswordTable } from "../../types";
+  import type { TWordInputData, TCrosswordTable, TLettersInfo } from "../../types";
   import { ECrosswordInfo } from "../../constants";
-  import { addShowToTableRowItemLetters } from "../../utils";
+  import { addCharInfo } from "../../utils";
 
   import Empty from "./Empty.svelte";
   import Letter from "./Letter.svelte";
@@ -12,9 +10,9 @@
   import BasicContainer from "./BasicContainer.svelte";
 
   export let tableData: TCrosswordTable;
-  export let successIndexes: Array<Array<number>> = [];
+  export let lettersState: TLettersInfo = {};
 
-  $: tableDataWithShow = addShowToTableRowItemLetters(tableData, successIndexes) as TCrosswordTable;
+  $: tableDataWithShow = addCharInfo(tableData, lettersState) as TCrosswordTable;
 
   const dispatch = createEventDispatcher();
 
@@ -30,16 +28,17 @@
 <div class="table">
   {#each tableDataWithShow as tableRow, rowIndex}
     <div class="row">
-      {#each tableRow as { left, char, top, leftEnd, topEnd, show }, itemIndex}
+      {#each tableRow as { left, char, shownChar, top, leftEnd, topEnd, show, success, included }, itemIndex}
         {#if char === ECrosswordInfo.EmptySpace}
           <BasicContainer><Empty /></BasicContainer>
         {:else}
           <Details left={left && left} top={top && top} {leftEnd} {topEnd}
             ><Letter
               on:input={(event) => onInput({ value: event.detail.value, rowIndex, itemIndex })}
-              success={show}
+              {success}
+              secondary={included}
               {show}
-              letter={char}
+              letter={shownChar}
             /></Details
           >
         {/if}
