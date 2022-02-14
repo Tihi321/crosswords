@@ -1,7 +1,6 @@
 import forEach from "lodash/forEach";
 import get from "lodash/get";
 import lowerCase from "lodash/lowerCase";
-import uniqBy from "lodash/uniqBy";
 
 import { ECrosswordType } from "../constants";
 import type {
@@ -73,7 +72,7 @@ export const getWordsInformation = (words: TWordRowInfo[]): TWordsInfo => {
           },
         };
       } else {
-        const letterRowIndex = rowIndex + index;
+        const letterRowIndex = rowIndex + letterIndex;
 
         rowIndexes = [...rowIndexes, letterRowIndex];
         columnIndexes = [...columnIndexes, itemIndex];
@@ -93,8 +92,8 @@ export const getWordsInformation = (words: TWordRowInfo[]): TWordsInfo => {
       name: word.name,
       letters: lettersData,
       success: false,
-      rowIndex: uniqBy(rowIndexes),
-      columnIndex: uniqBy(columnIndexes),
+      rowIndex: rowIndexes,
+      columnIndex: columnIndexes,
     };
 
     wordsData = {

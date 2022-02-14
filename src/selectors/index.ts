@@ -17,11 +17,11 @@ export const getCrosswordTableInputs = (crosswordsStateSelector) =>
 export const getCrosswordTableData = (crosswordsStateSelector) =>
   combineSelector(crosswordsStateSelector, (state) => get(state, ["table"], []));
 
-export const getWordsData = (wordsStateSelector) =>
+export const getWordsDataState = (wordsStateSelector) =>
   combineSelector(wordsStateSelector, (state) => get(state, ["words"], []));
 
 export const getWordsRemovedSpacesData = (wordsStateSelector) =>
-  combineSelector(getWordsData(wordsStateSelector), (words) =>
+  combineSelector(getWordsDataState(wordsStateSelector), (words) =>
     map(words, (word) => ({
       ...word,
       name: word.name.replace(/\s/g, ""),

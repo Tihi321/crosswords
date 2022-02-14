@@ -6,7 +6,6 @@ import isEqual from "lodash/isEqual";
 import lowerCase from "lodash/lowerCase";
 import map from "lodash/map";
 import size from "lodash/size";
-import uniqBy from "lodash/uniqBy";
 import { objectMap } from "tsl-utils";
 
 import type { TCrosswordTable, TDetails, TWordInputs, TWordsInfo } from "../types";
@@ -19,8 +18,7 @@ type TCrosswordArgs = {
 };
 
 type TCrosswordData = {
-  successRowIndex: number[];
-  successColumnIndex: number[];
+  successIndexes: Array<Array<number>>;
   successWordsNames: string[];
   tableData: TCrosswordTable;
   wordDetails: TDetails;
@@ -30,8 +28,15 @@ type TCrosswordData = {
 const getWordsData = (wordsInfo: TWordsInfo, key: string) =>
   map(wordsInfo, (wordInfo) => get(wordInfo, [key]));
 
-const getUniqueFlattenWordsData = (wordsInfo: TWordsInfo, key: string) =>
-  uniqBy(flatten(getWordsData(wordsInfo, key)));
+const getSuccessIndexesData = (wordsInfo: TWordsInfo[]) =>
+  flatten(
+    map(wordsInfo, (wordInfo) => {
+      const columns = get(wordInfo, ["columnIndex"]);
+      const rows = get(wordInfo, ["rowIndex"]);
+
+      return map(columns, (column, index) => [get(rows, [index]), column]);
+    })
+  );
 
 const updateSuccessWords = (wordsInfo: TWordsInfo, inputsState: TWordInputs): TWordsInfo =>
   objectMap(wordsInfo, (values) => {
@@ -61,8 +66,7 @@ export const getCrosswordData = ({
 
   return {
     tableData,
-    successRowIndex: getUniqueFlattenWordsData(successWordsData, "rowIndex"),
-    successColumnIndex: getUniqueFlattenWordsData(successWordsData, "columnIndex"),
+    successIndexes: getSuccessIndexesData(successWordsData),
     successWordsNames: getWordsData(successWordsData, "name"),
     wordDetails,
     allWordsSuccess: isEqual(size(updatedWordsInfo), size(successWordsData)),

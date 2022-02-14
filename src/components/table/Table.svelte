@@ -2,13 +2,9 @@
   import includes from "lodash/includes";
   import map from "lodash/map";
   import { createEventDispatcher } from "svelte";
-  import type {
-    TWordInputData,
-    TCrosswordTable,
-    TCrosswordItems,
-    TCrosswordItem,
-  } from "../../types";
+  import type { TWordInputData, TCrosswordTable } from "../../types";
   import { ECrosswordInfo } from "../../constants";
+  import { addShowToTableRowItemLetters } from "../../utils";
 
   import Empty from "./Empty.svelte";
   import Letter from "./Letter.svelte";
@@ -16,15 +12,9 @@
   import BasicContainer from "./BasicContainer.svelte";
 
   export let tableData: TCrosswordTable;
-  export let rowIndexes: number[] = [];
-  export let columnIndexes: number[] = [];
+  export let successIndexes: Array<Array<number>> = [];
 
-  $: tableDataWithShow = map(tableData, (rowData: TCrosswordItems, rowIndex: number) =>
-    map(rowData, (itemData: TCrosswordItem, itemIndex: number) => ({
-      ...itemData,
-      show: includes(rowIndexes, rowIndex) && includes(columnIndexes, itemIndex),
-    }))
-  ) as TCrosswordTable;
+  $: tableDataWithShow = addShowToTableRowItemLetters(tableData, successIndexes) as TCrosswordTable;
 
   const dispatch = createEventDispatcher();
 

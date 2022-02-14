@@ -1,4 +1,6 @@
+import find from "lodash/find";
 import forEach from "lodash/forEach";
+import isEqual from "lodash/isEqual";
 import map from "lodash/map";
 
 import { ECrosswordInfo, ECrosswordType } from "../constants";
@@ -20,7 +22,7 @@ import {
 import { addHorizontalWords, addVerticalWords, generateEmptyInitialTable } from "./table";
 import { generateWordObject, getWordsDetails, getWordsInformation } from "./words";
 
-const getWordsData = (crosswordsTable: TCrosswordTable): TCrosswordTableData => {
+const getWordsTableData = (crosswordsTable: TCrosswordTable): TCrosswordTableData => {
   let words: TWordRowInfo[] = [];
   let updatedCrosswordTable = [...crosswordsTable];
 
@@ -90,6 +92,26 @@ const getWordsData = (crosswordsTable: TCrosswordTable): TCrosswordTableData => 
   };
 };
 
+export const addShowToTableRowItemLetters = (
+  tableData: TCrosswordTable,
+  successIndexes: Array<Array<number>>
+): TCrosswordTable => {
+  const updatedData = map(tableData, (rowData: TCrosswordItems, rowIndex: number) =>
+    map(rowData, (itemData: TCrosswordItem, itemIndex: number) => ({
+      ...itemData,
+      show: Boolean(
+        find(
+          successIndexes,
+          (indexPair: number[]) =>
+            isEqual(indexPair[0], rowIndex) && isEqual(indexPair[1], itemIndex)
+        )
+      ),
+    }))
+  );
+
+  return updatedData;
+};
+
 type TGenerateCrossword = {
   words: TWordArray;
   settings: TSettingOptions;
@@ -111,6 +133,7 @@ export const generateCrosswordsTable = ({
       crosswordsTable: emptyTable,
       skip: skipHorizontal,
     });
+
   const populatedHorizontalTable = populateHorizontalTableLetters(horizontalWordTable);
 
   const { crosswordsTable: verticalWordTable } = addVerticalWords({
@@ -120,5 +143,5 @@ export const generateCrosswordsTable = ({
   });
   const populatedTable = populateVerticalTableLetters(verticalWordTable);
 
-  return getWordsData(populatedTable);
+  return getWordsTableData(populatedTable);
 };

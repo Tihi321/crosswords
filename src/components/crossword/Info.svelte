@@ -24,7 +24,7 @@
     {#each wordsDetails as { index, description, success, name }}
       <li class="row">
         <div class="index" class:success>{index}</div>
-        <div class="description">{description} ({name.length}) - {name}</div>
+        <div class="description">{description} ({name.length})</div>
       </li>
     {/each}
   </ul>
