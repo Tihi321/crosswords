@@ -32,6 +32,7 @@
     border-radius: 5px;
     display: grid;
     grid-template-rows: min-content 1fr min-content;
+    filter: $shadow-color-filter;
   }
   .content {
     padding: 15px;

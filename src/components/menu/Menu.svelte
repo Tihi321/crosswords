@@ -48,7 +48,7 @@
   .logo {
     @extend %flex-centered;
     padding: 50px;
-    font-size: 50px;
+    font-size: $huge-font-size;
     font-weight: bold;
     border: 5px solid $font-color;
     justify-self: flex-start;

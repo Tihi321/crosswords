@@ -1,6 +1,6 @@
 <script lang="ts">
   import BasicContainer from "./BasicContainer.svelte";
-  import { Tooltip, ETooltipPlacement } from "ts-components-library";
+  import { Tooltip } from "ts-components-library";
   import type { TCrosswordWord } from "../../types";
 
   export let left: TCrosswordWord = undefined;
@@ -16,7 +16,7 @@
 <div class="container" class:top-detail={Boolean(top)} class:left-detail={Boolean(left)}>
   <BasicContainer class="details">
     {#if topIndex}
-      <Tooltip hideArrow placement={ETooltipPlacement.Bottom}>
+      <Tooltip hideArrow placement="Bottom">
         <span slot="tooltip">
           {top.detail}
         </span>
@@ -29,7 +29,7 @@
       <slot />
     </div>
     {#if leftIndex}
-      <Tooltip hideArrow placement={ETooltipPlacement.Bottom}>
+      <Tooltip hideArrow placement="Bottom">
         <span slot="tooltip">
           {left.detail}
         </span>
@@ -74,7 +74,7 @@
   .detail {
     position: absolute;
     z-index: 1;
-    font-size: $detail-font-size;
+    font-size: $tiny-font-size;
     background-color: $crossword-details-bg-color;
     color: $crossword-details-color;
     border-radius: 50%;

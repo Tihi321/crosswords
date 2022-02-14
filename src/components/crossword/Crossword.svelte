@@ -14,6 +14,7 @@
   import { useApiWords, useCrossWord, useSettings } from "../../hooks";
   import type { TWordArray } from "../../types";
   import Table from "../table/Table.svelte";
+  import Victory from "./Victory.svelte";
   import Info from "./Info.svelte";
 
   const { apiWords } = useApiWords();
@@ -50,7 +51,7 @@
 
   $: data = generateTableData(crosswordState);
 
-  onMount(() => {
+  const generatenewCrossword = () => {
     const { table, details, words } = generateCrosswordsTable({
       words: wordsData,
       settings: settingsData,
@@ -59,30 +60,43 @@
     addCrosswordWords(words);
     addCrosswordDetails(details);
     addCrosswordTable(table);
-  });
+  };
+
+  onMount(() => generatenewCrossword());
 
   const onInput = (event: any) => {
     updateCrosswordInput(event.detail as TWordInputData);
   };
 </script>
 
-<div class="container">
-  <div class="table">
-    <Table
-      rowIndexes={data.successRowIndex}
-      columnIndexes={data.successColumnIndex}
-      tableData={data.tableData}
-      on:input={onInput}
-    />
+{#if data.allWordsSuccess}
+  <div class="center">
+    <Victory />
   </div>
-  <div class="info">
-    <Info details={data.wordDetails} successNames={data.successWordsNames} />
+{:else}
+  <div class="table-container">
+    <div class="table">
+      <Table
+        rowIndexes={data.successRowIndex}
+        columnIndexes={data.successColumnIndex}
+        tableData={data.tableData}
+        on:input={onInput}
+      />
+    </div>
+    <div class="info">
+      <Info details={data.wordDetails} successNames={data.successWordsNames} />
+    </div>
   </div>
-</div>
+{/if}
 
 <style lang="scss">
   @import "src/styles/all";
-  .container {
+
+  .center {
+    @extend %flex-centered;
+  }
+
+  .table-container {
     height: 100%;
     display: flex;
     justify-content: space-around;

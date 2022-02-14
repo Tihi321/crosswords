@@ -1,7 +1,19 @@
 {
   "title": "Crosswords",
   "game": {
-    "details_title": "Details"
+    "details_title": "Details",
+    "restart": "Restart",
+    "share": "Share"
+  },
+  "victory": {
+    "large_title": "Huge Victory",
+    "title": "Victory",
+    "intro": "You have succesfully finshed",
+    "size": "medium size crossword of",
+    "large_size": "large crossword of",
+    "rows": "rows and",
+    "columns": "columns, with",
+    "words_pool": "words in a pool."
   },
   "header": {
     "back_to_menu": "Back to menu",

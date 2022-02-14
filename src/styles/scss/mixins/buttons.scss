@@ -4,9 +4,9 @@
   font-weight: bold;
 
   @if $size == "small" {
-    font-size: $contrast-button-font-small-size;
+    font-size: $default-font-size;
   } @else {
-    font-size: $contrast-button-font-size;
+    font-size: $big-font-size;
   }
 
   &:hover {

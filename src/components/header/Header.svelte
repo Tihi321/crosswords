@@ -1,6 +1,6 @@
 <script lang="ts">
   import { t } from "svelte-i18n";
-  import { Tooltip, ETooltipTrigger, ETooltipPlacement } from "ts-components-library";
+  import { Tooltip } from "ts-components-library";
   import Logo from "../common/Logo.svelte";
   import ThemeSwitcher from "./ThemeSwitcher.svelte";
   import LanguageSwitcher from "./LanguageSwitcher.svelte";
@@ -23,7 +23,7 @@
     </div>
     <div class="theme-container">
       {#if gameStarted}
-        <Tooltip placement={ETooltipPlacement.Top} trigger={ETooltipTrigger.Hover}>
+        <Tooltip placement="Top">
           <span slot="tooltip">
             <div class="tooltip">{$t("header.back_to_menu_tooltip")}</div>
           </span>

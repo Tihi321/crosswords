@@ -26,6 +26,10 @@
         <span class="label">{$t("about.repository")}</span>
         : <a href="https://github.com/Tihi321/crosswords" target="_blank">Github</a>
       </li>
+      <li>
+        <span class="label">e-mail</span>
+        : <a href="mailto:tknox.dr@gmail.com" target="_blank">tknox.dr@gmail.com</a>
+      </li>
     </ul>
   </div>
 </ModalWindow>

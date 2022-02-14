@@ -1,7 +1,19 @@
 {
   "title": "Kržaljke",
   "game": {
-    "details_title": "Detalji"
+    "details_title": "Detalji",
+    "restart": "Igraj ponovo",
+    "share": "Podjeli"
+  },
+  "victory": {
+    "large_title": "Velika pobjeda",
+    "title": "Pobjeda",
+    "intro": "Uspješno si prešao/la",
+    "size": "srednje veliku križaljku sa",
+    "large_size": "veliku križaljku sa",
+    "rows": "redova i",
+    "columns": "stupaca, i fondom od",
+    "words_pool": "riječi."
   },
   "header": {
     "back_to_menu": "Natrag na meni",

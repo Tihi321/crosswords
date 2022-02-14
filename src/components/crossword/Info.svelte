@@ -24,7 +24,7 @@
     {#each wordsDetails as { index, description, success, name }}
       <li class="row">
         <div class="index" class:success>{index}</div>
-        <div class="description">{description} ({name.length})</div>
+        <div class="description">{description} ({name.length}) - {name}</div>
       </li>
     {/each}
   </ul>
@@ -35,7 +35,7 @@
   .info {
     border-radius: 10px;
     margin: 0;
-    font-size: 14px;
+    font-size: $small-font-size;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   }

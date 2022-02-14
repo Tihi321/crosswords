@@ -3,6 +3,8 @@ import map from "lodash/map";
 import shuffle from "lodash/shuffle";
 import { combineSelector } from "tsl-utils";
 
+import { ECrosswordSize } from "../constants";
+
 export const getCrosswordTableWords = (crosswordsStateSelector) =>
   combineSelector(crosswordsStateSelector, (state) => get(state, ["words"], []));
 
@@ -36,4 +38,8 @@ export const getSettingOptions = (settingsStateSelector) =>
     wordLimit: get(state, ["wordLimit"]),
     skipHorizontal: get(state, ["skipHorizontal"]),
     skipVertical: get(state, ["skipVertical"]),
+    crosswordSize:
+      get(state, ["numberOfRows"]) * get(state, ["numberOfColumns"]) > 350
+        ? ECrosswordSize.Large
+        : ECrosswordSize.Medium,
   }));

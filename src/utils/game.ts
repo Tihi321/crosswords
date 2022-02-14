@@ -5,6 +5,7 @@ import get from "lodash/get";
 import isEqual from "lodash/isEqual";
 import lowerCase from "lodash/lowerCase";
 import map from "lodash/map";
+import size from "lodash/size";
 import uniqBy from "lodash/uniqBy";
 import { objectMap } from "tsl-utils";
 
@@ -23,6 +24,7 @@ type TCrosswordData = {
   successWordsNames: string[];
   tableData: TCrosswordTable;
   wordDetails: TDetails;
+  allWordsSuccess: boolean;
 };
 
 const getWordsData = (wordsInfo: TWordsInfo, key: string) =>
@@ -63,5 +65,6 @@ export const getCrosswordData = ({
     successColumnIndex: getUniqueFlattenWordsData(successWordsData, "columnIndex"),
     successWordsNames: getWordsData(successWordsData, "name"),
     wordDetails,
+    allWordsSuccess: isEqual(size(updatedWordsInfo), size(successWordsData)),
   };
 };
