@@ -14,7 +14,6 @@
   import { useApiWords, useCrossWord, useSettings } from "../../hooks";
   import type { TWordArray } from "../../types";
   import Table from "../table/Table.svelte";
-  import Victory from "./Victory.svelte";
   import Info from "./Info.svelte";
 
   const { apiWords } = useApiWords();
@@ -67,27 +66,23 @@
   };
 </script>
 
-{#if data.allWordsSuccess}
-  <div class="center">
-    <Victory />
+<div class="table-container">
+  <div class="table">
+    <Table
+      wordsUsed={data.allWordsUsed}
+      gameSuccess={data.allWordsSuccess}
+      lettersState={data.lettersState}
+      tableData={data.tableData}
+      on:input={onInput}
+    />
   </div>
-{:else}
-  <div class="table-container">
-    <div class="table">
-      <Table lettersState={data.lettersState} tableData={data.tableData} on:input={onInput} />
-    </div>
-    <div class="info">
-      <Info details={data.wordDetails} successNames={data.successWordsNames} />
-    </div>
+  <div class="info">
+    <Info details={data.wordDetails} successNames={data.successWordsNames} />
   </div>
-{/if}
+</div>
 
 <style lang="scss">
   @import "src/styles/all";
-
-  .center {
-    @extend %flex-centered;
-  }
 
   .table-container {
     height: 100%;

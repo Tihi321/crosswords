@@ -28,6 +28,13 @@ export const useCrossWord = () => {
     }));
   };
 
+  const addCrosswordInputs = (data) => {
+    crossWord.update((state) => ({
+      ...state,
+      inputs: data,
+    }));
+  };
+
   const addCrosswordDetails = (data) => {
     crossWord.update((state) => ({
       ...state,
@@ -79,6 +86,7 @@ export const useCrossWord = () => {
 
   return {
     resetCrossWord,
+    addCrosswordInputs,
     addCrosswordDetails,
     addCrosswordTable,
     updateCrosswordInput,

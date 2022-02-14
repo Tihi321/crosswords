@@ -4,6 +4,7 @@ export * from "./useCrossWord";
 export * from "./useTranslations";
 export * from "./useLocalSettings";
 export * from "./useWords";
+export * from "./useRetryModal";
 export * from "./useTheme";
 export * from "./useModals";
 export * from "./useSettings";

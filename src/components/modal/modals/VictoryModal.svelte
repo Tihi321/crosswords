@@ -1,22 +1,29 @@
 <script lang="ts">
   import { t } from "svelte-i18n";
   import { generateSelector } from "tsl-utils";
-  import { generateCrosswordsTable, copyToClipboard } from "../../utils";
-  import { ECrosswordSize } from "../../constants";
+  import { generateCrosswordsTable, copyToClipboard } from "../../../utils";
+  import { ECrosswordSize } from "../../../constants";
 
-  import { getRandomizedWordsData, getSettingOptions } from "../../selectors";
-  import type { TSettingsStore, TSettingOptions, TWordArray } from "../../types";
+  import {
+    getRandomizedWordsData,
+    getSettingOptions,
+    getNumberOfRetries,
+  } from "../../../selectors";
+  import type { TSettingsStore, TSettingOptions, TWordArray, TGameStore } from "../../../types";
 
-  import { useApiWords, useCrossWord, useSettings } from "../../hooks";
-  import StarIcon from "../icons/StarIcon.svelte";
-  import RestartIcon from "../icons/RestartIcon.svelte";
-  import ShareIcon from "../icons/ShareIcon.svelte";
+  import { useApiWords, useCrossWord, useSettings, useGame } from "../../../hooks";
+  import StarIcon from "../../icons/StarIcon.svelte";
+  import RestartIcon from "../../icons/RestartIcon.svelte";
+  import ShareIcon from "../../icons/ShareIcon.svelte";
 
   const { apiWords } = useApiWords();
   const { settings } = useSettings();
   const { addCrosswordTable, addCrosswordDetails, addCrosswordWords, resetCrossWord } =
     useCrossWord();
 
+  const { game } = useGame();
+
+  let gameState: TGameStore;
   let settingsState: TSettingsStore;
   let apiWordsState: any;
 
@@ -27,6 +34,14 @@
   settings.subscribe((value: TSettingsStore) => {
     settingsState = value;
   });
+
+  game.subscribe((value: TGameStore) => {
+    gameState = value;
+  });
+
+  $: gameStateSelector = generateSelector(gameState);
+
+  $: numberRetries = getNumberOfRetries(gameStateSelector) as number;
 
   $: wordsStateSelector = generateSelector(apiWordsState);
   $: settingsStateSelector = generateSelector(settingsState);
@@ -61,37 +76,46 @@
   };
 </script>
 
-<div class="victory">
-  <h2 class="title">{$t(isLargeSizeCrossword ? "victory.large_title" : "victory.title")}</h2>
-  <div class="description">
-    <div class="star">
-      <StarIcon />
-    </div>
-    <p class="message">
-      {$t("victory.intro")}
-      {$t(isLargeSizeCrossword ? "victory.large_size" : "victory.size")}
-      {settingsData.numberOfRows}
-      {$t("victory.rows")}
-      {settingsData.numberOfColumns}
-      {$t("victory.columns")}
-      {settingsData.wordLimit}
-      {$t("victory.words_pool")}
-    </p>
-    <div class="buttons">
-      <button class="btn share" on:click={shareStats}>
-        <ShareIcon />
-        <div class="btn-text">{$t("game.share")}</div>
-      </button>
-      <button class="btn restart" on:click={resetGame}>
-        <RestartIcon />
-        <div class="btn-text">{$t("game.restart")}</div>
-      </button>
+<div class="backdrop">
+  <div class="victory">
+    <h2 class="title">{$t(isLargeSizeCrossword ? "victory.large_title" : "victory.title")}</h2>
+    <div class="description">
+      <div class="star">
+        <StarIcon />
+      </div>
+      <p class="message">
+        Retries {numberRetries}
+        {$t("victory.intro")}
+        {$t(isLargeSizeCrossword ? "victory.large_size" : "victory.size")}
+        {settingsData.numberOfRows}
+        {$t("victory.rows")}
+        {settingsData.numberOfColumns}
+        {$t("victory.columns")}
+        {settingsData.wordLimit}
+        {$t("victory.words_pool")}
+      </p>
+      <div class="buttons">
+        <button class="btn share" on:click={shareStats}>
+          <ShareIcon />
+          <div class="btn-text">{$t("game.share")}</div>
+        </button>
+        <button class="btn restart" on:click={resetGame}>
+          <RestartIcon />
+          <div class="btn-text">{$t("game.restart")}</div>
+        </button>
+      </div>
     </div>
   </div>
 </div>
 
 <style lang="scss">
   @import "src/styles/all";
+
+  .backdrop {
+    @extend %flex-centered;
+    width: 100%;
+    height: 100%;
+  }
 
   .victory {
     background-color: $victory-bg-color;

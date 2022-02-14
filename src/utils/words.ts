@@ -1,6 +1,5 @@
 import forEach from "lodash/forEach";
 import get from "lodash/get";
-import lowerCase from "lodash/lowerCase";
 
 import { ECrosswordType } from "../constants";
 import type {
@@ -14,7 +13,7 @@ import type {
 } from "../types";
 
 export const generateWordObject = (word: string): TWordObject => {
-  const name: string = lowerCase(get(word, ["name"]));
+  const name: string = get(word, ["name"]);
   const charsArray = name.split("");
 
   return {

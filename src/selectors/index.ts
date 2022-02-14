@@ -1,9 +1,13 @@
 import get from "lodash/get";
+import lowerCase from "lodash/lowerCase";
 import map from "lodash/map";
 import shuffle from "lodash/shuffle";
 import { combineSelector } from "tsl-utils";
 
 import { ECrosswordSize } from "../constants";
+
+export const getNumberOfRetries = (gameStateSelector) =>
+  combineSelector(gameStateSelector, (state) => get(state, ["retries"], []));
 
 export const getCrosswordTableWords = (crosswordsStateSelector) =>
   combineSelector(crosswordsStateSelector, (state) => get(state, ["words"], []));
@@ -24,7 +28,7 @@ export const getWordsRemovedSpacesData = (wordsStateSelector) =>
   combineSelector(getWordsDataState(wordsStateSelector), (words) =>
     map(words, (word) => ({
       ...word,
-      name: word.name.replace(/\s/g, ""),
+      name: lowerCase(word.name.replace(/\s/g, "")),
     }))
   );
 

@@ -8,9 +8,16 @@ import lowerCase from "lodash/lowerCase";
 import map from "lodash/map";
 import reduce from "lodash/reduce";
 import size from "lodash/size";
-import { objectMap } from "tsl-utils";
+import { objectFilter, objectMap } from "tsl-utils";
 
-import type { TCrosswordTable, TDetails, TLettersInfo, TWordInputs, TWordsInfo } from "../types";
+import type {
+  TCrosswordTable,
+  TDetails,
+  TLettersInfo,
+  TWordInfo,
+  TWordInputs,
+  TWordsInfo,
+} from "../types";
 
 type TCrosswordArgs = {
   tableData: TCrosswordTable;
@@ -24,13 +31,14 @@ type TCrosswordData = {
   successWordsNames: string[];
   tableData: TCrosswordTable;
   wordDetails: TDetails;
+  allWordsUsed: boolean;
   allWordsSuccess: boolean;
 };
 
 const getWordsData = (wordsInfo: TWordsInfo, key: string) =>
   map(wordsInfo, (wordInfo) => get(wordInfo, [key]));
 
-const getLettersState = (wordsInfo: TWordsInfo): TLettersInfo =>
+const getLettersState = (wordsInfo: TWordInfo[]): TLettersInfo =>
   reduce(
     map(wordsInfo, (wordInfo) => get(wordInfo, ["letters"])),
     (result, value) => ({
@@ -50,12 +58,8 @@ const updateWordsData = (wordsInfo: TWordsInfo, inputsState: TWordInputs): TWord
         ...value,
         shownChar: inputUsed ? get(inputsState, [key, "value"]) : get(value, ["char"]),
         used: inputUsed,
-        included:
-          inputUsed && includes(lowerCase(word), lowerCase(get(inputsState, [key, "value"]))),
-        success: isEqual(
-          lowerCase(get(inputsState, [key, "value"])),
-          lowerCase(get(value, ["char"]))
-        ),
+        included: inputUsed && includes(word, lowerCase(get(inputsState, [key, "value"]))),
+        success: isEqual(lowerCase(get(inputsState, [key, "value"])), get(value, ["char"])),
       };
     });
 
@@ -77,11 +81,37 @@ export const getCrosswordData = ({
   const successWordsData = filter(updatedWordsInfo, (wordInfo) => get(wordInfo, ["success"]));
   const usedWordsData = filter(updatedWordsInfo, (wordInfo) => get(wordInfo, ["used"]));
 
+  const updatedWordsNotEmpty = !isEqual(size(updatedWordsInfo), 0);
+
   return {
     tableData,
+    wordDetails,
     lettersState: getLettersState(usedWordsData),
     successWordsNames: getWordsData(successWordsData, "name"),
-    wordDetails,
-    allWordsSuccess: isEqual(size(updatedWordsInfo), size(successWordsData)),
+    allWordsUsed: updatedWordsNotEmpty && isEqual(size(updatedWordsInfo), size(usedWordsData)),
+    allWordsSuccess:
+      updatedWordsNotEmpty && isEqual(size(updatedWordsInfo), size(successWordsData)),
   };
+};
+
+export const getSuccessWordsData = (
+  wordsInfo: TWordsInfo,
+  inputsState: TWordInputs
+): TWordInfo[] => {
+  const updatedWordsInfo = updateWordsData(wordsInfo, inputsState);
+
+  return filter(updatedWordsInfo, (wordInfo) => get(wordInfo, ["success"]));
+};
+
+export const getSuccessFilledInputState = (
+  wordsInfo: TWordsInfo,
+  inputsState: TWordInputs
+): TWordInputs => {
+  const successWordsData = getSuccessWordsData(wordsInfo, inputsState);
+  const successWordsLetterState = getLettersState(successWordsData);
+
+  return objectFilter(
+    inputsState,
+    (_, key) => !isEmpty(get(successWordsLetterState, [key]))
+  ) as TWordInputs;
 };

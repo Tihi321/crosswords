@@ -15,6 +15,9 @@
     "columns": "columns, with",
     "words_pool": "words in a pool."
   },
+  "retry": {
+    "title": "Retry"
+  },
   "header": {
     "back_to_menu": "Back to menu",
     "back_to_menu_tooltip": "Will stop the game and return to main menu"

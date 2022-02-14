@@ -1,8 +1,11 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
   import type { TWordInputData, TCrosswordTable, TLettersInfo } from "../../types";
-  import { ECrosswordInfo } from "../../constants";
+  import { ECrosswordInfo, EModals } from "../../constants";
   import { addCharInfo } from "../../utils";
+  import { useModals } from "../../hooks";
+
+  const { openModal } = useModals();
 
   import Empty from "./Empty.svelte";
   import Letter from "./Letter.svelte";
@@ -11,6 +14,20 @@
 
   export let tableData: TCrosswordTable;
   export let lettersState: TLettersInfo = {};
+  export let wordsUsed: boolean = false;
+  export let gameSuccess: boolean = false;
+
+  $: {
+    if (wordsUsed && !gameSuccess) {
+      openModal(EModals.Retry);
+    }
+  }
+
+  $: {
+    if (gameSuccess) {
+      openModal(EModals.Victory);
+    }
+  }
 
   $: tableDataWithShow = addCharInfo(tableData, lettersState) as TCrosswordTable;
 

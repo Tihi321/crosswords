@@ -17,6 +17,8 @@ export enum ELocalStorage {
 
 export enum EModals {
   Settings = "settings",
+  Retry = "retry",
+  Victory = "victory",
   About = "about",
 }
 

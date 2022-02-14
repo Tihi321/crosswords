@@ -19,6 +19,11 @@ export type TCrosswordStore = {
   words: any;
 };
 
+export type TGameStore = {
+  started: boolean;
+  retries: number;
+};
+
 export type TThemeStore = {
   theme: EThemes;
 };

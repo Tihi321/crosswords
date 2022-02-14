@@ -6,6 +6,8 @@
   import { EModals } from "../../constants";
   import SettingsModal from "./modals/SettingsModal.svelte";
   import AboutModal from "./modals/AboutModal.svelte";
+  import VictoryModal from "./modals/VictoryModal.svelte";
+  import RetryModal from "./modals/RetryModal.svelte";
 
   const { modals } = useModals();
 
@@ -18,9 +20,17 @@
   $: anyModalActive = !isEmpty(activeModals);
   $: activeSettingsModal = includes(activeModals, EModals.Settings);
   $: activeAboutModal = includes(activeModals, EModals.About);
+  $: activeVictoryModal = includes(activeModals, EModals.Victory);
+  $: activeRetryModal = includes(activeModals, EModals.Retry);
 </script>
 
 <div class="modals" class:active={anyModalActive}>
+  {#if activeRetryModal}
+    <RetryModal />
+  {/if}
+  {#if activeVictoryModal}
+    <VictoryModal />
+  {/if}
   {#if activeSettingsModal}
     <SettingsModal />
   {/if}
