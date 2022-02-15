@@ -7,12 +7,6 @@
   import { useGame } from "../../hooks";
 
   const { endGame, game } = useGame();
-
-  let gameStarted: boolean;
-
-  game.subscribe((value) => {
-    gameStarted = value.started;
-  });
 </script>
 
 <header class="header">
@@ -22,7 +16,7 @@
       <div class="title">{$t("title")}</div>
     </div>
     <div class="theme-container">
-      {#if gameStarted}
+      {#if $game.started}
         <Tooltip placement="Top">
           <span slot="tooltip">
             <div class="tooltip">{$t("header.back_to_menu_tooltip")}</div>

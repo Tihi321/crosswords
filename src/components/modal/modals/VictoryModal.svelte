@@ -1,69 +1,27 @@
 <script lang="ts">
   import { t } from "svelte-i18n";
-  import { generateSelector } from "tsl-utils";
-  import { generateCrosswordsTable, copyToClipboard } from "../../../utils";
-  import { ECrosswordSize } from "../../../constants";
+  import { copyToClipboard } from "../../../utils";
+  import Backdrop from "../common/Backdrop.svelte";
 
-  import {
-    getRandomizedWordsData,
-    getSettingOptions,
-    getNumberOfRetries,
-  } from "../../../selectors";
-  import type { TSettingsStore, TSettingOptions, TWordArray, TGameStore } from "../../../types";
-
-  import { useApiWords, useCrossWord, useSettings, useGame } from "../../../hooks";
+  import { useApiWords, useSettings, useGame, useVictoryModal } from "../../../hooks";
   import StarIcon from "../../icons/StarIcon.svelte";
   import RestartIcon from "../../icons/RestartIcon.svelte";
   import ShareIcon from "../../icons/ShareIcon.svelte";
 
+  export let transparent: boolean = false;
+
   const { apiWords } = useApiWords();
   const { settings } = useSettings();
-  const { addCrosswordTable, addCrosswordDetails, addCrosswordWords, resetCrossWord } =
-    useCrossWord();
-
   const { game } = useGame();
+  const { resetGame, getIsLargeVictory, getSettingsData, getNumberOfRetriesNumber } =
+    useVictoryModal();
 
-  let gameState: TGameStore;
-  let settingsState: TSettingsStore;
-  let apiWordsState: any;
+  $: numberRetries = getNumberOfRetriesNumber($game);
+  $: settingsData = getSettingsData($settings);
+  $: isLargeSizeCrossword = getIsLargeVictory($settings);
 
-  apiWords.subscribe((value) => {
-    apiWordsState = value;
-  });
-
-  settings.subscribe((value: TSettingsStore) => {
-    settingsState = value;
-  });
-
-  game.subscribe((value: TGameStore) => {
-    gameState = value;
-  });
-
-  $: gameStateSelector = generateSelector(gameState);
-
-  $: numberRetries = getNumberOfRetries(gameStateSelector) as number;
-
-  $: wordsStateSelector = generateSelector(apiWordsState);
-  $: settingsStateSelector = generateSelector(settingsState);
-  $: wordsData = getRandomizedWordsData(wordsStateSelector) as TWordArray;
-  $: settingsData = getSettingOptions(settingsStateSelector) as TSettingOptions;
-
-  $: isLargeSizeCrossword = settingsData.crosswordSize === ECrosswordSize.Large;
-
-  const generatenewCrossword = () => {
-    const { table, details, words } = generateCrosswordsTable({
-      words: wordsData,
-      settings: settingsData,
-    });
-
-    addCrosswordWords(words);
-    addCrosswordDetails(details);
-    addCrosswordTable(table);
-  };
-
-  const resetGame = () => {
-    resetCrossWord();
-    generatenewCrossword();
+  const resetGameCallback = () => {
+    resetGame($apiWords, $settings);
   };
 
   const shareStats = () => {
@@ -74,9 +32,13 @@
     } ✌`;
     copyToClipboard(message);
   };
+
+  const toggleBackdrop = () => {
+    transparent = !transparent;
+  };
 </script>
 
-<div class="backdrop">
+<Backdrop on:click={toggleBackdrop}>
   <div class="victory">
     <h2 class="title">{$t(isLargeSizeCrossword ? "victory.large_title" : "victory.title")}</h2>
     <div class="description">
@@ -99,23 +61,17 @@
           <ShareIcon />
           <div class="btn-text">{$t("game.share")}</div>
         </button>
-        <button class="btn restart" on:click={resetGame}>
+        <button class="btn restart" on:click={resetGameCallback}>
           <RestartIcon />
           <div class="btn-text">{$t("game.restart")}</div>
         </button>
       </div>
     </div>
   </div>
-</div>
+</Backdrop>
 
 <style lang="scss">
   @import "src/styles/all";
-
-  .backdrop {
-    @extend %flex-centered;
-    width: 100%;
-    height: 100%;
-  }
 
   .victory {
     background-color: $victory-bg-color;

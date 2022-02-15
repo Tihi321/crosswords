@@ -13,8 +13,8 @@ $glass-blue: linear-gradient(135deg, rgba(37, 141, 200, 1) 0%, rgba(37, 141, 200
 $glass-green: linear-gradient(135deg, rgba(143, 196, 0, 1) 0%, rgba(143, 196, 0, 1) 100%);
 
 $orange-semi-color: rgba(255, 152, 0, 0.6);
-$dusty-semi-color: rgba(153, 153, 153, 0.6);
 $cerulean-semi-color: rgba(3, 169, 244, 0.6);
+$dusty-semi-color: rgba(153, 153, 153, 0.6);
 $dove-semi-color: rgba(102, 102, 102, 0.6);
 
 $theme-colors: (
@@ -86,7 +86,8 @@ $crossword-details-effects-color: var(--tertiary-semi-color);
 $details-border-color: var(--primary-color);
 $details-success-bg-color: var(--success-color);
 
-$modal-backdrop-bg-color: var(--neutral-semi-color);
+$backdrop-bg-color: var(--neutral-semi-color);
+
 $modal-window-bg-color: var(--focus-color);
 $modal-window-items-color: var(--light-color);
 $modal-window-items-bg-color: var(--glass-color);

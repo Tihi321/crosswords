@@ -9,6 +9,7 @@
 
   export let details: TDetails = {};
   export let successNames: string[] = [];
+
   $: sortedDetails = sortBy(details, (detail: TDetail) => detail.index) as TDetail[];
   $: wordsDetails = map(sortedDetails, (details: TDetail) => ({
     ...details,

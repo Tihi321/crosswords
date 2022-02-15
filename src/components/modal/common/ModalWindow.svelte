@@ -11,7 +11,7 @@
   }
 </script>
 
-<Backdrop on:close={onClose}>
+<Backdrop on:click={onClose}>
   <div class="window">
     <h2 class="title window-item">{title}</h2>
     <div class="content">

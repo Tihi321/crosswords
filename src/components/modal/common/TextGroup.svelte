@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
   import InputGroup from "./InputGroup.svelte";
   import { Toggle } from "ts-components-library";
 
@@ -7,14 +6,12 @@
   export let value: string;
   export let toggle: boolean;
 
-  const dispatch = createEventDispatcher();
-
   const onInput = (event) => {
-    dispatch("input", event.target.value);
+    value = event.detail.value;
   };
 
   const onToggle = (event) => {
-    dispatch("toggle", event.detail.value);
+    toggle = event.detail.value;
   };
 </script>
 

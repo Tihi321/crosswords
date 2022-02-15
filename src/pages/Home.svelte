@@ -7,18 +7,12 @@
   const { game } = useGame();
   const { setLocalSettings } = useLocalSettings();
 
-  let gameStarted: boolean;
-
-  game.subscribe((value) => {
-    gameStarted = value.started;
-  });
-
   onMount(() => {
     setLocalSettings();
   });
 </script>
 
-{#if gameStarted}
+{#if $game.started}
   <Crossword />
 {:else}
   <Menu />

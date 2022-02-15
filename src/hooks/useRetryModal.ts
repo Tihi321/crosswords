@@ -1,3 +1,5 @@
+import { generateSelector } from "tsl-utils";
+
 import { EModals } from "../constants";
 import { getCrosswordTableInputs, getCrosswordTableWords } from "../selectors";
 import type { TWordInputs, TWordsInfo } from "../types";
@@ -13,7 +15,8 @@ export const useRetryModal = () => {
 
   const closeRetryModal = () => closeModal(EModals.Retry);
 
-  const resetTable = (crosswordStateSelector) => {
+  const resetTable = (crosswordState) => {
+    const crosswordStateSelector = generateSelector(crosswordState);
     const inputsState = getCrosswordTableInputs(crosswordStateSelector) as TWordInputs;
     const wordsInfo = getCrosswordTableWords(crosswordStateSelector) as TWordsInfo;
 

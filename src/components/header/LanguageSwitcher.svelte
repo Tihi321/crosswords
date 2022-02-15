@@ -11,15 +11,9 @@
   const { settings } = useSettings();
   const { fetchApiVocabularyWords } = useApiWords();
 
-  let language: string;
-
-  locale.subscribe((lang) => {
-    language = lang;
-  });
-
   $: selectedItem = {
-    id: language,
-    value: language === ELanguages.Croatian ? $t("languages.croatian") : $t("languages.english"),
+    id: $locale,
+    value: $locale === ELanguages.Croatian ? $t("languages.croatian") : $t("languages.english"),
   };
 
   const languageItems = [

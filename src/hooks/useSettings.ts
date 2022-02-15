@@ -5,6 +5,7 @@ import type { TSettingsStore } from "../types";
 import { useLocalStorage } from "./useLocalStorage";
 
 export const useSettings = () => {
+  const { subscribe, update } = settings;
   const { setLocalEndpoint, setLocalSettings, setLocalUseCustomEndpoint } = useLocalStorage();
 
   const setEndpoint = (newState: TSettingsStore) => {
@@ -16,7 +17,7 @@ export const useSettings = () => {
       setLocalUseCustomEndpoint(newState.useCustomEndpoint);
     }
 
-    settings.update((state) => ({
+    update((state) => ({
       ...state,
       endpoint: newState.endpoint || state.endpoint,
       useCustomEndpoint: newState.useCustomEndpoint || state.useCustomEndpoint,
@@ -25,7 +26,7 @@ export const useSettings = () => {
 
   const setState = (newState: TSettingsStore) => {
     setLocalSettings(newState);
-    settings.update((state) => ({
+    update((state) => ({
       ...state,
       endpoint: newState.endpoint || state.endpoint,
       useCustomEndpoint: !isUndefined(newState.useCustomEndpoint)
@@ -42,6 +43,9 @@ export const useSettings = () => {
   return {
     setEndpoint,
     setState,
-    settings,
+    settings: {
+      subscribe,
+      set: (state) => setState(state),
+    },
   };
 };

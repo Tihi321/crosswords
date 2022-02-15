@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
   import InputGroup from "./InputGroup.svelte";
 
   export let title: string;
@@ -11,23 +10,21 @@
 
   $: maxMinDiff = max - min;
 
-  const dispatch = createEventDispatcher();
-
   const onInput = (event) => {
-    dispatch("input", Number(event.target.value));
+    value = Number(event.target.value);
   };
 
   const add = (number: number) => {
     const addedNumber = value + number;
     if (addedNumber <= max || !useMax) {
-      dispatch("input", addedNumber);
+      value = addedNumber;
     }
   };
 
   const sub = (number: number) => {
     const subedNumber = value - number;
     if (subedNumber >= min) {
-      dispatch("input", subedNumber);
+      value = subedNumber;
     }
   };
 </script>

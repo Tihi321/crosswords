@@ -2,36 +2,29 @@
   import { t } from "svelte-i18n";
   import { useRetryModal, useCrossWord, useGame } from "../../../hooks";
   import RestartIcon from "../../icons/RestartIcon.svelte";
-  import type { TCrosswordStore, TGameStore } from "../../../types";
+  import Backdrop from "../common/Backdrop.svelte";
   import { generateSelector } from "tsl-utils";
   import { getNumberOfRetries } from "../../../selectors";
 
   const { crossWord } = useCrossWord();
-  const { resetTable } = useRetryModal();
   const { game } = useGame();
+  const { resetTable } = useRetryModal();
 
-  let gameState: TGameStore;
-  let crosswordState: TCrosswordStore;
+  export let transparent: boolean = false;
 
-  $: crosswordStateSelector = generateSelector(crosswordState);
-  $: gameStateSelector = generateSelector(gameState);
-
+  $: gameStateSelector = generateSelector($game);
   $: numberRetries = getNumberOfRetries(gameStateSelector) as number;
 
-  crossWord.subscribe((value: TCrosswordStore) => {
-    crosswordState = value;
-  });
-
-  game.subscribe((value: TGameStore) => {
-    gameState = value;
-  });
-
   const resetTableData = () => {
-    resetTable(crosswordStateSelector);
+    resetTable($crossWord);
+  };
+
+  const toggleBackdrop = () => {
+    transparent = !transparent;
   };
 </script>
 
-<div class="backdrop">
+<Backdrop on:click={toggleBackdrop}>
   <div class="victory">
     <h2 class="title">{$t("retry.title")}</h2>
     <div class="description">
@@ -44,16 +37,10 @@
       </div>
     </div>
   </div>
-</div>
+</Backdrop>
 
 <style lang="scss">
   @import "src/styles/all";
-
-  .backdrop {
-    @extend %flex-centered;
-    width: 100%;
-    height: 100%;
-  }
 
   .victory {
     background-color: $victory-bg-color;
