@@ -5,17 +5,10 @@ import { useLocalStorage } from "./useLocalStorage";
 export const useTheme = () => {
   const { setLocalTheme } = useLocalStorage();
 
-  const setLightTheme = () => {
+  const setTheme = (newTheme: EThemes) => {
     theme.update((state) => ({
       ...state,
-      theme: EThemes.Light,
-    }));
-  };
-
-  const setDarkTheme = () => {
-    theme.update((state) => ({
-      ...state,
-      theme: EThemes.Dark,
+      theme: newTheme,
     }));
   };
 
@@ -32,8 +25,7 @@ export const useTheme = () => {
   };
 
   return {
-    setLightTheme,
-    setDarkTheme,
+    setTheme,
     switchTheme,
     theme,
   };

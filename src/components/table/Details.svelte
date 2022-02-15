@@ -1,13 +1,15 @@
 <script lang="ts">
   import BasicContainer from "./BasicContainer.svelte";
-  import { Tooltip } from "ts-components-library";
   import type { TCrosswordWord } from "../../types";
+  import Tooltip from "./Tooltip.svelte";
 
   export let left: TCrosswordWord = undefined;
   export let top: TCrosswordWord = undefined;
 
   export let leftEnd: boolean = undefined;
   export let topEnd: boolean = undefined;
+
+  export let showDetails: boolean = true;
 
   $: leftIndex = left && left.index;
   $: topIndex = top && top.index;
@@ -16,7 +18,7 @@
 <div class="container" class:top-detail={Boolean(top)} class:left-detail={Boolean(left)}>
   <BasicContainer class="details">
     {#if topIndex}
-      <Tooltip hideArrow placement="Bottom">
+      <Tooltip show={showDetails}>
         <span slot="tooltip">
           {top.detail}
         </span>
@@ -29,7 +31,7 @@
       <slot />
     </div>
     {#if leftIndex}
-      <Tooltip hideArrow placement="Bottom">
+      <Tooltip show={showDetails}>
         <span slot="tooltip">
           {left.detail}
         </span>

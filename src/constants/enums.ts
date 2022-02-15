@@ -6,17 +6,13 @@ export enum EThemes {
 export enum ELocalStorage {
   Theme = "crossword/ts-theme",
   Language = "crossword/ts-language",
-  UseCustomEndpoint = "crossword/ts-use-custom-endpoint",
-  Endpoint = "crossword/ts-endpoint",
-  Rows = "crossword/ts-rows",
-  Columns = "crossword/ts-columns",
-  WordLimit = "crossword/ts-word-limit",
-  SkipHorizontal = "crossword/ts-skip-horizontal",
-  SkipVertical = "crossword/ts-skip-vertical",
+  DevSettings = "crossword/ts-dev-settings",
+  GameSettings = "crossword/ts-game-settings",
 }
 
 export enum EModals {
-  Settings = "settings",
+  GameSettings = "gameSettings",
+  DevSettings = "devSettings",
   Retry = "retry",
   Victory = "victory",
   About = "about",

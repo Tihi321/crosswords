@@ -3,7 +3,7 @@
   import { copyToClipboard } from "../../../utils";
   import Backdrop from "../common/Backdrop.svelte";
 
-  import { useApiWords, useSettings, useGame, useVictoryModal } from "../../../hooks";
+  import { useApiWords, useDevSettings, useGame, useVictoryModal } from "../../../hooks";
   import StarIcon from "../../icons/StarIcon.svelte";
   import RestartIcon from "../../icons/RestartIcon.svelte";
   import ShareIcon from "../../icons/ShareIcon.svelte";
@@ -11,17 +11,17 @@
   export let transparent: boolean = false;
 
   const { apiWords } = useApiWords();
-  const { settings } = useSettings();
+  const { devSettings } = useDevSettings();
   const { game } = useGame();
   const { resetGame, getIsLargeVictory, getSettingsData, getNumberOfRetriesNumber } =
     useVictoryModal();
 
   $: numberRetries = getNumberOfRetriesNumber($game);
-  $: settingsData = getSettingsData($settings);
-  $: isLargeSizeCrossword = getIsLargeVictory($settings);
+  $: settingsData = getSettingsData($devSettings);
+  $: isLargeSizeCrossword = getIsLargeVictory($devSettings);
 
   const resetGameCallback = () => {
-    resetGame($apiWords, $settings);
+    resetGame($apiWords, $devSettings);
   };
 
   const shareStats = () => {

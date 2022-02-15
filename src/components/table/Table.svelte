@@ -3,9 +3,11 @@
   import type { TWordInputData, TCrosswordTable, TLettersInfo } from "../../types";
   import { ECrosswordInfo, EModals } from "../../constants";
   import { addCharInfo } from "../../utils";
-  import { useModals } from "../../hooks";
+  import { useModals, useGameSettings } from "../../hooks";
+  import { isNotHardDifficulty } from "../../selectors";
 
   const { openModal } = useModals();
+  const { gameSettings } = useGameSettings();
 
   import Empty from "./Empty.svelte";
   import Letter from "./Letter.svelte";
@@ -16,6 +18,8 @@
   export let lettersState: TLettersInfo = {};
   export let wordsUsed: boolean = false;
   export let gameSuccess: boolean = false;
+
+  $: showWordsDetails = isNotHardDifficulty($gameSettings);
 
   $: {
     if (wordsUsed && !gameSuccess) {
@@ -49,7 +53,12 @@
         {#if char === ECrosswordInfo.EmptySpace}
           <BasicContainer><Empty /></BasicContainer>
         {:else}
-          <Details left={left && left} top={top && top} {leftEnd} {topEnd}
+          <Details
+            showDetails={showWordsDetails}
+            left={left && left}
+            top={top && top}
+            {leftEnd}
+            {topEnd}
             ><Letter
               on:input={(event) => onInput({ value: event.detail.value, rowIndex, itemIndex })}
               {success}

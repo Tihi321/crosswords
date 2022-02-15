@@ -2,19 +2,28 @@
   import { onMount } from "svelte";
   import type { TWordInputData } from "../../types";
 
-  import { useApiWords, useCrossWord, useSettings, useCrosswordGame } from "../../hooks";
+  import {
+    useApiWords,
+    useCrossWord,
+    useDevSettings,
+    useCrosswordGame,
+    useGameSettings,
+  } from "../../hooks";
+  import { isEasyDifficulty } from "../../selectors";
   import Table from "../table/Table.svelte";
   import Info from "./Info.svelte";
 
   const { apiWords } = useApiWords();
-  const { settings } = useSettings();
+  const { devSettings } = useDevSettings();
   const { generateNewCrosswordData, getTableData } = useCrosswordGame();
   const { crossWord, updateCrosswordInput } = useCrossWord();
+  const { gameSettings } = useGameSettings();
 
   $: crosswordData = getTableData($crossWord);
+  $: showWordsDetails = isEasyDifficulty($gameSettings);
 
   onMount(() => {
-    generateNewCrosswordData($apiWords, $settings);
+    generateNewCrosswordData($apiWords, $devSettings);
   });
 
   const onInput = (event: any) => {
@@ -32,9 +41,12 @@
       on:input={onInput}
     />
   </div>
-  <div class="info">
-    <Info details={crosswordData.wordDetails} successNames={crosswordData.successWordsNames} />
-  </div>
+
+  {#if showWordsDetails}
+    <div class="info">
+      <Info details={crosswordData.wordDetails} successNames={crosswordData.successWordsNames} />
+    </div>
+  {/if}
 </div>
 
 <style lang="scss">

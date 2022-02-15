@@ -1,13 +1,28 @@
 import get from "lodash/get";
+import isEqual from "lodash/isEqual";
 import lowerCase from "lodash/lowerCase";
 import map from "lodash/map";
 import shuffle from "lodash/shuffle";
 import { combineSelector } from "tsl-utils";
 
-import { ECrosswordSize } from "../constants";
+import { ECrosswordSize, EGameDifficulty } from "../constants";
+
+export const gatGameDifficulty = (gameSettingsSelector) =>
+  combineSelector(gameSettingsSelector, (state) => get(state, ["difficulty"]));
+
+export const isEasyDifficulty = (gameSettingsSelector) =>
+  combineSelector(gatGameDifficulty(gameSettingsSelector), (difficulty) =>
+    isEqual(difficulty, EGameDifficulty.Easy)
+  );
+
+export const isNotHardDifficulty = (gameSettingsSelector) =>
+  combineSelector(
+    gatGameDifficulty(gameSettingsSelector),
+    (difficulty) => !isEqual(difficulty, EGameDifficulty.Hard)
+  );
 
 export const getNumberOfRetries = (gameStateSelector) =>
-  combineSelector(gameStateSelector, (state) => get(state, ["retries"], []));
+  combineSelector(gameStateSelector, (state) => get(state, ["retries"]));
 
 export const getCrosswordTableWords = (crosswordsStateSelector) =>
   combineSelector(crosswordsStateSelector, (state) => get(state, ["words"], []));

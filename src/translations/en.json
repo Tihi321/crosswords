@@ -5,6 +5,12 @@
     "restart": "Restart",
     "share": "Share"
   },
+  "difficulty": {
+    "title": "Difficulty",
+    "easy": "Easy",
+    "normal": "Normal",
+    "hard": "Hard"
+  },
   "victory": {
     "large_title": "Huge Victory",
     "title": "Victory",
@@ -29,6 +35,8 @@
   "main_menu": {
     "title": "New game",
     "settings": "Settings",
+    "dev_settings": "Dev Settings",
+    "game_settings": "Settings",
     "about": "About"
   },
   "modal": {
@@ -36,6 +44,8 @@
     "save": "Save",
     "title": {
       "settings": "Settings",
+      "dev_settings": "Dev Settings",
+      "game_settings": "Settings",
       "about": "About"
     },
     "labels": {

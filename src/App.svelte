@@ -5,66 +5,19 @@
   import ThemeContainer from "./components/common/ThemeContainer.svelte";
   import Container from "./components/common/Container.svelte";
   import Header from "./components/header/Header.svelte";
-  import { useApiWords, useTheme, useLocalStorage, useSettings, useTranslations } from "./hooks";
-  import type { TThemeStore } from "./types";
-  import { EThemes } from "./constants";
+  import { useApiWords, useLocalSettings } from "./hooks";
   import { getLocalizedEndpoint } from "./utils";
 
-  const { setEndpoint } = useSettings();
-  const { locale, setLocale } = useTranslations();
   const { fetchApiVocabularyWords } = useApiWords();
-  const { setLightTheme, setDarkTheme, theme } = useTheme();
-  const { getLocalTheme, getLocalEndpoint, getLocalUseCustomEndpoint, getLocalLanguage } =
-    useLocalStorage();
-
-  let themeState: EThemes;
-
-  theme.subscribe((value: TThemeStore) => {
-    themeState = value.theme;
-  });
-
-  let language: string;
-
-  locale.subscribe((lang) => {
-    language = lang;
-  });
+  const { theme, locale, setLocalStorageState } = useLocalSettings();
 
   onMount(() => {
-    const localStorageTheme = getLocalTheme();
-
-    if (localStorageTheme) {
-      if (localStorageTheme === EThemes.Light) {
-        setLightTheme();
-      } else {
-        setDarkTheme();
-      }
-    }
-
-    const localLanguage = getLocalLanguage();
-
-    if (localLanguage) {
-      setLocale(localLanguage);
-    }
-
-    const correctLanguage = localLanguage || language;
-
-    const localEndpoint = getLocalEndpoint();
-    const localUseCustomEndpoint = getLocalUseCustomEndpoint();
-
-    setEndpoint({
-      endpoint: localEndpoint,
-      useCustomEndpoint: localUseCustomEndpoint,
-    });
-
-    if (localEndpoint && localUseCustomEndpoint) {
-      fetchApiVocabularyWords(localEndpoint);
-    } else {
-      fetchApiVocabularyWords(getLocalizedEndpoint(correctLanguage));
-    }
+    setLocalStorageState();
+    fetchApiVocabularyWords(getLocalizedEndpoint($locale));
   });
 </script>
 
-<ThemeContainer theme={themeState}>
+<ThemeContainer theme={$theme.theme}>
   <main>
     <Modals />
     <Container>

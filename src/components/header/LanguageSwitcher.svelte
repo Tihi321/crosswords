@@ -1,14 +1,13 @@
 <script lang="ts">
-  import get from "lodash/get";
   import { t } from "svelte-i18n";
   import { Dropdown } from "ts-components-library";
 
   import { ELanguages } from "../../constants";
   import { getLocalizedEndpoint } from "../../utils";
-  import { useTranslations, useSettings, useApiWords } from "../../hooks";
+  import { useTranslations, useDevSettings, useApiWords } from "../../hooks";
 
   const { setCroatian, setEnglish, locale } = useTranslations();
-  const { settings } = useSettings();
+  const { devSettings } = useDevSettings();
   const { fetchApiVocabularyWords } = useApiWords();
 
   $: selectedItem = {
@@ -27,12 +26,6 @@
     },
   ];
 
-  let useLocalEndpoint: boolean;
-
-  settings.subscribe((data) => {
-    useLocalEndpoint = get(data, ["useCustomEndpoint"]);
-  });
-
   const onChange = (event) => {
     const item = event.detail;
     if (item.id === ELanguages.Croatian) {
@@ -40,7 +33,7 @@
     } else {
       setEnglish();
     }
-    if (!useLocalEndpoint) {
+    if (!$devSettings.useCustomEndpoint) {
       fetchApiVocabularyWords(getLocalizedEndpoint(item.id));
     }
   };

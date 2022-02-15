@@ -1,27 +1,44 @@
+import type { EThemes } from "../constants";
+import { useDevSettings } from "./useDevSettings";
+import { useGameSettings } from "./useGameSettings";
 import { useLocalStorage } from "./useLocalStorage";
-import { useSettings } from "./useSettings";
+import { useTheme } from "./useTheme";
+import { useTranslations } from "./useTranslations";
 
 export const useLocalSettings = () => {
-  const {
-    getLocalRows,
-    getLocalColumns,
-    getLocalWordLimit,
-    getLocalSkipVertical,
-    getLocalSkipHorizontal,
-  } = useLocalStorage();
-  const { setState } = useSettings();
+  const { locale, setLocale } = useTranslations();
+  const { setTheme, theme } = useTheme();
+  const { getLocalTheme, getLocalLanguage, getLocalDevSettings, getLocalGameSettings } =
+    useLocalStorage();
+  const { setStore: setDevStore } = useDevSettings();
+  const { setStore: setGameStore } = useGameSettings();
 
-  const setLocalSettings = () => {
-    setState({
-      numberOfRows: getLocalRows(),
-      numberOfColumns: getLocalColumns(),
-      wordLimit: getLocalWordLimit(),
-      skipHorizontal: getLocalSkipHorizontal(),
-      skipVertical: getLocalSkipVertical(),
-    });
+  const setLocalStorageState = () => {
+    const devSettings = getLocalDevSettings();
+    const gameSettings = getLocalGameSettings();
+    const localStorageTheme = getLocalTheme();
+    const localLanguage = getLocalLanguage();
+
+    if (localLanguage) {
+      setLocale(localLanguage);
+    }
+
+    if (devSettings) {
+      setDevStore(devSettings);
+    }
+
+    if (gameSettings) {
+      setGameStore(gameSettings);
+    }
+
+    if (localStorageTheme) {
+      setTheme(localStorageTheme as EThemes);
+    }
   };
 
   return {
-    setLocalSettings,
+    theme,
+    locale,
+    setLocalStorageState,
   };
 };

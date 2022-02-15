@@ -31,6 +31,10 @@
 
 <InputGroup {title}>
   <div class="inputs">
+    {#if buttons}
+      <button class="button left" disabled={maxMinDiff < 5} on:click={() => sub(5)}>-5</button>
+      <button class="button left" on:click={() => sub(1)}>-1</button>
+    {/if}
     <input
       class="input"
       type="number"
@@ -40,10 +44,8 @@
       max={useMax ? max : undefined}
     />
     {#if buttons}
-      <button class="button" disabled={maxMinDiff < 5} on:click={() => sub(5)}>-5</button>
-      <button class="button" on:click={() => sub(1)}>-1</button>
-      <button class="button" on:click={() => add(1)}>+1</button>
-      <button class="button" disabled={maxMinDiff < 5} on:click={() => add(5)}>+5</button>
+      <button class="button right" on:click={() => add(1)}>+1</button>
+      <button class="button right" disabled={maxMinDiff < 5} on:click={() => add(5)}>+5</button>
     {/if}
   </div>
 </InputGroup>
@@ -59,7 +61,14 @@
 
   .button {
     @include contrast-button("small");
-    margin-left: 10px;
+
+    &.left {
+      margin-right: 10px;
+    }
+
+    &.right {
+      margin-left: 10px;
+    }
   }
 
   .inputs {

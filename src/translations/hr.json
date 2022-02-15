@@ -5,6 +5,12 @@
     "restart": "Igraj ponovo",
     "share": "Podjeli"
   },
+  "difficulty": {
+    "title": "Težina",
+    "easy": "Lagano",
+    "normal": "Normalno",
+    "hard": "Teško"
+  },
   "victory": {
     "large_title": "Velika pobjeda",
     "title": "Pobjeda",
@@ -29,6 +35,8 @@
   "main_menu": {
     "title": "Nova igra",
     "settings": "Opcije",
+    "game_settings": "Opcije",
+    "dev_settings": "Dev Opcije",
     "about": "Info"
   },
   "modal": {
@@ -36,6 +44,8 @@
     "save": "Spremi",
     "title": {
       "settings": "Opcije",
+      "game_settings": "Opcije",
+      "dev_settings": "Dev Opcije",
       "about": "Info"
     },
     "labels": {

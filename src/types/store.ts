@@ -1,15 +1,19 @@
-import type { EThemes } from "../constants";
+import type { EGameDifficulty, EThemes } from "../constants";
 import type { TCrosswordTable, TDetail } from "../types";
 import type { TWordInputs } from "./word";
 
-export type TSettingsStore = {
-  endpoint?: string;
-  useCustomEndpoint?: boolean;
-  numberOfRows?: number;
-  numberOfColumns?: number;
-  wordLimit?: number;
-  skipHorizontal?: number;
-  skipVertical?: number;
+export type TDevSettingsStore = {
+  endpoint: string;
+  useCustomEndpoint: boolean;
+  numberOfRows: number;
+  numberOfColumns: number;
+  wordLimit: number;
+  skipHorizontal: number;
+  skipVertical: number;
+};
+
+export type TGameSettingsStore = {
+  difficulty: EGameDifficulty;
 };
 
 export type TCrosswordStore = {

@@ -6,8 +6,12 @@
   const { startGame } = useGame();
   const { openModal } = useModals();
 
-  const openSettingsModal = () => {
-    openModal(EModals.Settings);
+  const openGameSettingsModal = () => {
+    openModal(EModals.GameSettings);
+  };
+
+  const openDevSettingsModal = () => {
+    openModal(EModals.DevSettings);
   };
 
   const openAboutModal = () => {
@@ -22,8 +26,13 @@
       <button class="contrast-button" on:click={startGame}>{$t("main_menu.title")}</button>
     </li>
     <li class="menu-item">
-      <button class="contrast-button" on:click={openSettingsModal}
-        >{$t("main_menu.settings")}</button
+      <button class="contrast-button" on:click={openGameSettingsModal}
+        >{$t("main_menu.game_settings")}</button
+      >
+    </li>
+    <li class="menu-item">
+      <button class="contrast-button" on:click={openDevSettingsModal}
+        >{$t("main_menu.dev_settings")}</button
       >
     </li>
     <li class="menu-item">
