@@ -1,4 +1,4 @@
-import type { EGameDifficulty, EThemes } from "../constants";
+import type { EGameDifficulty, ETableSize, EThemes, EZoomLevel } from "../constants";
 import type { TCrosswordTable, TDetail } from "../types";
 import type { TWordInputs } from "./word";
 
@@ -14,6 +14,8 @@ export type TDevSettingsStore = {
 
 export type TGameSettingsStore = {
   difficulty: EGameDifficulty;
+  size: ETableSize;
+  zoom: EZoomLevel;
 };
 
 export type TCrosswordStore = {

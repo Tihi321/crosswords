@@ -1,9 +1,5 @@
 @mixin add-map-modifiers($map, $key, $suffix) {
   @each $modifier, $value in map-get-strict($map, $key) {
-    @if $suffix {
-      --#{$modifier}-#{$suffix}: #{$value};
-    } @else {
-      --#{$modifier}: #{$value};
-    }
+    @include add-modifier($modifier, $value, $suffix);
   }
 }

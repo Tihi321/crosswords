@@ -8,9 +8,8 @@ $orange-color: rgba(255, 152, 0, 1);
 $dusty-color: rgba(153, 153, 153, 1);
 $silver-color: rgba(192, 192, 192, 1);
 $vivid-color: rgba(255, 193, 7, 1);
-
-$glass-blue: linear-gradient(135deg, rgba(37, 141, 200, 1) 0%, rgba(37, 141, 200, 1) 100%);
-$glass-green: linear-gradient(135deg, rgba(143, 196, 0, 1) 0%, rgba(143, 196, 0, 1) 100%);
+$martinique-color: rgba(54, 54, 86, 1);
+$regent-color: rgba(123, 140, 149, 1);
 
 $orange-semi-color: rgba(255, 152, 0, 0.6);
 $cerulean-semi-color: rgba(3, 169, 244, 0.6);
@@ -22,10 +21,10 @@ $theme-colors: (
     focus: $light-color,
     primary: $ebony-clay-color,
     tertiary: $cerulean-color,
-    neutral: $dove-color,
+    neutral: $regent-color,
     tertiary-semi: $cerulean-semi-color,
     neutral-semi: $dove-semi-color,
-    glass: $glass-blue,
+    quaternary: $regent-color,
   ),
   dark: (
     focus: $ebony-clay-color,
@@ -34,7 +33,7 @@ $theme-colors: (
     neutral: $dusty-color,
     tertiary-semi: $orange-semi-color,
     neutral-semi: $dusty-semi-color,
-    glass: $glass-green,
+    quaternary: $martinique-color,
   ),
   libraries: (
     ts-components: (
@@ -45,7 +44,7 @@ $theme-colors: (
       ts-select-border: var(--primary-color),
       ts-accordion: var(--light-color),
       ts-accordion-icon: var(--light-color),
-      ts-accordion-bg: var(--glass-color),
+      ts-accordion-bg: var(--quaternary-color),
       ts-accordion-content-bg: var(--focus-color),
       ts-accordion-content-primary: var(--primary-color),
       ts-accordion-border: var(--primary-color),
@@ -54,6 +53,11 @@ $theme-colors: (
       ts-tooltip: var(--dark-color),
       ts-tooltip-bg: var(--light-color),
       ts-tooltip-filter: var(--shiny-color),
+      ts-simple-input: var(--primary-color),
+      ts-simple-input-bg: var(--focus-color),
+      ts-simple-input-arrow: var(--primary-color),
+      ts-simple-input-border: var(--quaternary-color),
+      ts-simple-input-border-active: var(--primary-color),
     ),
   ),
   shared: (
@@ -77,7 +81,7 @@ $crossword-bg-success-color: var(--success-color);
 $crossword-bg-secondary-color: var(--tertiary-color);
 $crossword-input-border-color: var(--primary-color);
 $crossword-letter-border-color: var(--primary-color);
-$crossword-empty-bg-color: var(--glass-color);
+$crossword-empty-bg-color: var(--quaternary-color);
 
 $crossword-details-color: var(--light-color);
 $crossword-details-bg-color: var(--tertiary-color);
@@ -90,7 +94,7 @@ $backdrop-bg-color: var(--neutral-semi-color);
 
 $modal-window-bg-color: var(--focus-color);
 $modal-window-items-color: var(--light-color);
-$modal-window-items-bg-color: var(--glass-color);
+$modal-window-items-bg-color: var(--quaternary-color);
 
 $button-color: var(--primary-color);
 $button-hover-color: var(--tertiary-color);
@@ -98,8 +102,8 @@ $button-hover-color: var(--tertiary-color);
 $logo-color: var(--focus-color);
 $logo-bg-color: var(--primary-color);
 
-$theme-btn-color: var(--focus-color);
-$theme-btn-bg-color: var(--primary-color);
+$active-btn-color: var(--focus-color);
+$active-btn-bg-color: var(--primary-color);
 
 $victory-title-color: var(--focus-color);
 $victory-title-bg-color: var(--primary-color);

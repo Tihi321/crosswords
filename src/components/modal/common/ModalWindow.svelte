@@ -28,7 +28,6 @@
     min-width: 400px;
     min-height: 400px;
     max-width: 600px;
-    max-height: 600px;
     border-radius: 5px;
     display: grid;
     grid-template-rows: min-content 1fr min-content;

@@ -5,11 +5,26 @@
     "restart": "Restart",
     "share": "Share"
   },
-  "difficulty": {
-    "title": "Difficulty",
-    "easy": "Easy",
-    "normal": "Normal",
-    "hard": "Hard"
+  "game_settings": {
+    "title": {
+      "difficulty": "Difficulty",
+      "size": "Table size",
+      "zoom": "Zoom level"
+    },
+    "difficulty": {
+      "easy": "Easy",
+      "normal": "Normal",
+      "hard": "Hard"
+    },
+    "size": {
+      "small": "Small",
+      "medium": "Medium",
+      "big": "Big"
+    },
+    "zoom": {
+      "normal": "Normal",
+      "large": "Large"
+    }
   },
   "victory": {
     "large_title": "Huge Victory",

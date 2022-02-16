@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { Input } from "ts-components-library";
   import InputGroup from "./InputGroup.svelte";
 
   export let title: string;
@@ -11,7 +12,7 @@
   $: maxMinDiff = max - min;
 
   const onInput = (event) => {
-    value = Number(event.target.value);
+    value = Number(event.detail.value);
   };
 
   const add = (number: number) => {
@@ -35,14 +36,16 @@
       <button class="button left" disabled={maxMinDiff < 5} on:click={() => sub(5)}>-5</button>
       <button class="button left" on:click={() => sub(1)}>-1</button>
     {/if}
-    <input
-      class="input"
-      type="number"
-      {value}
-      on:input={onInput}
-      {min}
-      max={useMax ? max : undefined}
-    />
+    <div class="input">
+      <Input
+        {value}
+        type="number"
+        on:change={onInput}
+        {min}
+        max={useMax ? max : "inifinity"}
+        border={true}
+      />
+    </div>
     {#if buttons}
       <button class="button right" on:click={() => add(1)}>+1</button>
       <button class="button right" disabled={maxMinDiff < 5} on:click={() => add(5)}>+5</button>
@@ -54,9 +57,7 @@
   @import "src/styles/all";
 
   .input {
-    flex: 1;
-    padding: 5px;
-    border-radius: 5px;
+    width: 100%;
   }
 
   .button {

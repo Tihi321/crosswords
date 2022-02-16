@@ -34,6 +34,9 @@
 
   .styles {
     @include add-map-modifiers($theme-colors, shared, color);
+
+    @include add-modifier(ts-simple-input-font-family, $font-family, null);
+
     &.light-theme {
       @include add-map-modifiers($theme-colors, light, color);
     }

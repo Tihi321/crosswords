@@ -5,11 +5,26 @@
     "restart": "Igraj ponovo",
     "share": "Podjeli"
   },
-  "difficulty": {
-    "title": "Težina",
-    "easy": "Lagano",
-    "normal": "Normalno",
-    "hard": "Teško"
+  "game_settings": {
+    "title": {
+      "difficulty": "Težina",
+      "size": "Table size",
+      "zoom": "Zoom level"
+    },
+    "difficulty": {
+      "easy": "Lagano",
+      "normal": "Normalno",
+      "hard": "Teško"
+    },
+    "size": {
+      "small": "Mala",
+      "medium": "Srednja",
+      "big": "Velika"
+    },
+    "zoom": {
+      "normal": "Normalni",
+      "large": "Veliki"
+    }
   },
   "victory": {
     "large_title": "Velika pobjeda",

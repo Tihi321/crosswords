@@ -15,8 +15,8 @@
   .theme-switcher {
     @include contrast-button("small");
     margin-left: 15px;
-    color: $theme-btn-color;
-    background-color: $theme-btn-bg-color;
+    color: $active-btn-color;
+    background-color: $active-btn-bg-color;
     padding: 10px 15px;
     border-radius: 5px;
   }

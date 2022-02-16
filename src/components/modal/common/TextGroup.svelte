@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { Input } from "ts-components-library";
   import InputGroup from "./InputGroup.svelte";
   import { Toggle } from "ts-components-library";
 
@@ -17,7 +18,9 @@
 
 <InputGroup {title}>
   <div class="container">
-    <input class="input" {value} on:input={onInput} />
+    <div class="input">
+      <Input {value} on:change={onInput} border={true} />
+    </div>
     <Toggle value={toggle} on:change={onToggle} />
   </div>
 </InputGroup>
@@ -27,11 +30,11 @@
 
   .container {
     display: flex;
+    align-items: center;
   }
   .input {
-    flex: 1;
     padding: 5px;
-    border-radius: 5px;
+    width: 100%;
     margin-right: 5px;
   }
 </style>
