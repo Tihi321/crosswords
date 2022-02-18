@@ -46,7 +46,7 @@
   "dependencies": {
     "lodash": "^4.17.21",
     "svelte-i18n": "^3.3.13",
-    "ts-components-library": "git+https://github.com/Tihi321/ts-components-library.git#1.1.2",
+    "ts-components-library": "git+https://github.com/Tihi321/ts-components-library.git#1.1.6",
     "tsl-utils": "^1.0.32"
   },
   "husky": {

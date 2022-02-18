@@ -23,7 +23,7 @@
   $: showWordsDetails = isEasyDifficulty($gameSettings);
 
   onMount(() => {
-    generateNewCrosswordData($apiWords, $devSettings);
+    generateNewCrosswordData($apiWords, $gameSettings, $devSettings);
   });
 
   const onInput = (event: any) => {

@@ -1,7 +1,7 @@
 import { generateSelector } from "tsl-utils";
 
 import { ECrosswordSize, EModals } from "../constants";
-import { getNumberOfRetries, getRandomizedWordsData, getSettingOptions } from "../selectors";
+import { getCustomSettingOptions, getNumberOfRetries, getRandomizedWordsData } from "../selectors";
 import type { TSettingOptions, TWordArray } from "../types";
 import { generateCrosswordsTable } from "../utils";
 import { useCrossWord } from "./useCrossWord";
@@ -17,7 +17,7 @@ export const useVictoryModal = () => {
   const getSettingsData = (settingsState): TSettingOptions => {
     const settingsStateSelector = generateSelector(settingsState);
 
-    return getSettingOptions(settingsStateSelector);
+    return getCustomSettingOptions(settingsStateSelector);
   };
 
   const getWordsArray = (wordsState): TWordArray => {

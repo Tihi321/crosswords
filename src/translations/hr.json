@@ -1,15 +1,15 @@
 {
   "title": "Kržaljke",
   "game": {
-    "details_title": "Detalji",
     "restart": "Igraj ponovo",
     "share": "Podjeli"
   },
   "game_settings": {
     "title": {
       "difficulty": "Težina",
-      "size": "Table size",
-      "zoom": "Zoom level"
+      "size": "Veličina tablice",
+      "zoom": "Veličina kockica",
+      "dev_settings": "Omogući dev opcije"
     },
     "difficulty": {
       "easy": "Lagano",

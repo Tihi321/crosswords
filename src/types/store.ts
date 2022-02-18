@@ -16,6 +16,7 @@ export type TGameSettingsStore = {
   difficulty: EGameDifficulty;
   size: ETableSize;
   zoom: EZoomLevel;
+  devSettings: boolean;
 };
 
 export type TCrosswordStore = {

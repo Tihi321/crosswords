@@ -1,7 +1,6 @@
 <script lang="ts">
-  import { Input } from "ts-components-library";
+  import { Input, Toggle } from "ts-components-library";
   import InputGroup from "./InputGroup.svelte";
-  import { Toggle } from "ts-components-library";
 
   export let title: string;
   export let value: string;

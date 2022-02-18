@@ -10592,9 +10592,9 @@ trough@^1.0.0:
   dependencies:
     glob "^7.1.2"
 
-"ts-components-library@git+https://github.com/Tihi321/ts-components-library.git#1.1.2":
+"ts-components-library@git+https://github.com/Tihi321/ts-components-library.git#1.1.6":
   version "1.0.0"
-  resolved "git+https://github.com/Tihi321/ts-components-library.git#467c49b4f72d51e8ce17b06b2692276e867d9f9a"
+  resolved "git+https://github.com/Tihi321/ts-components-library.git#cea415c39b8963a57c0353c71357199e29c5278d"
   dependencies:
     tsl-utils "^1.0.32"
 

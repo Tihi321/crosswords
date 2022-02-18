@@ -1,5 +1,6 @@
 <script lang="ts">
   import { t } from "svelte-i18n";
+  import { Toggle } from "ts-components-library";
   import map from "lodash/map";
   import { useModals, useGameSettings } from "../../../hooks";
   import { EModals, EGameDifficulty, ETableSize, EZoomLevel } from "../../../constants";
@@ -64,18 +65,19 @@
   }));
 
   const onDifficultyChange = (event) => {
-    const item = event.detail;
-    $gameSettings.difficulty = item.id;
+    $gameSettings.difficulty = event.detail.id;
   };
 
   const onZoomChange = (event) => {
-    const item = event.detail;
-    $gameSettings.zoom = item.id;
+    $gameSettings.zoom = event.detail.id;
   };
 
   const onSizeChange = (event) => {
-    const item = event.detail;
-    $gameSettings.size = item.id;
+    $gameSettings.size = event.detail.id;
+  };
+
+  const onDevSettingsChange = (event) => {
+    $gameSettings.devSettings = event.detail.value;
   };
 
   function closeSettingsModal() {
@@ -84,16 +86,28 @@
 </script>
 
 <ModalWindow title={$t("modal.title.game_settings")} on:close={closeSettingsModal}>
-  <div class="title">{$t("game_settings.title.difficulty")}</div>
-  <ButtonGroup
-    selected={selectedDifficultyItem}
-    items={difficultyItems}
-    on:change={onDifficultyChange}
-  />
-  <div class="title">{$t("game_settings.title.size")}</div>
-  <ButtonGroup selected={selectedSizeItem} items={sizeItems} on:change={onSizeChange} />
-  <div class="title">{$t("game_settings.title.zoom")}</div>
-  <ButtonGroup selected={selectedZoomItem} items={zoomItems} on:change={onZoomChange} />
+  <div class="option-group">
+    <div class="title">{$t("game_settings.title.difficulty")}</div>
+    <ButtonGroup
+      selected={selectedDifficultyItem}
+      items={difficultyItems}
+      on:change={onDifficultyChange}
+    />
+  </div>
+  <div class="option-group">
+    <div class="title">{$t("game_settings.title.size")}</div>
+    <ButtonGroup selected={selectedSizeItem} items={sizeItems} on:change={onSizeChange} />
+  </div>
+  <div class="option-group">
+    <div class="title">{$t("game_settings.title.zoom")}</div>
+    <ButtonGroup selected={selectedZoomItem} items={zoomItems} on:change={onZoomChange} />
+  </div>
+  <div class="option-group">
+    <div class="dev-settings">
+      {$t("game_settings.title.dev_settings")}
+      <Toggle value={$gameSettings.devSettings} on:change={onDevSettingsChange} />
+    </div>
+  </div>
 </ModalWindow>
 
 <style lang="scss">
@@ -103,5 +117,10 @@
     color: $button-color;
     margin: 0 0 5px 0;
     font-weight: normal;
+  }
+
+  .dev-settings {
+    display: flex;
+    justify-content: space-between;
   }
 </style>

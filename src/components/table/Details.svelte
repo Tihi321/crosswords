@@ -49,6 +49,7 @@
   .container {
     :global(.details) {
       position: relative;
+      cursor: default;
 
       &:hover {
         background-color: $crossword-details-effects-color;

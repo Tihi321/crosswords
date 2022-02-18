@@ -42,12 +42,10 @@ $theme-colors: (
       ts-select-bg: var(--focus-color),
       ts-select-hover: var(--tertiary-color),
       ts-select-border: var(--primary-color),
-      ts-accordion: var(--light-color),
-      ts-accordion-icon: var(--light-color),
-      ts-accordion-bg: var(--quaternary-color),
+      ts-accordion-header-bg: var(--primary-color),
+      ts-accordion-icon: var(--focus-color),
       ts-accordion-content-bg: var(--focus-color),
-      ts-accordion-content-primary: var(--primary-color),
-      ts-accordion-border: var(--primary-color),
+      ts-accordion-content: var(--primary-color),
       ts-toggle: var(--tertiary-color),
       ts-toggle-on: var(--primary-color),
       ts-tooltip: var(--dark-color),
@@ -87,8 +85,10 @@ $crossword-details-color: var(--light-color);
 $crossword-details-bg-color: var(--tertiary-color);
 $crossword-details-effects-color: var(--tertiary-semi-color);
 
-$details-border-color: var(--primary-color);
+$details-index-border-color: var(--primary-color);
 $details-success-bg-color: var(--success-color);
+$details-border-color: var(--primary-color);
+$details-accordion-header-border: none;
 
 $backdrop-bg-color: var(--neutral-semi-color);
 

@@ -7,6 +7,9 @@ import { combineSelector } from "tsl-utils";
 
 import { ECrosswordSize, EGameDifficulty } from "../constants";
 
+export const getIsCustomGame = (gameSettingsSelector) =>
+  combineSelector(gameSettingsSelector, (state) => get(state, ["devSettings"]));
+
 export const gatGameDifficulty = (gameSettingsSelector) =>
   combineSelector(gameSettingsSelector, (state) => get(state, ["difficulty"]));
 
@@ -50,7 +53,7 @@ export const getWordsRemovedSpacesData = (wordsStateSelector) =>
 export const getRandomizedWordsData = (wordsStateSelector) =>
   combineSelector(getWordsRemovedSpacesData(wordsStateSelector), (state) => shuffle(state));
 
-export const getSettingOptions = (settingsStateSelector) =>
+export const getCustomSettingOptions = (settingsStateSelector) =>
   combineSelector(settingsStateSelector, (state) => ({
     numberOfRows: get(state, ["numberOfRows"]),
     numberOfColumns: get(state, ["numberOfColumns"]),
@@ -62,3 +65,19 @@ export const getSettingOptions = (settingsStateSelector) =>
         ? ECrosswordSize.Large
         : ECrosswordSize.Medium,
   }));
+
+export const getGameSettingOptions = (gameSettingsSelector, settingsStateSelector) =>
+  combineSelector(gameSettingsSelector, settingsStateSelector, (gameOptions, devSettingsState) => {
+    console.log(gameOptions);
+    return {
+      numberOfRows: get(devSettingsState, ["numberOfRows"]),
+      numberOfColumns: get(devSettingsState, ["numberOfColumns"]),
+      wordLimit: get(devSettingsState, ["wordLimit"]),
+      skipHorizontal: get(devSettingsState, ["skipHorizontal"]),
+      skipVertical: get(devSettingsState, ["skipVertical"]),
+      crosswordSize:
+        get(devSettingsState, ["numberOfRows"]) * get(devSettingsState, ["numberOfColumns"]) > 350
+          ? ECrosswordSize.Large
+          : ECrosswordSize.Medium,
+    };
+  });

@@ -5,8 +5,10 @@ import {
   getCrosswordTableDetails,
   getCrosswordTableInputs,
   getCrosswordTableWords,
+  getCustomSettingOptions,
+  getGameSettingOptions,
+  getIsCustomGame,
   getRandomizedWordsData,
-  getSettingOptions,
 } from "../selectors";
 import type {
   TCrosswordTable,
@@ -22,10 +24,15 @@ import { useCrossWord } from "./useCrossWord";
 export const useCrosswordGame = () => {
   const { addCrosswordTable, addCrosswordDetails, addCrosswordWords } = useCrossWord();
 
-  const getSettingsData = (settingsState): TSettingOptions => {
-    const settingsStateSelector = generateSelector(settingsState);
+  const getSettingsData = (gameSettingsState, devSettingsState): TSettingOptions => {
+    const gameSettingsStateSelector = generateSelector(gameSettingsState);
+    const devSettingsStateSelector = generateSelector(devSettingsState);
 
-    return getSettingOptions(settingsStateSelector);
+    const isCustomGame = getIsCustomGame(gameSettingsStateSelector);
+
+    return isCustomGame
+      ? getCustomSettingOptions(devSettingsStateSelector)
+      : getGameSettingOptions(gameSettingsStateSelector, devSettingsStateSelector);
   };
 
   const getWordsArray = (wordsState): TWordArray => {
@@ -34,9 +41,9 @@ export const useCrosswordGame = () => {
     return getRandomizedWordsData(wordsStateSelector);
   };
 
-  const generateNewCrosswordData = (wordsState, settingsState) => {
+  const generateNewCrosswordData = (wordsState, gameSettings, devSettingsState) => {
     const wordsData = getWordsArray(wordsState);
-    const settingsData = getSettingsData(settingsState);
+    const settingsData = getSettingsData(gameSettings, devSettingsState);
 
     const { table, details, words } = generateCrosswordsTable({
       words: wordsData,

@@ -1,7 +1,6 @@
 {
   "title": "Crosswords",
   "game": {
-    "details_title": "Details",
     "restart": "Restart",
     "share": "Share"
   },
@@ -9,7 +8,8 @@
     "title": {
       "difficulty": "Difficulty",
       "size": "Table size",
-      "zoom": "Zoom level"
+      "zoom": "Zoom level",
+      "dev_settings": "Enable dev settings"
     },
     "difficulty": {
       "easy": "Easy",

@@ -6,4 +6,5 @@ export const gameSettings = writable({
   difficulty: EGameDifficulty.Normal,
   size: ETableSize.Medium,
   zoom: EZoomLevel.Normal,
+  devSettings: false,
 });

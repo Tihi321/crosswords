@@ -17,28 +17,41 @@
   })) as TDetail[];
 </script>
 
-<Accordion open={true}>
-  <span slot="title">
-    {$t("game.details_title")}
-  </span>
-  <ul class="info">
-    {#each wordsDetails as { index, description, success, name }}
-      <li class="row">
-        <div class="index" class:success>{index}</div>
-        <div class="description">{description} ({name.length}) - {name}</div>
-      </li>
-    {/each}
-  </ul>
-</Accordion>
+<div class="info">
+  <Accordion open={true}>
+    <ul class="content">
+      {#each wordsDetails as { index, description, success, name }}
+        <li class="row">
+          <div class="index" class:success>{index}</div>
+          <div class="description">{description} ({name.length}) - {name}</div>
+        </li>
+      {/each}
+    </ul>
+  </Accordion>
+</div>
 
 <style lang="scss">
   @import "src/styles/all";
+
   .info {
-    border-radius: 10px;
-    margin: 0;
+    border: 1px solid $details-border-color;
+  }
+  .content {
+    --grid-layout-gap: 10px;
+    --grid-column-count: 4;
+    --grid-item--min-width: 150px;
+
+    --gap-count: calc(var(--grid-column-count) - 1);
+    --total-gap-width: calc(var(--gap-count) * var(--grid-layout-gap));
+    --grid-item--max-width: calc((100% - var(--total-gap-width)) / var(--grid-column-count));
+
     font-size: $small-font-size;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(max(var(--grid-item--min-width), var(--grid-item--max-width)), 1fr)
+    );
+    grid-gap: var(--grid-layout-gap);
   }
 
   .row {
@@ -54,7 +67,7 @@
     width: 35px;
     height: 35px;
     font-weight: bold;
-    border: 1px solid $details-border-color;
+    border: 1px solid $details-index-border-color;
   }
 
   .description {
