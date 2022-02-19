@@ -74,6 +74,7 @@
     "victory": {
       "title": "Victory",
       "labels": {
+        "retires": "Retries",
         "intro": "You have succesfully finshed crossword of",
         "rows": "rows and",
         "columns": "columns, with",
@@ -86,6 +87,9 @@
     },
     "retry": {
       "title": "Retry",
+      "labels": {
+        "retires": "Retries"
+      },
       "button": {
         "restart": "Restart"
       }

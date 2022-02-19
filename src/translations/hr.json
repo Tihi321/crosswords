@@ -72,6 +72,7 @@
     "victory": {
       "title": "Pobjeda",
       "labels": {
+        "retires": "Ponavljanja",
         "intro": "Uspješno si prešao/la križaljku sa",
         "rows": "redova i",
         "columns": "stupaca, i fondom od",
@@ -84,6 +85,9 @@
     },
     "retry": {
       "title": "Ponovi",
+      "labels": {
+        "retires": "Ponavljanja"
+      },
       "button": {
         "restart": "Ponovi"
       }

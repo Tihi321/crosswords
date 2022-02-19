@@ -60,13 +60,13 @@
   @import "src/styles/all";
   .container {
     display: flex;
-    width: 500px;
+    width: $settings-modal-container-width;
   }
 
   .content {
     flex: 1;
     padding: 20px;
-    height: 400px;
+    height: $settings-modal-content-height;
     overflow: auto;
   }
 

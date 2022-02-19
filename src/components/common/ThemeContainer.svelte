@@ -38,6 +38,8 @@
 
   .styles {
     @include add-map-modifiers($theme-colors, shared, color);
+    @include add-map-modifiers($size-variables, generic, size);
+    @include add-map-modifiers($font-variables, mobile, font-size);
 
     @include add-modifier(ts-simple-input-font-family, $font-family, null);
     @include add-modifier(ts-accordion-bottom-border, $details-accordion-header-border, null);

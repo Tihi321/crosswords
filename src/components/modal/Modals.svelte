@@ -42,7 +42,7 @@
     background-color: $backdrop-bg-color;
     display: block;
     width: 100%;
-    z-index: 1;
+    z-index: 2;
     pointer-events: none;
     transition: 0.25s opacity ease;
     opacity: 0;

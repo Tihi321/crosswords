@@ -45,7 +45,6 @@ $theme-colors: (
       ts-toggle-on: var(--primary-color),
       ts-tooltip: var(--dark-color),
       ts-tooltip-bg: var(--light-color),
-      ts-tooltip-filter: var(--shiny-color),
       ts-simple-input: var(--primary-color),
       ts-simple-input-bg: var(--focus-color),
       ts-simple-input-arrow: var(--primary-color),
@@ -110,9 +109,8 @@ $logo-bg-color: var(--primary-color);
 $active-btn-color: var(--focus-color);
 $active-btn-bg-color: var(--primary-color);
 
-$victory-title-color: var(--focus-color);
-$victory-title-bg-color: var(--primary-color);
-$victory-bg-color: var(--success-color);
-$victory-border-color: var(--focus-color);
+$game-modal-title-color: var(--focus-color);
+$game-modal-title-bg-color: var(--primary-color);
+$game-modal-bg-color: var(--success-color);
 
 $star-icon-color: var(--vivid-color);

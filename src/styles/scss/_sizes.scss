@@ -1,4 +1,10 @@
 $size-variables: (
+  generic: (
+    settings-modal-content-height: 400px,
+    settings-modal-container-width: 500px,
+    game-modal-window-height: 500px,
+    game-modal-window-width: 400px,
+  ),
   crossword: (
     normal: (
       letter-square: 35px,
@@ -11,3 +17,9 @@ $size-variables: (
 
 $square-size: var(--letter-square-size);
 $detail-number-size: calc(var(--letter-square-size) / 2);
+
+$game-modal-window-width: var(--game-modal-window-width-size);
+$game-modal-window-height: var(--game-modal-window-height-size);
+
+$settings-modal-content-height: var(--settings-modal-content-height-size);
+$settings-modal-container-width: var(--settings-modal-container-width-size);

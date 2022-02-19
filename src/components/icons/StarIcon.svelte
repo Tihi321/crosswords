@@ -15,10 +15,6 @@
 
 <style lang="scss">
   @import "src/styles/all";
-  .star-icon {
-    height: 100%;
-    width: 100%;
-  }
   .star-icon-path {
     fill: $star-icon-color;
   }

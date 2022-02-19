@@ -1,7 +1,7 @@
 <script lang="ts">
   import { t } from "svelte-i18n";
   import { copyToClipboard } from "../../../utils";
-  import Backdrop from "../common/Backdrop.svelte";
+  import GameModalWindow from "../common/GameModalWindow.svelte";
 
   import { useApiWords, useDevSettings, useGame, useVictoryModal } from "../../../hooks";
   import StarIcon from "../../icons/StarIcon.svelte";
@@ -28,65 +28,39 @@
     } C ${settingsData.numberOfColumns} R ${settingsData.numberOfRows} ✌`;
     copyToClipboard(message);
   };
-
-  const toggleBackdrop = () => {
-    transparent = !transparent;
-  };
 </script>
 
-<Backdrop on:click={toggleBackdrop}>
-  <div class="victory">
-    <h2 class="title">{$t("modal.victory.title")}</h2>
-    <div class="description">
-      <div class="star">
-        <StarIcon />
-      </div>
-      <p class="message">
-        Retries {numberRetries}
-        {$t("modal.victory.labels.intro")}
-        {settingsData.numberOfRows}
-        {$t("modal.victory.labels.rows")}
-        {settingsData.numberOfColumns}
-        {$t("modal.victory.labels.columns")}
-        {settingsData.wordLimit}
-        {$t("modal.victory.labels.words_pool")}
-      </p>
-      <div class="buttons">
-        <button class="btn share" on:click={shareStats}>
-          <ShareIcon />
-          <div class="btn-text">{$t("modal.victory.button.share")}</div>
-        </button>
-        <button class="btn restart" on:click={resetGameCallback}>
-          <RestartIcon />
-          <div class="btn-text">{$t("modal.victory.button.restart")}</div>
-        </button>
-      </div>
+<GameModalWindow title={$t("modal.victory.title")} bind:transparent>
+  <div class="description">
+    <div class="star">
+      <StarIcon />
+    </div>
+    <p class="message">
+      {$t("modal.victory.labels.retires")}
+      {numberRetries}
+      {$t("modal.victory.labels.intro")}
+      {settingsData.numberOfRows}
+      {$t("modal.victory.labels.rows")}
+      {settingsData.numberOfColumns}
+      {$t("modal.victory.labels.columns")}
+      {settingsData.wordLimit}
+      {$t("modal.victory.labels.words_pool")}
+    </p>
+    <div class="buttons">
+      <button class="btn share" on:click={shareStats}>
+        <ShareIcon />
+        <div class="btn-text">{$t("modal.victory.button.share")}</div>
+      </button>
+      <button class="btn restart" on:click={resetGameCallback}>
+        <RestartIcon />
+        <div class="btn-text">{$t("modal.victory.button.restart")}</div>
+      </button>
     </div>
   </div>
-</Backdrop>
+</GameModalWindow>
 
 <style lang="scss">
   @import "src/styles/all";
-
-  .victory {
-    background-color: $victory-bg-color;
-    display: flex;
-    flex-direction: column;
-    min-height: 500px;
-    max-width: 400px;
-    border-radius: 5px;
-    filter: $shadow-color-filter;
-  }
-
-  .title {
-    margin: 0;
-    text-align: center;
-    background: $victory-title-bg-color;
-    color: $victory-title-color;
-    padding: 15px 5px;
-    border-radius: 5px 5px 0 0;
-  }
-
   .description {
     @extend %flex-centered;
     flex-direction: column;

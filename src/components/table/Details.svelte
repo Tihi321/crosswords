@@ -92,7 +92,7 @@
   .left {
     top: 50%;
     left: -10px;
-    transform: translateY(-70%);
+    transform: translateY(-60%);
   }
 
   .top {
