@@ -8,6 +8,7 @@ export * from "./useVictoryModal";
 export * from "./useCrosswordGame";
 export * from "./useTheme";
 export * from "./useModals";
+export * from "./useSettings";
 export * from "./useDevSettings";
 export * from "./useGameSettings";
 export * from "./useLocalStorage";

@@ -6,15 +6,20 @@ export enum EThemes {
 export enum ELocalStorage {
   Theme = "crossword/ts-theme",
   Language = "crossword/ts-language",
+  Settings = "crossword/ts-settings",
   DevSettings = "crossword/ts-dev-settings",
   GameSettings = "crossword/ts-game-settings",
 }
 
 export enum EModals {
-  GameSettings = "gameSettings",
-  DevSettings = "devSettings",
+  Settings = "settings",
   Retry = "retry",
   Victory = "victory",
+}
+
+export enum ESettingsModalRoutes {
+  GameSettings = "gameSettings",
+  DevSettings = "devSettings",
   About = "about",
 }
 

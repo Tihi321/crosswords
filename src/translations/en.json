@@ -1,47 +1,12 @@
 {
   "title": "Crosswords",
-  "game": {
-    "restart": "Restart",
-    "share": "Share"
-  },
-  "game_settings": {
-    "title": {
-      "difficulty": "Difficulty",
-      "size": "Table size",
-      "zoom": "Zoom level",
-      "dev_settings": "Enable dev settings"
-    },
-    "difficulty": {
-      "easy": "Easy",
-      "normal": "Normal",
-      "hard": "Hard"
-    },
-    "size": {
-      "small": "Small",
-      "medium": "Medium",
-      "big": "Big"
-    },
-    "zoom": {
-      "normal": "Normal",
-      "large": "Large"
-    }
-  },
-  "victory": {
-    "large_title": "Huge Victory",
-    "title": "Victory",
-    "intro": "You have succesfully finshed",
-    "size": "medium size crossword of",
-    "large_size": "large crossword of",
-    "rows": "rows and",
-    "columns": "columns, with",
-    "words_pool": "words in a pool."
-  },
-  "retry": {
-    "title": "Retry"
-  },
   "header": {
     "back_to_menu": "Back to menu",
     "back_to_menu_tooltip": "Will stop the game and return to main menu"
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark"
   },
   "languages": {
     "croatian": "Croatian",
@@ -49,36 +14,81 @@
   },
   "main_menu": {
     "title": "New game",
-    "settings": "Settings",
-    "dev_settings": "Dev Settings",
-    "game_settings": "Settings",
-    "about": "About"
+    "settings": "Settings"
   },
   "modal": {
-    "close_modal": "Close modal",
-    "save": "Save",
-    "title": {
-      "settings": "Settings",
-      "dev_settings": "Dev Settings",
-      "game_settings": "Settings",
-      "about": "About"
-    },
     "labels": {
-      "skip_columns": "Skip columns",
-      "skip_rows": "Skip rows",
-      "number_of_columns": "Number of columns",
-      "number_of_rows": "Number of rows",
-      "word_limit": "Words limit",
-      "custom_engpoint": "Custom endpoint"
+      "close": "Close",
+      "save": "Save"
+    },
+    "settings": {
+      "title": "Settings",
+      "menu": {
+        "game_settings": "Game",
+        "dev_settings": "Custom",
+        "about": "About"
+      },
+      "sub_modals": {
+        "game_settings": {
+          "labels": {
+            "difficulty": "Difficulty",
+            "size": "Table size",
+            "zoom": "Zoom level",
+            "dev_settings": "Show custom settings"
+          },
+          "difficulty": {
+            "easy": "Easy",
+            "normal": "Normal",
+            "hard": "Hard"
+          },
+          "size": {
+            "small": "Small",
+            "medium": "Medium",
+            "big": "Big"
+          },
+          "zoom": {
+            "normal": "Normal",
+            "large": "Large"
+          }
+        },
+        "dev_settings": {
+          "labels": {
+            "enable_dev_setting": "Enable custom settings",
+            "skip_columns": "Skip columns",
+            "skip_rows": "Skip rows",
+            "number_of_columns": "Number of columns",
+            "number_of_rows": "Number of rows",
+            "word_limit": "Words limit",
+            "custom_endpoint": "Custom endpoint"
+          }
+        },
+        "about": {
+          "labels": {
+            "author": "Author",
+            "license": "License",
+            "repository": "Code"
+          }
+        }
+      }
+    },
+    "victory": {
+      "title": "Victory",
+      "labels": {
+        "intro": "You have succesfully finshed crossword of",
+        "rows": "rows and",
+        "columns": "columns, with",
+        "words_pool": "words in a pool."
+      },
+      "button": {
+        "restart": "Restart",
+        "share": "Share"
+      }
+    },
+    "retry": {
+      "title": "Retry",
+      "button": {
+        "restart": "Restart"
+      }
     }
-  },
-  "theme": {
-    "light": "Light",
-    "dark": "Dark"
-  },
-  "about": {
-    "author": "Author",
-    "license": "License",
-    "repository": "Code"
   }
 }

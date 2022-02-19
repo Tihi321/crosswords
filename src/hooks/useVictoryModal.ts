@@ -1,6 +1,6 @@
 import { generateSelector } from "tsl-utils";
 
-import { ECrosswordSize, EModals } from "../constants";
+import { EModals } from "../constants";
 import { getCustomSettingOptions, getNumberOfRetries, getRandomizedWordsData } from "../selectors";
 import type { TSettingOptions, TWordArray } from "../types";
 import { generateCrosswordsTable } from "../utils";
@@ -46,12 +46,6 @@ export const useVictoryModal = () => {
     closeVictoryModal();
   };
 
-  const getIsLargeVictory = (settingsState) => {
-    const settingsData = getSettingsData(settingsState);
-
-    return settingsData.crosswordSize === ECrosswordSize.Large;
-  };
-
   const getNumberOfRetriesNumber = (gameState) => {
     const gameStateSelector = generateSelector(gameState);
 
@@ -60,7 +54,6 @@ export const useVictoryModal = () => {
 
   return {
     resetGame,
-    getIsLargeVictory,
     getSettingsData,
     getNumberOfRetriesNumber,
   };

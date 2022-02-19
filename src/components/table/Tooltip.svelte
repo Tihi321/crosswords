@@ -5,7 +5,7 @@
 </script>
 
 {#if show}
-  <Tooltip hideArrow placement="Bottom">
+  <Tooltip hideArrow placement="Top">
     <span slot="tooltip">
       <slot name="tooltip" />
     </span>

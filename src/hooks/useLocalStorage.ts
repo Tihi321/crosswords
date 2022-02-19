@@ -1,5 +1,5 @@
 import { ELocalStorage, EThemes } from "../constants";
-import type { TDevSettingsStore, TGameSettingsStore } from "../types";
+import type { TDevSettingsStore, TGameSettingsStore, TSettingsStore } from "../types";
 
 export const useLocalStorage = () => {
   const getItem = (key: string) => localStorage.getItem(key);
@@ -35,9 +35,15 @@ export const useLocalStorage = () => {
   const setLocalGameSettings = (newState: TGameSettingsStore) =>
     setJSONItem(ELocalStorage.GameSettings, newState);
 
+  const getLocalSettings = (): TSettingsStore | undefined => getJSONItem(ELocalStorage.Settings);
+  const setLocalSettings = (newState: TSettingsStore) =>
+    setJSONItem(ELocalStorage.Settings, newState);
+
   return {
     getLocalLanguage,
     setLocalLanguage,
+    getLocalSettings,
+    setLocalSettings,
     setLocalDevSettings,
     getLocalDevSettings,
     getLocalGameSettings,

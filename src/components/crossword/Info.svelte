@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { t } from "svelte-i18n";
   import map from "lodash/map";
   import includes from "lodash/includes";
   import sortBy from "lodash/sortBy";
@@ -23,7 +22,7 @@
       {#each wordsDetails as { index, description, success, name }}
         <li class="row">
           <div class="index" class:success>{index}</div>
-          <div class="description">{description} ({name.length}) - {name}</div>
+          <div class="description">{description}</div>
         </li>
       {/each}
     </ul>
@@ -58,11 +57,12 @@
     display: flex;
     align-items: center;
     padding: 5px 0;
+    cursor: default;
   }
 
   .index {
     @extend %flex-centered;
-    border-radius: 50%;
+    cursor: default;
     margin-right: 10px;
     width: 35px;
     height: 35px;

@@ -1,2 +1,13 @@
-$square-width: 30px;
-$square-height: 30px;
+$size-variables: (
+  crossword: (
+    normal: (
+      letter-square: 35px,
+    ),
+    large: (
+      letter-square: 45px,
+    ),
+  ),
+);
+
+$square-size: var(--letter-square-size);
+$detail-number-size: calc(var(--letter-square-size) / 2);

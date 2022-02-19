@@ -9,7 +9,7 @@
   import { getLocalizedEndpoint } from "./utils";
 
   const { fetchApiVocabularyWords } = useApiWords();
-  const { theme, locale, setLocalStorageState } = useLocalSettings();
+  const { theme, locale, setLocalStorageState, gameSettings } = useLocalSettings();
 
   onMount(() => {
     setLocalStorageState();
@@ -17,7 +17,7 @@
   });
 </script>
 
-<ThemeContainer theme={$theme.theme}>
+<ThemeContainer theme={$theme.theme} zoom={$gameSettings.zoom}>
   <main>
     <Modals />
     <Container>

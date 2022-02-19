@@ -29,14 +29,11 @@
   @import "src/styles/all";
 
   .letter {
+    @extend %square-size;
     font-size: $medium-font-size;
     background-color: $crossword-bg-color;
     color: $crossword-text-color;
     text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
     cursor: default;
   }
 
@@ -49,7 +46,6 @@
   }
 
   .input {
-    @extend %square-size;
     outline: 0;
     border: 0;
     padding: 0;

@@ -1,8 +1,15 @@
-import type { EGameDifficulty, ETableSize, EThemes, EZoomLevel } from "../constants";
+import type {
+  EGameDifficulty,
+  ESettingsModalRoutes,
+  ETableSize,
+  EThemes,
+  EZoomLevel,
+} from "../constants";
 import type { TCrosswordTable, TDetail } from "../types";
 import type { TWordInputs } from "./word";
 
 export type TDevSettingsStore = {
+  enable: boolean;
   endpoint: string;
   useCustomEndpoint: boolean;
   numberOfRows: number;
@@ -12,11 +19,15 @@ export type TDevSettingsStore = {
   skipVertical: number;
 };
 
+export type TSettingsStore = {
+  devSettings: boolean;
+  settingsRoute: ESettingsModalRoutes;
+};
+
 export type TGameSettingsStore = {
   difficulty: EGameDifficulty;
   size: ETableSize;
   zoom: EZoomLevel;
-  devSettings: boolean;
 };
 
 export type TCrosswordStore = {

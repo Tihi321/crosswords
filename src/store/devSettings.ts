@@ -1,6 +1,7 @@
 import { writable } from "svelte/store";
 
 export const devSettings = writable({
+  enable: false,
   endpoint: "",
   useCustomEndpoint: false,
   numberOfRows: 15,

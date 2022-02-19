@@ -1,47 +1,12 @@
 {
   "title": "Kržaljke",
-  "game": {
-    "restart": "Igraj ponovo",
-    "share": "Podjeli"
-  },
-  "game_settings": {
-    "title": {
-      "difficulty": "Težina",
-      "size": "Veličina tablice",
-      "zoom": "Veličina kockica",
-      "dev_settings": "Omogući dev opcije"
-    },
-    "difficulty": {
-      "easy": "Lagano",
-      "normal": "Normalno",
-      "hard": "Teško"
-    },
-    "size": {
-      "small": "Mala",
-      "medium": "Srednja",
-      "big": "Velika"
-    },
-    "zoom": {
-      "normal": "Normalni",
-      "large": "Veliki"
-    }
-  },
-  "victory": {
-    "large_title": "Velika pobjeda",
-    "title": "Pobjeda",
-    "intro": "Uspješno si prešao/la",
-    "size": "srednje veliku križaljku sa",
-    "large_size": "veliku križaljku sa",
-    "rows": "redova i",
-    "columns": "stupaca, i fondom od",
-    "words_pool": "riječi."
-  },
-  "retry": {
-    "title": "Retry"
-  },
   "header": {
     "back_to_menu": "Natrag na meni",
     "back_to_menu_tooltip": "Zaustaviti će igru i vratiti se u glavni meni"
+  },
+  "theme": {
+    "light": "Svijetla",
+    "dark": "Tamna"
   },
   "languages": {
     "croatian": "Hrvatski",
@@ -49,36 +14,79 @@
   },
   "main_menu": {
     "title": "Nova igra",
-    "settings": "Opcije",
-    "game_settings": "Opcije",
-    "dev_settings": "Dev Opcije",
-    "about": "Info"
+    "settings": "Opcije"
   },
   "modal": {
     "close_modal": "Zatvori",
     "save": "Spremi",
-    "title": {
-      "settings": "Opcije",
-      "game_settings": "Opcije",
-      "dev_settings": "Dev Opcije",
-      "about": "Info"
+    "settings": {
+      "title": "Opcije",
+      "menu": {
+        "game_settings": "Igra",
+        "dev_settings": "Prilagođeno",
+        "about": "Info"
+      },
+      "sub_modals": {
+        "game_settings": {
+          "labels": {
+            "difficulty": "Težina",
+            "size": "Veličina",
+            "zoom": "Zoom",
+            "dev_settings": "Prikaži opcije za prilagođavanje"
+          },
+          "difficulty": {
+            "easy": "Lagano",
+            "normal": "Srednje",
+            "hard": "Teško"
+          },
+          "size": {
+            "small": "Mala",
+            "medium": "Srednja",
+            "big": "Velika"
+          },
+          "zoom": {
+            "normal": "Normalno",
+            "large": "Veliki"
+          }
+        },
+        "dev_settings": {
+          "labels": {
+            "enable_dev_setting": "Omogući prilagođene postavke",
+            "skip_columns": "Preskoči kolone",
+            "skip_rows": "Preskoči redove",
+            "number_of_columns": "Broj kolona",
+            "number_of_rows": "Broj redova",
+            "word_limit": "Limit riječi",
+            "custom_endpoint": "Prilagođen endpoint"
+          }
+        },
+        "about": {
+          "labels": {
+            "author": "Autor",
+            "license": "Licenca",
+            "repository": "Kod"
+          }
+        }
+      }
     },
-    "labels": {
-      "skip_columns": "Preskoči kolone",
-      "skip_rows": "Preskoči redove",
-      "number_of_columns": "Broj kolona",
-      "number_of_rows": "Broj redova",
-      "word_limit": "Limit riječi",
-      "custom_engpoint": "Prilagođen endpoint"
+    "victory": {
+      "title": "Pobjeda",
+      "labels": {
+        "intro": "Uspješno si prešao/la križaljku sa",
+        "rows": "redova i",
+        "columns": "stupaca, i fondom od",
+        "words_pool": "riječi."
+      },
+      "button": {
+        "restart": "Ponovi",
+        "share": "Djeli"
+      }
+    },
+    "retry": {
+      "title": "Ponovi",
+      "button": {
+        "restart": "Ponovi"
+      }
     }
-  },
-  "theme": {
-    "light": "Svijetla",
-    "dark": "Tamna"
-  },
-  "about": {
-    "author": "Autor",
-    "license": "Licenca",
-    "repository": "Kod"
   }
 }

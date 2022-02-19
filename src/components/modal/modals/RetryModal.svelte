@@ -26,13 +26,13 @@
 
 <Backdrop on:click={toggleBackdrop}>
   <div class="victory">
-    <h2 class="title">{$t("retry.title")}</h2>
+    <h2 class="title">{$t("modal.retry.title")}</h2>
     <div class="description">
       <div class="buttons">
         Retries {numberRetries}
         <button class="btn restart" on:click={resetTableData}>
           <RestartIcon />
-          <div class="btn-text">{$t("game.restart")}</div>
+          <div class="btn-text">{$t("modal.retry.button.restart")}</div>
         </button>
       </div>
     </div>

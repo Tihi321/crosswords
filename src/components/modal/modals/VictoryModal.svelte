@@ -13,23 +13,19 @@
   const { apiWords } = useApiWords();
   const { devSettings } = useDevSettings();
   const { game } = useGame();
-  const { resetGame, getIsLargeVictory, getSettingsData, getNumberOfRetriesNumber } =
-    useVictoryModal();
+  const { resetGame, getSettingsData, getNumberOfRetriesNumber } = useVictoryModal();
 
   $: numberRetries = getNumberOfRetriesNumber($game);
   $: settingsData = getSettingsData($devSettings);
-  $: isLargeSizeCrossword = getIsLargeVictory($devSettings);
 
   const resetGameCallback = () => {
     resetGame($apiWords, $devSettings);
   };
 
   const shareStats = () => {
-    const message = `✌ ${$t(
-      isLargeSizeCrossword ? "victory.large_title" : "victory.title"
-    )} 🖊 ${$t("title")} 🖊 W ${settingsData.wordLimit} C ${settingsData.numberOfColumns} R ${
-      settingsData.numberOfRows
-    } ✌`;
+    const message = `✌ ${$t("modal.victory.title")} 🖊 ${$t("title")} 🖊 W ${
+      settingsData.wordLimit
+    } C ${settingsData.numberOfColumns} R ${settingsData.numberOfRows} ✌`;
     copyToClipboard(message);
   };
 
@@ -40,30 +36,29 @@
 
 <Backdrop on:click={toggleBackdrop}>
   <div class="victory">
-    <h2 class="title">{$t(isLargeSizeCrossword ? "victory.large_title" : "victory.title")}</h2>
+    <h2 class="title">{$t("modal.victory.title")}</h2>
     <div class="description">
       <div class="star">
         <StarIcon />
       </div>
       <p class="message">
         Retries {numberRetries}
-        {$t("victory.intro")}
-        {$t(isLargeSizeCrossword ? "victory.large_size" : "victory.size")}
+        {$t("modal.victory.labels.intro")}
         {settingsData.numberOfRows}
-        {$t("victory.rows")}
+        {$t("modal.victory.labels.rows")}
         {settingsData.numberOfColumns}
-        {$t("victory.columns")}
+        {$t("modal.victory.labels.columns")}
         {settingsData.wordLimit}
-        {$t("victory.words_pool")}
+        {$t("modal.victory.labels.words_pool")}
       </p>
       <div class="buttons">
         <button class="btn share" on:click={shareStats}>
           <ShareIcon />
-          <div class="btn-text">{$t("game.share")}</div>
+          <div class="btn-text">{$t("modal.victory.button.share")}</div>
         </button>
         <button class="btn restart" on:click={resetGameCallback}>
           <RestartIcon />
-          <div class="btn-text">{$t("game.restart")}</div>
+          <div class="btn-text">{$t("modal.victory.button.restart")}</div>
         </button>
       </div>
     </div>

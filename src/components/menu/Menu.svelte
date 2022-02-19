@@ -1,22 +1,13 @@
 <script lang="ts">
   import { t } from "svelte-i18n";
   import { EModals } from "../../constants";
-  import { useGame, useModals, useGameSettings } from "../../hooks";
+  import { useGame, useModals } from "../../hooks";
 
   const { startGame } = useGame();
   const { openModal } = useModals();
-  const { gameSettings } = useGameSettings();
 
   const openGameSettingsModal = () => {
-    openModal(EModals.GameSettings);
-  };
-
-  const openDevSettingsModal = () => {
-    openModal(EModals.DevSettings);
-  };
-
-  const openAboutModal = () => {
-    openModal(EModals.About);
+    openModal(EModals.Settings);
   };
 </script>
 
@@ -28,19 +19,9 @@
     </li>
     <li class="menu-item">
       <button class="menu-button" on:click={openGameSettingsModal}
-        >{$t("main_menu.game_settings")}</button
+        >{$t("main_menu.settings")}</button
       >
     </li>
-    <li class="menu-item">
-      <button class="menu-button" on:click={openAboutModal}>{$t("main_menu.about")}</button>
-    </li>
-    {#if $gameSettings.devSettings}
-      <li class="menu-item">
-        <button class="menu-button-small" on:click={openDevSettingsModal}
-          >{$t("main_menu.dev_settings")}</button
-        >
-      </li>
-    {/if}
     <li class="menu-item">
       <a class="link" href={"/design"} target="_blank">Storybook</a>
     </li>
@@ -81,9 +62,5 @@
 
   .menu-button {
     @include contrast-button("big");
-  }
-
-  .menu-button-small {
-    @include contrast-button("small");
   }
 </style>

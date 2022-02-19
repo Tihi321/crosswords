@@ -1,33 +1,31 @@
 <script lang="ts">
   import { t } from "svelte-i18n";
-  import { Toggle } from "ts-components-library";
   import map from "lodash/map";
-  import { useModals, useGameSettings } from "../../../hooks";
-  import { EModals, EGameDifficulty, ETableSize, EZoomLevel } from "../../../constants";
-  import ModalWindow from "../common/ModalWindow.svelte";
+  import { useGameSettings } from "../../../hooks";
+  import { EGameDifficulty, ETableSize, EZoomLevel } from "../../../constants";
   import ButtonGroup from "../common/ButtonGroup.svelte";
+  import TitleToggle from "../common/TitleToggle.svelte";
 
-  const { gameSettings } = useGameSettings();
-  const { closeModal } = useModals();
+  const { gameSettings, settings } = useGameSettings();
 
   const getTranslation = (value) => {
     switch (value) {
       case EGameDifficulty.Easy:
-        return $t("game_settings.difficulty.easy");
+        return $t("modal.settings.sub_modals.game_settings.difficulty.easy");
       case EGameDifficulty.Normal:
-        return $t("game_settings.difficulty.normal");
+        return $t("modal.settings.sub_modals.game_settings.difficulty.normal");
       case EGameDifficulty.Hard:
-        return $t("game_settings.difficulty.hard");
+        return $t("modal.settings.sub_modals.game_settings.difficulty.hard");
       case ETableSize.Small:
-        return $t("game_settings.size.small");
+        return $t("modal.settings.sub_modals.game_settings.size.small");
       case ETableSize.Medium:
-        return $t("game_settings.size.medium");
+        return $t("modal.settings.sub_modals.game_settings.size.medium");
       case ETableSize.Big:
-        return $t("game_settings.size.big");
+        return $t("modal.settings.sub_modals.game_settings.size.big");
       case EZoomLevel.Normal:
-        return $t("game_settings.zoom.normal");
+        return $t("modal.settings.sub_modals.game_settings.zoom.normal");
       case EZoomLevel.Large:
-        return $t("game_settings.zoom.large");
+        return $t("modal.settings.sub_modals.game_settings.zoom.large");
 
       default:
         break;
@@ -75,19 +73,11 @@
   const onSizeChange = (event) => {
     $gameSettings.size = event.detail.id;
   };
-
-  const onDevSettingsChange = (event) => {
-    $gameSettings.devSettings = event.detail.value;
-  };
-
-  function closeSettingsModal() {
-    closeModal(EModals.GameSettings);
-  }
 </script>
 
-<ModalWindow title={$t("modal.title.game_settings")} on:close={closeSettingsModal}>
+<div>
   <div class="option-group">
-    <div class="title">{$t("game_settings.title.difficulty")}</div>
+    <div class="title">{$t("modal.settings.sub_modals.game_settings.labels.difficulty")}</div>
     <ButtonGroup
       selected={selectedDifficultyItem}
       items={difficultyItems}
@@ -95,20 +85,20 @@
     />
   </div>
   <div class="option-group">
-    <div class="title">{$t("game_settings.title.size")}</div>
+    <div class="title">{$t("modal.settings.sub_modals.game_settings.labels.size")}</div>
     <ButtonGroup selected={selectedSizeItem} items={sizeItems} on:change={onSizeChange} />
   </div>
   <div class="option-group">
-    <div class="title">{$t("game_settings.title.zoom")}</div>
+    <div class="title">{$t("modal.settings.sub_modals.game_settings.labels.zoom")}</div>
     <ButtonGroup selected={selectedZoomItem} items={zoomItems} on:change={onZoomChange} />
   </div>
   <div class="option-group">
-    <div class="dev-settings">
-      {$t("game_settings.title.dev_settings")}
-      <Toggle value={$gameSettings.devSettings} on:change={onDevSettingsChange} />
-    </div>
+    <TitleToggle
+      bind:toggle={$settings.devSettings}
+      title={$t("modal.settings.sub_modals.game_settings.labels.dev_settings")}
+    />
   </div>
-</ModalWindow>
+</div>
 
 <style lang="scss">
   @import "src/styles/all";
@@ -117,10 +107,5 @@
     color: $button-color;
     margin: 0 0 5px 0;
     font-weight: normal;
-  }
-
-  .dev-settings {
-    display: flex;
-    justify-content: space-between;
   }
 </style>

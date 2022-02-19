@@ -8,6 +8,7 @@
     useDevSettings,
     useCrosswordGame,
     useGameSettings,
+    useSettings,
   } from "../../hooks";
   import { isEasyDifficulty } from "../../selectors";
   import Table from "../table/Table.svelte";
@@ -18,12 +19,18 @@
   const { generateNewCrosswordData, getTableData } = useCrosswordGame();
   const { crossWord, updateCrosswordInput } = useCrossWord();
   const { gameSettings } = useGameSettings();
+  const { settings } = useSettings();
 
   $: crosswordData = getTableData($crossWord);
   $: showWordsDetails = isEasyDifficulty($gameSettings);
 
   onMount(() => {
-    generateNewCrosswordData($apiWords, $gameSettings, $devSettings);
+    generateNewCrosswordData({
+      wordsState: $apiWords,
+      settingsState: $settings,
+      gameSettingsState: $gameSettings,
+      devSettingsState: $devSettings,
+    });
   });
 
   const onInput = (event: any) => {
@@ -55,8 +62,8 @@
   .table-container {
     height: 100%;
     display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
     gap: 50px;
   }
 
@@ -65,7 +72,7 @@
   }
 
   .info {
-    flex: 1;
+    width: 100%;
     max-width: 1024px;
   }
 </style>

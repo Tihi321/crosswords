@@ -1,12 +1,15 @@
 <script lang="ts">
-  import { EThemes } from "../../constants";
+  import { EThemes, EZoomLevel } from "../../constants";
   export let theme: EThemes = EThemes.Light;
+  export let zoom: EZoomLevel = EZoomLevel.Normal;
 </script>
 
 <div
   class="styles"
   class:light-theme={theme === EThemes.Light}
   class:dark-theme={theme === EThemes.Dark}
+  class:zoom-normal={zoom === EZoomLevel.Normal}
+  class:zoom-large={zoom === EZoomLevel.Large}
 >
   <slot />
 </div>
@@ -37,6 +40,14 @@
 
     @include add-modifier(ts-simple-input-font-family, $font-family, null);
     @include add-modifier(ts-accordion-bottom-border, $details-accordion-header-border, null);
+
+    &.zoom-normal {
+      @include add-map-modifiers(map-get-strict($size-variables, crossword), normal, size);
+    }
+
+    &.zoom-large {
+      @include add-map-modifiers(map-get-strict($size-variables, crossword), large, size);
+    }
 
     &.light-theme {
       @include add-map-modifiers($theme-colors, light, color);

@@ -3,10 +3,7 @@ $dark-color: rgba(0, 0, 0, 1);
 $ebony-clay-color: rgba(35, 39, 57, 1);
 $cerulean-color: rgba(3, 169, 244, 1);
 $carribean-color: rgba(6, 214, 160, 1);
-$dove-color: rgba(102, 102, 102, 1);
 $orange-color: rgba(255, 152, 0, 1);
-$dusty-color: rgba(153, 153, 153, 1);
-$silver-color: rgba(192, 192, 192, 1);
 $vivid-color: rgba(255, 193, 7, 1);
 $martinique-color: rgba(54, 54, 86, 1);
 $regent-color: rgba(123, 140, 149, 1);
@@ -24,16 +21,14 @@ $theme-colors: (
     neutral: $regent-color,
     tertiary-semi: $cerulean-semi-color,
     neutral-semi: $dove-semi-color,
-    quaternary: $regent-color,
   ),
   dark: (
     focus: $ebony-clay-color,
     primary: $light-color,
     tertiary: $orange-color,
-    neutral: $dusty-color,
+    neutral: $martinique-color,
     tertiary-semi: $orange-semi-color,
     neutral-semi: $dusty-semi-color,
-    quaternary: $martinique-color,
   ),
   libraries: (
     ts-components: (
@@ -54,14 +49,13 @@ $theme-colors: (
       ts-simple-input: var(--primary-color),
       ts-simple-input-bg: var(--focus-color),
       ts-simple-input-arrow: var(--primary-color),
-      ts-simple-input-border: var(--quaternary-color),
+      ts-simple-input-border: var(--neutral-color),
       ts-simple-input-border-active: var(--primary-color),
     ),
   ),
   shared: (
     light: $light-color,
     dark: $dark-color,
-    shiny: $silver-color,
     vivid: $vivid-color,
     success: $carribean-color,
   ),
@@ -79,7 +73,7 @@ $crossword-bg-success-color: var(--success-color);
 $crossword-bg-secondary-color: var(--tertiary-color);
 $crossword-input-border-color: var(--primary-color);
 $crossword-letter-border-color: var(--primary-color);
-$crossword-empty-bg-color: var(--quaternary-color);
+$crossword-empty-bg-color: var(--neutral-color);
 
 $crossword-details-color: var(--light-color);
 $crossword-details-bg-color: var(--tertiary-color);
@@ -94,7 +88,7 @@ $backdrop-bg-color: var(--neutral-semi-color);
 
 $modal-window-bg-color: var(--focus-color);
 $modal-window-items-color: var(--light-color);
-$modal-window-items-bg-color: var(--quaternary-color);
+$modal-window-items-bg-color: var(--neutral-color);
 
 $button-color: var(--primary-color);
 $button-hover-color: var(--tertiary-color);

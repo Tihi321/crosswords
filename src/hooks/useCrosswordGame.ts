@@ -13,7 +13,10 @@ import {
 import type {
   TCrosswordTable,
   TDetails,
+  TDevSettingsStore,
+  TGameSettingsStore,
   TSettingOptions,
+  TSettingsStore,
   TWordArray,
   TWordInputs,
   TWordsInfo,
@@ -24,15 +27,16 @@ import { useCrossWord } from "./useCrossWord";
 export const useCrosswordGame = () => {
   const { addCrosswordTable, addCrosswordDetails, addCrosswordWords } = useCrossWord();
 
-  const getSettingsData = (gameSettingsState, devSettingsState): TSettingOptions => {
+  const getSettingsData = (settingsState, gameSettingsState, devSettingsState): TSettingOptions => {
+    const settingsStateSelector = generateSelector(settingsState);
     const gameSettingsStateSelector = generateSelector(gameSettingsState);
     const devSettingsStateSelector = generateSelector(devSettingsState);
 
-    const isCustomGame = getIsCustomGame(gameSettingsStateSelector);
+    const isCustomGame = getIsCustomGame(settingsStateSelector, devSettingsStateSelector);
 
     return isCustomGame
       ? getCustomSettingOptions(devSettingsStateSelector)
-      : getGameSettingOptions(gameSettingsStateSelector, devSettingsStateSelector);
+      : getGameSettingOptions(gameSettingsStateSelector);
   };
 
   const getWordsArray = (wordsState): TWordArray => {
@@ -41,9 +45,19 @@ export const useCrosswordGame = () => {
     return getRandomizedWordsData(wordsStateSelector);
   };
 
-  const generateNewCrosswordData = (wordsState, gameSettings, devSettingsState) => {
+  const generateNewCrosswordData = ({
+    wordsState,
+    settingsState,
+    gameSettingsState,
+    devSettingsState,
+  }: {
+    wordsState: any;
+    settingsState: TSettingsStore;
+    gameSettingsState: TGameSettingsStore;
+    devSettingsState: TDevSettingsStore;
+  }) => {
     const wordsData = getWordsArray(wordsState);
-    const settingsData = getSettingsData(gameSettings, devSettingsState);
+    const settingsData = getSettingsData(settingsState, gameSettingsState, devSettingsState);
 
     const { table, details, words } = generateCrosswordsTable({
       words: wordsData,

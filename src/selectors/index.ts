@@ -5,13 +5,26 @@ import map from "lodash/map";
 import shuffle from "lodash/shuffle";
 import { combineSelector } from "tsl-utils";
 
-import { ECrosswordSize, EGameDifficulty } from "../constants";
+import { EGameDifficulty, EGamePresets, ETableSize, SIZE_PRESETS } from "../constants";
 
-export const getIsCustomGame = (gameSettingsSelector) =>
-  combineSelector(gameSettingsSelector, (state) => get(state, ["devSettings"]));
+export const gatCustomSettingsEnabled = (devSettingsStateSelector) =>
+  combineSelector(devSettingsStateSelector, (state) => get(state, ["enable"]));
+
+export const getCustomSettingsShown = (settingsStateSelector) =>
+  combineSelector(settingsStateSelector, (state) => get(state, ["devSettings"]));
+
+export const getIsCustomGame = (settingsStateSelector, devSettingsStateSelector) =>
+  combineSelector(
+    getCustomSettingsShown(settingsStateSelector),
+    gatCustomSettingsEnabled(devSettingsStateSelector),
+    (customSettingsShown, customSettingsEnabled) => customSettingsShown && customSettingsEnabled
+  );
 
 export const gatGameDifficulty = (gameSettingsSelector) =>
   combineSelector(gameSettingsSelector, (state) => get(state, ["difficulty"]));
+
+export const gatGameSize = (gameSettingsSelector) =>
+  combineSelector(gameSettingsSelector, (state) => get(state, ["size"]));
 
 export const isEasyDifficulty = (gameSettingsSelector) =>
   combineSelector(gatGameDifficulty(gameSettingsSelector), (difficulty) =>
@@ -60,24 +73,33 @@ export const getCustomSettingOptions = (settingsStateSelector) =>
     wordLimit: get(state, ["wordLimit"]),
     skipHorizontal: get(state, ["skipHorizontal"]),
     skipVertical: get(state, ["skipVertical"]),
-    crosswordSize:
-      get(state, ["numberOfRows"]) * get(state, ["numberOfColumns"]) > 350
-        ? ECrosswordSize.Large
-        : ECrosswordSize.Medium,
   }));
 
-export const getGameSettingOptions = (gameSettingsSelector, settingsStateSelector) =>
-  combineSelector(gameSettingsSelector, settingsStateSelector, (gameOptions, devSettingsState) => {
-    console.log(gameOptions);
+export const getGameSettingOptions = (gameSettingsSelector) =>
+  combineSelector(gatGameSize(gameSettingsSelector), (tableSize) => {
+    let numberOfColumns: number;
+    let numberOfRows: number;
+
+    switch (tableSize) {
+      case ETableSize.Big:
+        numberOfColumns = SIZE_PRESETS.COLUMNS.BIG;
+        numberOfRows = SIZE_PRESETS.ROWS.BIG;
+        break;
+      case ETableSize.Medium:
+        numberOfColumns = SIZE_PRESETS.COLUMNS.MEDIUM;
+        numberOfRows = SIZE_PRESETS.ROWS.MEDIUM;
+        break;
+
+      default:
+        numberOfColumns = SIZE_PRESETS.COLUMNS.SMALL;
+        numberOfRows = SIZE_PRESETS.ROWS.SMALL;
+    }
+
     return {
-      numberOfRows: get(devSettingsState, ["numberOfRows"]),
-      numberOfColumns: get(devSettingsState, ["numberOfColumns"]),
-      wordLimit: get(devSettingsState, ["wordLimit"]),
-      skipHorizontal: get(devSettingsState, ["skipHorizontal"]),
-      skipVertical: get(devSettingsState, ["skipVertical"]),
-      crosswordSize:
-        get(devSettingsState, ["numberOfRows"]) * get(devSettingsState, ["numberOfColumns"]) > 350
-          ? ECrosswordSize.Large
-          : ECrosswordSize.Medium,
+      numberOfRows: numberOfRows,
+      numberOfColumns: numberOfColumns,
+      wordLimit: EGamePresets.WordLimit,
+      skipHorizontal: EGamePresets.SkipRows,
+      skipVertical: EGamePresets.SkipColumns,
     };
   });

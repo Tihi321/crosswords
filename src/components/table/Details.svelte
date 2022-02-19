@@ -84,8 +84,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 15px;
-    width: 15px;
+    height: $detail-number-size;
+    width: $detail-number-size;
     font-weight: bold;
   }
 

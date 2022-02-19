@@ -17,7 +17,7 @@
     <div class="content">
       <slot />
     </div>
-    <button class="close-button window-item" on:click={onClose}>{$t("modal.close_modal")}</button>
+    <button class="close-button window-item" on:click={onClose}>{$t("modal.labels.close")}</button>
   </div>
 </Backdrop>
 

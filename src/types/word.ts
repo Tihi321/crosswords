@@ -1,5 +1,3 @@
-import type { ECrosswordSize } from "../constants";
-
 export type TWordItem = {
   detail: string;
   name: string;
@@ -19,7 +17,6 @@ export type TSettingOptions = {
   wordLimit: number;
   skipHorizontal: number;
   skipVertical: number;
-  crosswordSize: ECrosswordSize;
 };
 
 export type TDetail = {
