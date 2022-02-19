@@ -19,6 +19,7 @@
   <div class="container">
     <ul class="menu">
       <li
+        class:selected={$settings.settingsRoute === ESettingsModalRoutes.GameSettings}
         class="menu-item"
         on:click={() => ($settings.settingsRoute = ESettingsModalRoutes.GameSettings)}
       >
@@ -26,13 +27,18 @@
       </li>
       {#if $settings.devSettings}
         <li
+          class:selected={$settings.settingsRoute === ESettingsModalRoutes.DevSettings}
           class="menu-item"
           on:click={() => ($settings.settingsRoute = ESettingsModalRoutes.DevSettings)}
         >
           {$t("modal.settings.menu.dev_settings")}
         </li>
       {/if}
-      <li class="menu-item" on:click={() => ($settings.settingsRoute = ESettingsModalRoutes.About)}>
+      <li
+        class:selected={$settings.settingsRoute === ESettingsModalRoutes.About}
+        class="menu-item"
+        on:click={() => ($settings.settingsRoute = ESettingsModalRoutes.About)}
+      >
         {$t("modal.settings.menu.about")}
       </li>
     </ul>
@@ -54,13 +60,30 @@
   @import "src/styles/all";
   .container {
     display: flex;
+    width: 500px;
+  }
+
+  .content {
+    flex: 1;
+    padding: 20px;
+    height: 400px;
+    overflow: auto;
   }
 
   .menu {
-    margin-right: 10px;
+    margin: 0;
+    background-color: $settings-modal-menu-bg-color;
+    min-width: 120px;
   }
 
   .menu-item {
     padding: 10px;
+    cursor: pointer;
+    border-left: 5px solid transparent;
+
+    &.selected {
+      background-color: $settings-modal-menu-item-selected-bg-color;
+      border-left-color: $settings-modal-menu-item-selected-border-color;
+    }
   }
 </style>

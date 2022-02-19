@@ -32,7 +32,6 @@
     align-items: center;
   }
   .input {
-    padding: 5px;
     width: 100%;
     margin-right: 5px;
   }

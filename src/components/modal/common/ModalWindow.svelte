@@ -14,9 +14,7 @@
 <Backdrop on:click={onClose}>
   <div class="window">
     <h2 class="title window-item">{title}</h2>
-    <div class="content">
-      <slot />
-    </div>
+    <slot />
     <button class="close-button window-item" on:click={onClose}>{$t("modal.labels.close")}</button>
   </div>
 </Backdrop>
@@ -33,27 +31,27 @@
     grid-template-rows: min-content 1fr min-content;
     filter: $shadow-color-filter;
   }
-  .content {
-    padding: 15px;
-  }
-
   .window-item {
     color: $modal-window-items-color;
-    background: $modal-window-items-bg-color;
     font-weight: normal;
-    padding: 5px;
     text-align: center;
   }
 
   .title {
+    background: $modal-window-header-bg-color;
     margin: 0;
     border-radius: 5px 5px 0 0;
+    padding: 10px 0;
+    font-size: 18px;
+    border-bottom: 1px solid $modal-window-border-color;
+    cursor: default;
   }
 
   .close-button {
-    padding: 5px;
+    background: $modal-window-button-bg-color;
+    border-top: 1px solid $modal-window-border-color;
+    padding: 20px 0;
     width: 100%;
     border-radius: 0 0 5px 5px;
-    background: $modal-window-items-bg-color;
   }
 </style>

@@ -19,6 +19,7 @@
   :global {
     body {
       @extend %default-body;
+      @extend %scrollbar;
     }
 
     ul {

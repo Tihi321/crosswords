@@ -30,6 +30,9 @@
     width: 100%;
     display: flex;
     align-items: center;
+    margin: 0;
+    margin-left: -5px;
+    margin-right: -5px;
   }
 
   .option {
@@ -39,10 +42,13 @@
     padding: 5px 8px;
     border-radius: 5px;
     flex: 1;
+    border: 1px solid;
+    margin: 0 5px;
   }
 
   .selected {
     color: $active-btn-color;
     background-color: $active-btn-bg-color;
+    border: 1px solid $active-btn-bg-color;
   }
 </style>

@@ -3,6 +3,7 @@
   import map from "lodash/map";
   import { useGameSettings } from "../../../hooks";
   import { EGameDifficulty, ETableSize, EZoomLevel } from "../../../constants";
+  import OptionTitle from "../common/OptionTitle.svelte";
   import ButtonGroup from "../common/ButtonGroup.svelte";
   import TitleToggle from "../common/TitleToggle.svelte";
 
@@ -77,7 +78,7 @@
 
 <div>
   <div class="option-group">
-    <div class="title">{$t("modal.settings.sub_modals.game_settings.labels.difficulty")}</div>
+    <OptionTitle title={$t("modal.settings.sub_modals.game_settings.labels.difficulty")} />
     <ButtonGroup
       selected={selectedDifficultyItem}
       items={difficultyItems}
@@ -85,11 +86,11 @@
     />
   </div>
   <div class="option-group">
-    <div class="title">{$t("modal.settings.sub_modals.game_settings.labels.size")}</div>
+    <OptionTitle title={$t("modal.settings.sub_modals.game_settings.labels.size")} />
     <ButtonGroup selected={selectedSizeItem} items={sizeItems} on:change={onSizeChange} />
   </div>
   <div class="option-group">
-    <div class="title">{$t("modal.settings.sub_modals.game_settings.labels.zoom")}</div>
+    <OptionTitle title={$t("modal.settings.sub_modals.game_settings.labels.zoom")} />
     <ButtonGroup selected={selectedZoomItem} items={zoomItems} on:change={onZoomChange} />
   </div>
   <div class="option-group">
@@ -102,10 +103,7 @@
 
 <style lang="scss">
   @import "src/styles/all";
-  .title {
-    font-size: $default-font-size;
-    color: $button-color;
-    margin: 0 0 5px 0;
-    font-weight: normal;
+  .option-group {
+    margin-bottom: 20px;
   }
 </style>

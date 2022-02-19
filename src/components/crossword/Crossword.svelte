@@ -60,10 +60,9 @@
   @import "src/styles/all";
 
   .table-container {
-    height: 100%;
-    display: flex;
+    @extend %flex-centered;
     flex-direction: column;
-    align-items: center;
+    height: 100%;
     gap: 50px;
   }
 

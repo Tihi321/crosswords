@@ -87,8 +87,19 @@ $details-accordion-header-border: none;
 $backdrop-bg-color: var(--neutral-semi-color);
 
 $modal-window-bg-color: var(--focus-color);
+$modal-window-border-color: var(--primary-color);
 $modal-window-items-color: var(--light-color);
-$modal-window-items-bg-color: var(--neutral-color);
+$modal-window-header-bg-color: var(--neutral-color);
+$modal-window-button-bg-color: var(--success-color);
+
+$scrollbar-bg-color: var(--focus-color);
+$scrollbar-thumb-color: var(--tertiary-color);
+$scrollbar-thumb-hover-color: var(--tertiary-semi-color);
+
+$settings-modal-menu-bg-color: var(--neutral-color);
+$settings-modal-menu-item-bg-color: var(--neutral-color);
+$settings-modal-menu-item-selected-bg-color: var(--focus-color);
+$settings-modal-menu-item-selected-border-color: var(--success-color);
 
 $button-color: var(--primary-color);
 $button-hover-color: var(--tertiary-color);

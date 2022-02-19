@@ -57,7 +57,7 @@
   @import "src/styles/all";
   .items {
     &.disabled {
-      opacity: 0.7;
+      opacity: 0.5;
       pointer-events: none;
     }
   }

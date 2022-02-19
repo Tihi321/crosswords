@@ -18,7 +18,11 @@
   @import "src/styles/all";
 
   .container {
+    font-size: $small-font-size;
+    font-weight: bold;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    cursor: default;
   }
 </style>
