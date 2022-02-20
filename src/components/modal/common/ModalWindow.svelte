@@ -48,6 +48,7 @@
   }
 
   .close-button {
+    margin: 0;
     background: $modal-window-button-bg-color;
     border-top: 1px solid $modal-window-border-color;
     padding: 20px 0;

@@ -58,10 +58,12 @@
 
   .input {
     width: 100%;
+    flex: 1;
   }
 
   .button {
     @include contrast-button("small");
+    padding: 0;
 
     &.left {
       margin-right: 10px;

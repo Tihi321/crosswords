@@ -61,7 +61,7 @@
 
   .theme-container {
     display: flex;
-    align-items: end;
+    align-items: center;
   }
 
   .tooltip {
