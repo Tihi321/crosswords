@@ -1,13 +1,16 @@
 <script lang="ts">
   import { t } from "svelte-i18n";
   import map from "lodash/map";
-  import { useGameSettings } from "../../../hooks";
-  import { EGameDifficulty, ETableSize, EZoomLevel } from "../../../constants";
+  import { getLocalizedEndpoint } from "../../../utils";
+  import { useGameSettings, useDevSettings, useApiWords } from "../../../hooks";
+  import { EGameDifficulty, ETableSize, EWordsLanguages, EZoomLevel } from "../../../constants";
   import OptionTitle from "../common/OptionTitle.svelte";
   import ButtonGroup from "../common/ButtonGroup.svelte";
   import TitleToggle from "../common/TitleToggle.svelte";
 
   const { gameSettings, settings } = useGameSettings();
+  const { devSettings } = useDevSettings();
+  const { fetchApiVocabularyWords } = useApiWords();
 
   const getTranslation = (value) => {
     switch (value) {
@@ -23,10 +26,10 @@
         return $t("modal.settings.sub_modals.game_settings.size.medium");
       case ETableSize.Big:
         return $t("modal.settings.sub_modals.game_settings.size.big");
-      case EZoomLevel.Normal:
-        return $t("modal.settings.sub_modals.game_settings.zoom.normal");
-      case EZoomLevel.Large:
-        return $t("modal.settings.sub_modals.game_settings.zoom.large");
+      case EWordsLanguages.Croatian:
+        return $t("languages.croatian");
+      case EWordsLanguages.English:
+        return $t("languages.english");
 
       default:
         break;
@@ -43,10 +46,21 @@
     value: getTranslation($gameSettings.size),
   };
 
-  $: selectedZoomItem = {
-    id: $gameSettings.zoom,
-    value: getTranslation($gameSettings.zoom),
+  $: selectedAPILanguageItem = {
+    id: $gameSettings.wordsLanguage,
+    value: getTranslation($gameSettings.wordsLanguage),
   };
+
+  const languageAPIItems = [
+    {
+      id: EWordsLanguages.Croatian,
+      value: $t("languages.croatian"),
+    },
+    {
+      id: EWordsLanguages.English,
+      value: $t("languages.english"),
+    },
+  ];
 
   const difficultyItems = map(Object.values(EGameDifficulty), (key) => ({
     id: key,
@@ -67,12 +81,16 @@
     $gameSettings.difficulty = event.detail.id;
   };
 
-  const onZoomChange = (event) => {
-    $gameSettings.zoom = event.detail.id;
-  };
-
   const onSizeChange = (event) => {
     $gameSettings.size = event.detail.id;
+  };
+
+  const onLanguageAPIChange = (event) => {
+    $gameSettings.wordsLanguage = event.detail.id;
+
+    if (!$devSettings.useCustomEndpoint) {
+      fetchApiVocabularyWords(getLocalizedEndpoint(event.detail.id));
+    }
   };
 </script>
 
@@ -90,8 +108,12 @@
     <ButtonGroup selected={selectedSizeItem} items={sizeItems} on:change={onSizeChange} />
   </div>
   <div class="option-group">
-    <OptionTitle title={$t("modal.settings.sub_modals.game_settings.labels.zoom")} />
-    <ButtonGroup selected={selectedZoomItem} items={zoomItems} on:change={onZoomChange} />
+    <OptionTitle title={$t("modal.settings.sub_modals.game_settings.labels.words_language")} />
+    <ButtonGroup
+      selected={selectedAPILanguageItem}
+      items={languageAPIItems}
+      on:change={onLanguageAPIChange}
+    />
   </div>
   <div class="option-group">
     <TitleToggle

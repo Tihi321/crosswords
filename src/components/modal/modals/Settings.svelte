@@ -5,6 +5,7 @@
   import ModalWindow from "../common/ModalWindow.svelte";
   import GameSettings from "../settings/GameSettings.svelte";
   import DevSettings from "../settings/DevSettings.svelte";
+  import ViiewSettings from "../settings/ViiewSettings.svelte";
   import About from "../settings/About.svelte";
 
   const { closeModal } = useModals();
@@ -18,6 +19,13 @@
 <ModalWindow title={$t("modal.settings.title")} on:close={closeSettingsModal}>
   <div class="container">
     <ul class="menu">
+      <li
+        class:selected={$settings.settingsRoute === ESettingsModalRoutes.ViewSettings}
+        class="menu-item"
+        on:click={() => ($settings.settingsRoute = ESettingsModalRoutes.ViewSettings)}
+      >
+        {$t("modal.settings.menu.view_settings")}
+      </li>
       <li
         class:selected={$settings.settingsRoute === ESettingsModalRoutes.GameSettings}
         class="menu-item"
@@ -43,6 +51,9 @@
       </li>
     </ul>
     <div class="content">
+      {#if $settings.settingsRoute === ESettingsModalRoutes.ViewSettings}
+        <ViiewSettings />
+      {/if}
       {#if $settings.settingsRoute === ESettingsModalRoutes.GameSettings}
         <GameSettings />
       {/if}

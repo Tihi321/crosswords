@@ -18,6 +18,7 @@ export enum EModals {
 }
 
 export enum ESettingsModalRoutes {
+  ViewSettings = "viewSettings",
   GameSettings = "gameSettings",
   DevSettings = "devSettings",
   About = "about",
@@ -26,4 +27,9 @@ export enum ESettingsModalRoutes {
 export enum ELanguages {
   English = "en",
   Croatian = "hr",
+}
+
+export enum EWordsLanguages {
+  English = "english",
+  Croatian = "croatian",
 }

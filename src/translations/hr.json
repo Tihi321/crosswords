@@ -22,7 +22,8 @@
     "settings": {
       "title": "Opcije",
       "menu": {
-        "game_settings": "Igra",
+        "view_settings": "Izled",
+        "game_settings": "Pravila",
         "dev_settings": "Prilagođeno",
         "about": "Info"
       },
@@ -32,7 +33,8 @@
             "difficulty": "Težina",
             "size": "Veličina",
             "zoom": "Zoom",
-            "dev_settings": "Prikaži opcije za prilagođavanje"
+            "dev_settings": "Prikaži opcije za prilagođavanje",
+            "words_language": "Jezik fonda riječi"
           },
           "difficulty": {
             "easy": "Lagano",

@@ -27,12 +27,10 @@
   @import "src/styles/all";
 
   .select {
-    width: 100%;
     display: flex;
     align-items: center;
     margin: 0;
-    margin-left: -5px;
-    margin-right: -5px;
+    margin-left: -10px;
   }
 
   .option {
@@ -43,7 +41,7 @@
     border-radius: 5px;
     flex: 1;
     border: 1px solid;
-    margin: 0 5px;
+    margin-left: 10px;
   }
 
   .selected {

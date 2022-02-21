@@ -3,6 +3,7 @@ import type {
   ESettingsModalRoutes,
   ETableSize,
   EThemes,
+  EWordsLanguages,
   EZoomLevel,
 } from "../constants";
 import type { TCrosswordTable, TDetail } from "../types";
@@ -28,6 +29,7 @@ export type TGameSettingsStore = {
   difficulty: EGameDifficulty;
   size: ETableSize;
   zoom: EZoomLevel;
+  wordsLanguage: EWordsLanguages;
 };
 
 export type TCrosswordStore = {

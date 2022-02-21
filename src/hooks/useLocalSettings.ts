@@ -7,7 +7,7 @@ import { useTheme } from "./useTheme";
 import { useTranslations } from "./useTranslations";
 
 export const useLocalSettings = () => {
-  const { locale, setLocale } = useTranslations();
+  const { setLocale } = useTranslations();
   const { setTheme, theme } = useTheme();
   const {
     getLocalTheme,
@@ -16,12 +16,12 @@ export const useLocalSettings = () => {
     getLocalGameSettings,
     getLocalSettings,
   } = useLocalStorage();
-  const { setStore: setDevStore } = useDevSettings();
+  const { setStore: setDevStore, devSettings } = useDevSettings();
   const { setStore: setGameStore, gameSettings } = useGameSettings();
   const { setStore: setSettingsStore } = useSettings();
 
   const setLocalStorageState = () => {
-    const devSettings = getLocalDevSettings();
+    const devLocalSettings = getLocalDevSettings();
     const settingsLocal = getLocalSettings();
     const gameSettingsLocal = getLocalGameSettings();
     const localStorageTheme = getLocalTheme();
@@ -31,8 +31,8 @@ export const useLocalSettings = () => {
       setLocale(localLanguage);
     }
 
-    if (devSettings) {
-      setDevStore(devSettings);
+    if (devLocalSettings) {
+      setDevStore(devLocalSettings);
     }
 
     if (settingsLocal) {
@@ -51,7 +51,7 @@ export const useLocalSettings = () => {
   return {
     theme,
     gameSettings,
-    locale,
+    devSettings,
     setLocalStorageState,
   };
 };

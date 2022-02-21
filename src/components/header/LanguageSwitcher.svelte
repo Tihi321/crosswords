@@ -3,12 +3,9 @@
   import { Dropdown } from "ts-components-library";
 
   import { ELanguages } from "../../constants";
-  import { getLocalizedEndpoint } from "../../utils";
-  import { useTranslations, useDevSettings, useApiWords } from "../../hooks";
+  import { useTranslations } from "../../hooks";
 
   const { setCroatian, setEnglish, locale } = useTranslations();
-  const { devSettings } = useDevSettings();
-  const { fetchApiVocabularyWords } = useApiWords();
 
   $: selectedItem = {
     id: $locale,
@@ -32,9 +29,6 @@
       setCroatian();
     } else {
       setEnglish();
-    }
-    if (!$devSettings.useCustomEndpoint) {
-      fetchApiVocabularyWords(getLocalizedEndpoint(item.id));
     }
   };
 </script>

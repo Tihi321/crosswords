@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import isEmpty from "lodash/isEmpty";
   import Home from "./pages/Home.svelte";
   import Modals from "./components/modal/Modals.svelte";
   import ThemeContainer from "./components/common/ThemeContainer.svelte";
@@ -9,11 +10,15 @@
   import { getLocalizedEndpoint } from "./utils";
 
   const { fetchApiVocabularyWords } = useApiWords();
-  const { theme, locale, setLocalStorageState, gameSettings } = useLocalSettings();
+  const { theme, setLocalStorageState, gameSettings, devSettings } = useLocalSettings();
 
   onMount(() => {
     setLocalStorageState();
-    fetchApiVocabularyWords(getLocalizedEndpoint($locale));
+    if (!$devSettings.useCustomEndpoint || !isEmpty($devSettings.endpoint)) {
+      fetchApiVocabularyWords(getLocalizedEndpoint($gameSettings.wordsLanguage));
+    } else {
+      fetchApiVocabularyWords($devSettings.endpoint);
+    }
   });
 </script>
 

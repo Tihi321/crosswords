@@ -24,7 +24,8 @@
     "settings": {
       "title": "Settings",
       "menu": {
-        "game_settings": "Game",
+        "view_settings": "View",
+        "game_settings": "Rules",
         "dev_settings": "Custom",
         "about": "About"
       },
@@ -34,7 +35,8 @@
             "difficulty": "Difficulty",
             "size": "Table size",
             "zoom": "Zoom level",
-            "dev_settings": "Show custom settings"
+            "dev_settings": "Show custom settings",
+            "words_language": "Language of words pool"
           },
           "difficulty": {
             "easy": "Easy",

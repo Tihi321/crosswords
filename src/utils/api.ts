@@ -1,8 +1,8 @@
 import get from "lodash/get";
 
-import { ELanguages, Endpoints } from "../constants";
+import { Endpoints, EWordsLanguages } from "../constants";
 export const getLocalizedEndpoint = (language: string) =>
-  language === ELanguages.Croatian ? Endpoints.CroatianWords : Endpoints.Words;
+  language === EWordsLanguages.Croatian ? Endpoints.CroatianWords : Endpoints.Words;
 
 export const fetchWords = (url: string, callback: Function) => {
   fetch(url)
