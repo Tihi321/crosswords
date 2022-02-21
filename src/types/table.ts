@@ -14,10 +14,16 @@ export type TCrosswordWord = {
   endIndex: number;
 };
 
+export type TFocusChar = {
+  rowIndex: number;
+  itemIndex: number;
+};
+
 export type TCrosswordItem = {
   char: string | ECrosswordInfo.EmptySpace;
   shownChar: string;
   show: boolean;
+  focus: boolean;
   success: boolean;
   included: boolean;
   top: TCrosswordWord | ECrosswordInfo.EmptySpace;

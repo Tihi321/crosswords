@@ -3,10 +3,19 @@
   import { createEventDispatcher } from "svelte";
   export let letter: string;
   export let show: boolean = false;
+  export let focus: boolean = false;
   export let success: boolean = false;
   export let secondary: boolean = false;
 
   const dispatch = createEventDispatcher();
+
+  let inputRef;
+
+  $: {
+    if (focus && inputRef) {
+      inputRef.focus();
+    }
+  }
 
   const onInput = (event: any) => {
     dispatch("input", {
@@ -21,7 +30,7 @@
       {letter}
     </div>
   {:else}
-    <input class="input letter" on:input={onInput} maxlength={1} />
+    <input class="input letter" on:input={onInput} maxlength={1} bind:this={inputRef} />
   {/if}
 </LetterContainer>
 
@@ -52,9 +61,5 @@
     text-align: center;
     background: none;
     cursor: pointer;
-
-    &:focus {
-      box-shadow: inset 0 0 0 2px $crossword-input-border-color;
-    }
   }
 </style>

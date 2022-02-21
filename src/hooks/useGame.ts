@@ -1,6 +1,8 @@
 import { game } from "../store/game";
+import { useCrossWord } from "./useCrossWord";
 
 export const useGame = () => {
+  const { resetCrossWord } = useCrossWord();
   const setGameStart = () => {
     game.update((state) => ({
       ...state,
@@ -9,11 +11,8 @@ export const useGame = () => {
   };
 
   const setGameEnd = () => {
-    game.update((state) => ({
-      ...state,
-      retries: 0,
-      started: false,
-    }));
+    resetCrossWord();
+    game.set({ retries: 0, started: false });
   };
 
   const addGameRetry = () => {

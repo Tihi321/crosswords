@@ -56,7 +56,7 @@
             "skip_rows": "Preskoči redove",
             "number_of_columns": "Broj kolona",
             "number_of_rows": "Broj redova",
-            "word_limit": "Limit riječi",
+            "word_limit": "Fond riječi",
             "custom_endpoint": "Prilagođen endpoint"
           }
         },

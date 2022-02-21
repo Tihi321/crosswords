@@ -1,11 +1,15 @@
 $size-variables: (
-  generic: (
+  sizes: (
     settings-modal-content-height: 400px,
     settings-modal-container-width: 500px,
     game-modal-window-height: 500px,
     game-modal-window-width: 400px,
   ),
   crossword: (
+    sizes: (
+      table-padding: 2px,
+      letter-gap: 1px,
+    ),
     normal: (
       letter-square: 35px,
     ),
@@ -14,6 +18,9 @@ $size-variables: (
     ),
   ),
 );
+
+$table-padding: var(--table-padding-size);
+$letter-gap: var(--letter-gap-size);
 
 $square-size: var(--letter-square-size);
 $detail-number-size: calc(var(--letter-square-size) / 2);

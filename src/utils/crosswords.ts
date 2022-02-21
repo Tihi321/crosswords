@@ -1,6 +1,7 @@
 import forEach from "lodash/forEach";
 import get from "lodash/get";
 import isEmpty from "lodash/isEmpty";
+import isEqual from "lodash/isEqual";
 import map from "lodash/map";
 
 import { ECrosswordInfo, ECrosswordType } from "../constants";
@@ -9,6 +10,7 @@ import type {
   TCrosswordItems,
   TCrosswordTable,
   TCrosswordTableData,
+  TFocusChar,
   TLettersInfo,
   TSettingOptions,
   TWordArray,
@@ -98,9 +100,13 @@ const getWordsTableData = (crosswordsTable: TCrosswordTable): TCrosswordTableDat
   };
 };
 
+export const checkIfInputExist = (item: TCrosswordItem) =>
+  item && item.char && typeof item.char === "string" && !item.show;
+
 export const addCharInfo = (
   tableData: TCrosswordTable,
-  lettersState: TLettersInfo
+  lettersState: TLettersInfo,
+  focusItem: TFocusChar
 ): TCrosswordTable => {
   const updatedData = map(tableData, (rowData: TCrosswordItems, rowIndex: number) =>
     map(rowData, (itemData: TCrosswordItem, columnIndex: number) => ({
@@ -109,6 +115,9 @@ export const addCharInfo = (
       success: get(lettersState, [generateIndexKey(rowIndex, columnIndex), "success"], false),
       included: get(lettersState, [generateIndexKey(rowIndex, columnIndex), "included"], false),
       show: !isEmpty(get(lettersState, [generateIndexKey(rowIndex, columnIndex)])),
+      focus:
+        isEqual(get(focusItem, ["rowIndex"]), rowIndex) &&
+        isEqual(get(focusItem, ["itemIndex"]), columnIndex),
     }))
   );
 

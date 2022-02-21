@@ -7,5 +7,6 @@
 
   .container {
     background-clip: content-box;
+    margin: $letter-gap;
   }
 </style>

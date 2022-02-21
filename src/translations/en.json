@@ -58,7 +58,7 @@
             "skip_rows": "Skip rows",
             "number_of_columns": "Number of columns",
             "number_of_rows": "Number of rows",
-            "word_limit": "Words limit",
+            "word_limit": "Words pool",
             "custom_endpoint": "Custom endpoint"
           }
         },
