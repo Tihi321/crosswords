@@ -4,6 +4,7 @@ $ebony-clay-color: rgba(35, 39, 57, 1);
 $cerulean-color: rgba(3, 169, 244, 1);
 $carribean-color: rgba(6, 214, 160, 1);
 $orange-color: rgba(255, 152, 0, 1);
+$pomegranate-color: rgba(244, 67, 54, 1);
 $vivid-color: rgba(255, 193, 7, 1);
 $martinique-color: rgba(54, 54, 86, 1);
 $regent-color: rgba(123, 140, 149, 1);
@@ -32,11 +33,6 @@ $theme-colors: (
   ),
   libraries: (
     ts-components: (
-      ts-select: var(--primary-color),
-      ts-select-icon: var(--primary-color),
-      ts-select-bg: var(--focus-color),
-      ts-select-hover: var(--tertiary-color),
-      ts-select-border: var(--primary-color),
       ts-accordion-header-bg: var(--primary-color),
       ts-accordion-icon: var(--focus-color),
       ts-accordion-content-bg: var(--focus-color),
@@ -57,6 +53,8 @@ $theme-colors: (
     dark: $dark-color,
     vivid: $vivid-color,
     success: $carribean-color,
+    warn: $orange-color,
+    failure: $pomegranate-color,
   ),
 );
 
@@ -108,8 +106,12 @@ $logo-bg-color: var(--primary-color);
 $active-btn-color: var(--focus-color);
 $active-btn-bg-color: var(--primary-color);
 
-$game-modal-title-color: var(--focus-color);
-$game-modal-title-bg-color: var(--primary-color);
 $game-modal-bg-color: var(--success-color);
 
 $star-icon-color: var(--vivid-color);
+$cog-icon-color: var(--primary-color);
+
+$colored-button-color: var(--light-color);
+$failure-button-bg-color: var(--failure-color);
+$warn-button-bg-color: var(--warn-color);
+$success-button-bg-color: var(--success-color);

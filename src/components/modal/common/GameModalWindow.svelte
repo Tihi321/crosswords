@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Backdrop from "../common/Backdrop.svelte";
+  import ModalWindow from "../common/ModalWindow.svelte";
 
   export let title: string;
   export let transparent: boolean = false;
@@ -9,12 +9,11 @@
   };
 </script>
 
-<Backdrop on:click={toggleBackdrop}>
+<ModalWindow on:close={toggleBackdrop} {title} showClose={false}>
   <div class="container">
-    <h2 class="title">{title}</h2>
     <slot />
   </div>
-</Backdrop>
+</ModalWindow>
 
 <style lang="scss">
   @import "src/styles/all";
@@ -23,18 +22,7 @@
     display: flex;
     flex-direction: column;
     background-color: $game-modal-bg-color;
-    height: $game-modal-window-height;
-    width: $game-modal-window-width;
+    max-width: $game-modal-content-width;
     border-radius: 5px;
-    filter: $shadow-color-filter;
-  }
-
-  .title {
-    margin: 0;
-    text-align: center;
-    background: $game-modal-title-bg-color;
-    color: $game-modal-title-color;
-    padding: 15px 5px;
-    border-radius: 5px 5px 0 0;
   }
 </style>

@@ -1,33 +1,23 @@
 <script lang="ts">
-  import { t } from "svelte-i18n";
-  import { Tooltip } from "ts-components-library";
   import Logo from "../common/Logo.svelte";
-  import ThemeSwitcher from "./ThemeSwitcher.svelte";
-  import LanguageSwitcher from "./LanguageSwitcher.svelte";
-  import { useGame } from "../../hooks";
+  import CogIcon from "../icons/CogIcon.svelte";
+  import { useGame, useModals } from "../../hooks";
+  import { EModals } from "../../constants";
 
-  const { endGame, game } = useGame();
+  const { game } = useGame();
+  const { openModal } = useModals();
+
+  const openGameModal = () => {
+    openModal(EModals.Game);
+  };
 </script>
 
 <header class="header">
   <div class="container">
-    <div class="logo-container">
-      <div class="logo"><Logo /></div>
-      <div class="title">{$t("title")}</div>
-    </div>
-    <div class="theme-container">
-      {#if $game.started}
-        <Tooltip placement="Top">
-          <span slot="tooltip">
-            <div class="tooltip">{$t("header.back_to_menu_tooltip")}</div>
-          </span>
-          <button on:click={endGame} class="end-game-button">{$t("header.back_to_menu")}</button>
-        </Tooltip>
-      {:else}
-        <LanguageSwitcher />
-      {/if}
-      <ThemeSwitcher />
-    </div>
+    <div class="logo"><Logo /></div>
+    {#if $game.started}
+      <button class="game-modal-button" on:click={openGameModal}><CogIcon /></button>
+    {/if}
   </div>
 </header>
 
@@ -43,28 +33,17 @@
     justify-content: space-between;
     flex-wrap: wrap;
   }
-  .end-game-button {
-    color: $font-color;
-  }
-  .logo-container {
-    display: flex;
-    align-items: baseline;
-  }
-  .title {
-    margin-left: 10px;
-    font-weight: bold;
-  }
+  .game-modal-button {
+    @extend %flex-centered;
+    width: 40px;
+    height: 40px;
+    transition: transform 0.2s ease;
 
+    &:hover {
+      transform: rotate(180deg);
+    }
+  }
   .logo {
     max-width: 50px;
-  }
-
-  .theme-container {
-    display: flex;
-    align-items: center;
-  }
-
-  .tooltip {
-    max-height: 10px;
   }
 </style>

@@ -2,9 +2,10 @@ import { game } from "../store/game";
 import { useCrossWord } from "./useCrossWord";
 
 export const useGame = () => {
+  const { set, update } = game;
   const { resetCrossWord } = useCrossWord();
   const setGameStart = () => {
-    game.update((state) => ({
+    update((state) => ({
       ...state,
       started: true,
     }));
@@ -12,11 +13,19 @@ export const useGame = () => {
 
   const setGameEnd = () => {
     resetCrossWord();
-    game.set({ retries: 0, started: false });
+    set({ retries: 0, started: false });
+  };
+
+  const resetGame = () => {
+    resetCrossWord();
+    update((state) => ({
+      ...state,
+      retries: 0,
+    }));
   };
 
   const addGameRetry = () => {
-    game.update((state) => ({
+    update((state) => ({
       ...state,
       retries: state.retries + 1,
     }));
@@ -26,6 +35,7 @@ export const useGame = () => {
     addGameRetry,
     startGame: setGameStart,
     endGame: setGameEnd,
+    resetGame,
     game,
   };
 };

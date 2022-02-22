@@ -7,7 +7,7 @@ import { useTheme } from "./useTheme";
 import { useTranslations } from "./useTranslations";
 
 export const useLocalSettings = () => {
-  const { setLocale } = useTranslations();
+  const { setStore: setLanguage } = useTranslations();
   const { setTheme, theme } = useTheme();
   const {
     getLocalTheme,
@@ -28,7 +28,7 @@ export const useLocalSettings = () => {
     const localLanguage = getLocalLanguage();
 
     if (localLanguage) {
-      setLocale(localLanguage);
+      setLanguage(localLanguage);
     }
 
     if (devLocalSettings) {

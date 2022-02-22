@@ -4,6 +4,7 @@
   import get from "lodash/get";
   import { useModals } from "../../hooks";
   import { EModals } from "../../constants";
+  import GameModal from "./modals/GameModal.svelte";
   import Settings from "./modals/Settings.svelte";
   import VictoryModal from "./modals/VictoryModal.svelte";
   import RetryModal from "./modals/RetryModal.svelte";
@@ -19,6 +20,7 @@
 
   $: anyModalActive = !isEmpty(activeModals);
   $: activeSettingsModal = includes(activeModals, EModals.Settings);
+  $: activeGameModal = includes(activeModals, EModals.Game);
   $: activeVictoryModal = includes(activeModals, EModals.Victory);
   $: activeRetryModal = includes(activeModals, EModals.Retry);
 </script>
@@ -32,6 +34,9 @@
   {/if}
   {#if activeSettingsModal}
     <Settings />
+  {/if}
+  {#if activeGameModal}
+    <GameModal />
   {/if}
 </div>
 

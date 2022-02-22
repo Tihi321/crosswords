@@ -3,7 +3,17 @@
   import { copyToClipboard } from "../../../utils";
   import GameModalWindow from "../common/GameModalWindow.svelte";
 
-  import { useApiWords, useDevSettings, useGame, useVictoryModal } from "../../../hooks";
+  import { EModals } from "../../../constants";
+  import {
+    useApiWords,
+    useDevSettings,
+    useGame,
+    useVictoryModal,
+    useModals,
+    useGameSettings,
+    useSettings,
+    useCrosswordGame,
+  } from "../../../hooks";
   import StarIcon from "../../icons/StarIcon.svelte";
   import RestartIcon from "../../icons/RestartIcon.svelte";
   import ShareIcon from "../../icons/ShareIcon.svelte";
@@ -12,14 +22,25 @@
 
   const { apiWords } = useApiWords();
   const { devSettings } = useDevSettings();
-  const { game } = useGame();
-  const { resetGame, getSettingsData, getNumberOfRetriesNumber } = useVictoryModal();
+  const { game, resetGame } = useGame();
+  const { getSettingsData, getNumberOfRetriesNumber } = useVictoryModal();
+  const { closeModal } = useModals();
+  const { gameSettings } = useGameSettings();
+  const { settings } = useSettings();
+  const { generateNewCrosswordData } = useCrosswordGame();
 
   $: numberRetries = getNumberOfRetriesNumber($game);
   $: settingsData = getSettingsData($devSettings);
 
   const resetGameCallback = () => {
-    resetGame($apiWords, $devSettings);
+    resetGame();
+    generateNewCrosswordData({
+      wordsState: $apiWords,
+      settingsState: $settings,
+      gameSettingsState: $gameSettings,
+      devSettingsState: $devSettings,
+    });
+    closeModal(EModals.Victory);
   };
 
   const shareStats = () => {

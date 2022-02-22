@@ -1,17 +1,5 @@
 {
   "title": "Crosswords",
-  "header": {
-    "back_to_menu": "Back to menu",
-    "back_to_menu_tooltip": "Will stop the game and return to main menu"
-  },
-  "theme": {
-    "light": "Light",
-    "dark": "Dark"
-  },
-  "languages": {
-    "croatian": "Croatian",
-    "english": "English"
-  },
   "main_menu": {
     "title": "New game",
     "settings": "Settings"
@@ -20,6 +8,13 @@
     "labels": {
       "close": "Close",
       "save": "Save"
+    },
+    "game": {
+      "title": "Settings",
+      "label": {
+        "end_game": "End",
+        "restart_game": "Restart"
+      }
     },
     "settings": {
       "title": "Settings",
@@ -30,11 +25,29 @@
         "about": "About"
       },
       "sub_modals": {
+        "view_settings": {
+          "labels": {
+            "language": "Language",
+            "theme": "Theme",
+            "zoom": "Zoom level"
+          },
+          "zoom": {
+            "normal": "Normal",
+            "large": "Large"
+          },
+          "theme": {
+            "light": "Light",
+            "dark": "Dark"
+          },
+          "languages": {
+            "croatian": "Croatian",
+            "english": "English"
+          }
+        },
         "game_settings": {
           "labels": {
             "difficulty": "Difficulty",
             "size": "Table size",
-            "zoom": "Zoom level",
             "dev_settings": "Show custom settings",
             "words_language": "Language of words pool"
           },
@@ -48,9 +61,9 @@
             "medium": "Medium",
             "big": "Big"
           },
-          "zoom": {
-            "normal": "Normal",
-            "large": "Large"
+          "languages": {
+            "croatian": "Croatian",
+            "english": "English"
           }
         },
         "dev_settings": {

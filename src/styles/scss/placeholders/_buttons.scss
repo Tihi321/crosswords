@@ -1,0 +1,14 @@
+%colored-button {
+  font-size: $default-font-size;
+  cursor: pointer;
+  padding: 5px 8px;
+  border-radius: 5px;
+  font-weight: bold;
+  text-align: center;
+
+  transition: filter 0.3s ease;
+
+  &:hover {
+    filter: saturate(2);
+  }
+}

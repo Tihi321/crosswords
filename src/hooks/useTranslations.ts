@@ -1,28 +1,22 @@
 import { locale } from "svelte-i18n";
 
-import { ELanguages } from "../constants";
+import type { ELanguages } from "../constants";
 import { useLocalStorage } from "./useLocalStorage";
 
 export const useTranslations = () => {
   const { setLocalLanguage } = useLocalStorage();
-  const setLocale = (key: string) => {
-    locale.set(key);
-  };
+  const { set, subscribe } = locale;
 
-  const setCroatian = () => {
-    setLocalLanguage(ELanguages.Croatian);
-    setLocale(ELanguages.Croatian);
-  };
-
-  const setEnglish = () => {
-    setLocalLanguage(ELanguages.English);
-    setLocale(ELanguages.English);
+  const setState = (language: ELanguages) => {
+    setLocalLanguage(language);
+    set(language);
   };
 
   return {
-    setEnglish,
-    setCroatian,
-    setLocale,
-    locale,
+    setStore: (state) => set(state),
+    locale: {
+      subscribe,
+      set: (state) => setState(state),
+    },
   };
 };

@@ -27,9 +27,9 @@
       case ETableSize.Big:
         return $t("modal.settings.sub_modals.game_settings.size.big");
       case EWordsLanguages.Croatian:
-        return $t("languages.croatian");
+        return $t("modal.settings.sub_modals.game_settings.languages.croatian");
       case EWordsLanguages.English:
-        return $t("languages.english");
+        return $t("modal.settings.sub_modals.game_settings.languages.english");
 
       default:
         break;
@@ -54,11 +54,11 @@
   const languageAPIItems = [
     {
       id: EWordsLanguages.Croatian,
-      value: $t("languages.croatian"),
+      value: $t("modal.settings.sub_modals.game_settings.languages.croatian"),
     },
     {
       id: EWordsLanguages.English,
-      value: $t("languages.english"),
+      value: $t("modal.settings.sub_modals.game_settings.languages.english"),
     },
   ];
 

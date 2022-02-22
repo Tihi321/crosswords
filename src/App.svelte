@@ -22,7 +22,7 @@
   });
 </script>
 
-<ThemeContainer theme={$theme.theme} zoom={$gameSettings.zoom}>
+<ThemeContainer theme={$theme} zoom={$gameSettings.zoom}>
   <main>
     <Modals />
     <Container>

@@ -3,6 +3,7 @@
   import { createEventDispatcher } from "svelte";
   import Backdrop from "./Backdrop.svelte";
   export let title: string;
+  export let showClose: boolean = true;
 
   const dispatch = createEventDispatcher();
 
@@ -15,7 +16,10 @@
   <div class="window">
     <h2 class="title window-item">{title}</h2>
     <slot />
-    <button class="close-button window-item" on:click={onClose}>{$t("modal.labels.close")}</button>
+    {#if showClose}
+      <button class="close-button window-item" on:click={onClose}>{$t("modal.labels.close")}</button
+      >
+    {/if}
   </div>
 </Backdrop>
 

@@ -1,24 +1,21 @@
 {
   "title": "Kržaljke",
-  "header": {
-    "back_to_menu": "Natrag na meni",
-    "back_to_menu_tooltip": "Zaustaviti će igru i vratiti se u glavni meni"
-  },
-  "theme": {
-    "light": "Svijetla",
-    "dark": "Tamna"
-  },
-  "languages": {
-    "croatian": "Hrvatski",
-    "english": "Engleski"
-  },
   "main_menu": {
     "title": "Nova igra",
     "settings": "Opcije"
   },
   "modal": {
-    "close_modal": "Zatvori",
-    "save": "Spremi",
+    "labels": {
+      "close": "Zatvori",
+      "save": "Spremi"
+    },
+    "game": {
+      "title": "Opcije",
+      "label": {
+        "end_game": "Završi",
+        "restart_game": "Počni ponovo"
+      }
+    },
     "settings": {
       "title": "Opcije",
       "menu": {
@@ -28,11 +25,29 @@
         "about": "Info"
       },
       "sub_modals": {
+        "view_settings": {
+          "labels": {
+            "language": "Jezik",
+            "theme": "Tema",
+            "zoom": "Zoom"
+          },
+          "zoom": {
+            "normal": "Normalno",
+            "large": "Veliki"
+          },
+          "theme": {
+            "light": "Svijetla",
+            "dark": "Tamna"
+          },
+          "languages": {
+            "croatian": "Hrvatski",
+            "english": "Engleski"
+          }
+        },
         "game_settings": {
           "labels": {
             "difficulty": "Težina",
             "size": "Veličina",
-            "zoom": "Zoom",
             "dev_settings": "Prikaži opcije za prilagođavanje",
             "words_language": "Jezik fonda riječi"
           },
@@ -46,9 +61,9 @@
             "medium": "Srednja",
             "big": "Velika"
           },
-          "zoom": {
-            "normal": "Normalno",
-            "large": "Veliki"
+          "languages": {
+            "croatian": "Hrvatski",
+            "english": "Engleski"
           }
         },
         "dev_settings": {
