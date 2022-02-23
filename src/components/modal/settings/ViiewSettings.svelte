@@ -1,10 +1,10 @@
 <script lang="ts">
   import { t } from "svelte-i18n";
   import map from "lodash/map";
+  import { Options } from "ts-components-library";
   import { useGameSettings, useTranslations, useTheme } from "../../../hooks";
   import { EZoomLevel, ELanguages, EThemes } from "../../../constants";
   import OptionTitle from "../common/OptionTitle.svelte";
-  import ButtonGroup from "../common/ButtonGroup.svelte";
 
   const { gameSettings } = useGameSettings();
   const { locale } = useTranslations();
@@ -76,15 +76,15 @@
 <div>
   <div class="option-group">
     <OptionTitle title={$t("modal.settings.sub_modals.view_settings.labels.language")} />
-    <ButtonGroup selected={selectedLanguage} items={languageItems} on:change={onLanguageChange} />
+    <Options selected={selectedLanguage} items={languageItems} on:change={onLanguageChange} />
   </div>
   <div class="option-group">
     <OptionTitle title={$t("modal.settings.sub_modals.view_settings.labels.theme")} />
-    <ButtonGroup selected={selectedTheme} items={themeItems} on:change={onThemeChange} />
+    <Options selected={selectedTheme} items={themeItems} on:change={onThemeChange} />
   </div>
   <div class="option-group">
     <OptionTitle title={$t("modal.settings.sub_modals.view_settings.labels.zoom")} />
-    <ButtonGroup selected={selectedZoomItem} items={zoomItems} on:change={onZoomChange} />
+    <Options selected={selectedZoomItem} items={zoomItems} on:change={onZoomChange} />
   </div>
 </div>
 

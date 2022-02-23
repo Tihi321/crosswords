@@ -33,10 +33,11 @@ $theme-colors: (
   ),
   libraries: (
     ts-components: (
-      ts-accordion-header-bg: var(--primary-color),
-      ts-accordion-icon: var(--focus-color),
-      ts-accordion-content-bg: var(--focus-color),
-      ts-accordion-content: var(--primary-color),
+      ts-accordion-bg: var(--primary-color),
+      ts-accordion: var(--focus-color),
+      ts-options: var(--primary-color),
+      ts-options-bg: var(--focus-color),
+      ts-options-hover: var(--tertiary-color),
       ts-toggle: var(--tertiary-color),
       ts-toggle-on: var(--primary-color),
       ts-tooltip: var(--dark-color),
@@ -102,9 +103,6 @@ $button-hover-color: var(--tertiary-color);
 
 $logo-color: var(--focus-color);
 $logo-bg-color: var(--primary-color);
-
-$active-btn-color: var(--focus-color);
-$active-btn-bg-color: var(--primary-color);
 
 $game-modal-bg-color: var(--success-color);
 

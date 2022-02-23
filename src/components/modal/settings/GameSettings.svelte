@@ -1,11 +1,11 @@
 <script lang="ts">
   import { t } from "svelte-i18n";
+  import { Options } from "ts-components-library";
   import map from "lodash/map";
   import { getLocalizedEndpoint } from "../../../utils";
   import { useGameSettings, useDevSettings, useApiWords } from "../../../hooks";
-  import { EGameDifficulty, ETableSize, EWordsLanguages, EZoomLevel } from "../../../constants";
+  import { EGameDifficulty, ETableSize, EWordsLanguages } from "../../../constants";
   import OptionTitle from "../common/OptionTitle.svelte";
-  import ButtonGroup from "../common/ButtonGroup.svelte";
   import TitleToggle from "../common/TitleToggle.svelte";
 
   const { gameSettings, settings } = useGameSettings();
@@ -72,11 +72,6 @@
     value: getTranslation(key),
   }));
 
-  const zoomItems = map(Object.values(EZoomLevel), (key) => ({
-    id: key,
-    value: getTranslation(key),
-  }));
-
   const onDifficultyChange = (event) => {
     $gameSettings.difficulty = event.detail.id;
   };
@@ -97,7 +92,7 @@
 <div>
   <div class="option-group">
     <OptionTitle title={$t("modal.settings.sub_modals.game_settings.labels.difficulty")} />
-    <ButtonGroup
+    <Options
       selected={selectedDifficultyItem}
       items={difficultyItems}
       on:change={onDifficultyChange}
@@ -105,11 +100,11 @@
   </div>
   <div class="option-group">
     <OptionTitle title={$t("modal.settings.sub_modals.game_settings.labels.size")} />
-    <ButtonGroup selected={selectedSizeItem} items={sizeItems} on:change={onSizeChange} />
+    <Options selected={selectedSizeItem} items={sizeItems} on:change={onSizeChange} />
   </div>
   <div class="option-group">
     <OptionTitle title={$t("modal.settings.sub_modals.game_settings.labels.words_language")} />
-    <ButtonGroup
+    <Options
       selected={selectedAPILanguageItem}
       items={languageAPIItems}
       on:change={onLanguageAPIChange}
