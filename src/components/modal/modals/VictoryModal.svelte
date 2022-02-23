@@ -3,7 +3,8 @@
   import { copyToClipboard } from "../../../utils";
   import GameModalWindow from "../common/GameModalWindow.svelte";
 
-  import { EModals } from "../../../constants";
+  import { EModals, EGameDifficulty, ETableSize } from "../../../constants";
+  import { getIsCustomGame } from "../../../selectors";
   import {
     useApiWords,
     useDevSettings,
@@ -20,6 +21,25 @@
 
   export let transparent: boolean = false;
 
+  const getTranslation = (value) => {
+    switch (value) {
+      case EGameDifficulty.Easy:
+        return $t("modal.settings.sub_modals.game_settings.difficulty.easy");
+      case EGameDifficulty.Normal:
+        return $t("modal.settings.sub_modals.game_settings.difficulty.normal");
+      case EGameDifficulty.Hard:
+        return $t("modal.settings.sub_modals.game_settings.difficulty.hard");
+      case ETableSize.Small:
+        return $t("modal.settings.sub_modals.game_settings.size.small");
+      case ETableSize.Medium:
+        return $t("modal.settings.sub_modals.game_settings.size.medium");
+      case ETableSize.Big:
+
+      default:
+        break;
+    }
+  };
+
   const { apiWords } = useApiWords();
   const { devSettings } = useDevSettings();
   const { game, resetGame } = useGame();
@@ -31,6 +51,8 @@
 
   $: numberRetries = getNumberOfRetriesNumber($game);
   $: settingsData = getSettingsData($devSettings);
+
+  $: isCustomGame = getIsCustomGame($settings, $devSettings);
 
   const resetGameCallback = () => {
     resetGame();
@@ -44,10 +66,11 @@
   };
 
   const shareStats = () => {
-    const message = `✌ ${$t("modal.victory.title")} 🖊 ${$t("title")} 🖊 W ${
-      settingsData.wordLimit
-    } C ${settingsData.numberOfColumns} R ${settingsData.numberOfRows} ✌`;
-    copyToClipboard(message);
+    const message = `${$t("modal.victory.title")} 🖊 ${$t("title")} 🖊 ${numberRetries} 🖊`;
+    const suffix = isCustomGame
+      ? `W ${settingsData.wordLimit} C ${settingsData.numberOfColumns} R ${settingsData.numberOfRows}`
+      : `D ${getTranslation($gameSettings.difficulty)} S ${getTranslation($gameSettings.size)}`;
+    copyToClipboard(`✌ ${message} ${suffix} ✌`);
   };
 </script>
 
@@ -56,17 +79,33 @@
     <div class="star">
       <StarIcon />
     </div>
-    <p class="message">
-      {$t("modal.victory.labels.retires")}
-      {numberRetries}
-      {$t("modal.victory.labels.intro")}
-      {settingsData.numberOfRows}
-      {$t("modal.victory.labels.rows")}
-      {settingsData.numberOfColumns}
-      {$t("modal.victory.labels.columns")}
-      {settingsData.wordLimit}
-      {$t("modal.victory.labels.words_pool")}
-    </p>
+    <div class="message">
+      <div class="repeats">
+        {$t("modal.victory.labels.retires")}
+        {numberRetries}
+      </div>
+      <div class="stats">
+        <div class="stats-title">{$t("modal.victory.labels.stats")}:</div>
+        {#if isCustomGame}
+          <div class="stats-item">
+            {$t("modal.victory.stats.rows")} - {settingsData.numberOfRows}
+          </div>
+          <div class="stats-item">
+            {$t("modal.victory.stats.columns")} - {settingsData.numberOfColumns}
+          </div>
+          <div class="stats-item">
+            {$t("modal.victory.stats.words_size")} - {settingsData.wordLimit}
+          </div>
+        {:else}
+          <div class="stats-item">
+            {$t("modal.victory.stats.difficulty")} - {getTranslation($gameSettings.difficulty)}
+          </div>
+          <div class="stats-item">
+            {$t("modal.victory.stats.size")} - {getTranslation($gameSettings.size)}
+          </div>
+        {/if}
+      </div>
+    </div>
     <div class="buttons">
       <button class="btn share" on:click={shareStats}>
         <ShareIcon />
@@ -100,8 +139,23 @@
     }
   }
 
+  .repeats {
+    text-align: center;
+    padding-bottom: 10px;
+  }
+
+  .stats {
+    width: 100%;
+  }
+
+  .stats-title {
+    font-weight: bold;
+    padding-bottom: 10px;
+  }
+
   .message {
     flex: 2;
+    width: 100%;
     margin: 20px 0;
   }
 

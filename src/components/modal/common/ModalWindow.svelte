@@ -3,23 +3,23 @@
   import { createEventDispatcher } from "svelte";
   import Backdrop from "./Backdrop.svelte";
   export let title: string;
-  export let showClose: boolean = true;
+  export let closeTitle: string = $t("modal.labels.close");
+
+  let transparent = false;
 
   const dispatch = createEventDispatcher();
 
   function onClose() {
+    transparent = !transparent;
     dispatch("close");
   }
 </script>
 
 <Backdrop on:click={onClose}>
-  <div class="window">
+  <div class="window" class:transparent>
     <h2 class="title window-item">{title}</h2>
     <slot />
-    {#if showClose}
-      <button class="close-button window-item" on:click={onClose}>{$t("modal.labels.close")}</button
-      >
-    {/if}
+    <button class="close-button window-item" on:click={onClose}>{closeTitle}</button>
   </div>
 </Backdrop>
 
@@ -34,6 +34,10 @@
     display: grid;
     grid-template-rows: min-content 1fr min-content;
     filter: $shadow-color-filter;
+
+    &.transparent {
+      pointer-events: none;
+    }
   }
   .window-item {
     color: $modal-window-items-color;

@@ -1,5 +1,6 @@
 <script lang="ts">
   import Logo from "../common/Logo.svelte";
+  import InfoIcon from "../icons/InfoIcon.svelte";
   import CogIcon from "../icons/CogIcon.svelte";
   import { useGame, useModals } from "../../hooks";
   import { EModals } from "../../constants";
@@ -10,14 +11,21 @@
   const openGameModal = () => {
     openModal(EModals.Game);
   };
+
+  const openInfoModal = () => {
+    openModal(EModals.Info);
+  };
 </script>
 
 <header class="header">
   <div class="container">
     <div class="logo"><Logo /></div>
-    {#if $game.started}
-      <button class="game-modal-button" on:click={openGameModal}><CogIcon /></button>
-    {/if}
+    <div class="buttons">
+      {#if $game.started}
+        <button class="icon-button" on:click={openGameModal}><CogIcon /></button>
+      {/if}
+      <button class="icon-button" on:click={openInfoModal}><InfoIcon /></button>
+    </div>
   </div>
 </header>
 
@@ -33,7 +41,11 @@
     justify-content: space-between;
     flex-wrap: wrap;
   }
-  .game-modal-button {
+
+  .buttons {
+    @extend %flex-centered;
+  }
+  .icon-button {
     @extend %flex-centered;
     width: 40px;
     height: 40px;

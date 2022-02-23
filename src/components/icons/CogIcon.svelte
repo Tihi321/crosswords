@@ -21,6 +21,6 @@
     width: 100%;
   }
   .cog-icon-path {
-    fill: $cog-icon-color;
+    fill: $default-icon-color;
   }
 </style>

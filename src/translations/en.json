@@ -7,6 +7,7 @@
   "modal": {
     "labels": {
       "close": "Close",
+      "reveal": "Reveal table (also click outside of window)",
       "save": "Save"
     },
     "game": {
@@ -16,13 +17,30 @@
         "restart_game": "Restart"
       }
     },
+    "info": {
+      "title": "Info",
+      "labels": {
+        "author": "Author",
+        "license": "License",
+        "contact": "Contact",
+        "repository": "Code"
+      },
+      "rules": {
+        "intro": "Words go from left to right and from top to bottom. Each word has defined start and end, once you add all letters in word, it gets locked. Locked word shows for each letter 3 states, guessed letter and position, guessed letter but not position and letter not in word.",
+        "retry": "Once all letters are locked, you can retry, all locked letters are unlocked, all guessed words stay locked succesfully. Retries are counted.",
+        "word_starts": "word starts from left or top",
+        "word_ends": "word ends from left or top",
+        "letter_correct": "letter correct in place",
+        "letter_incorrect_place": "letter correct but not in correct place",
+        "wrong_letter": "letter not in word"
+      }
+    },
     "settings": {
       "title": "Settings",
       "menu": {
         "view_settings": "View",
         "game_settings": "Rules",
-        "dev_settings": "Custom",
-        "about": "About"
+        "dev_settings": "Custom"
       },
       "sub_modals": {
         "view_settings": {
@@ -76,13 +94,6 @@
             "word_limit": "Words pool",
             "custom_endpoint": "Custom endpoint"
           }
-        },
-        "about": {
-          "labels": {
-            "author": "Author",
-            "license": "License",
-            "repository": "Code"
-          }
         }
       }
     },
@@ -90,10 +101,14 @@
       "title": "Victory",
       "labels": {
         "retires": "Retries",
-        "intro": "You have succesfully finshed crossword of",
-        "rows": "rows and",
-        "columns": "columns, with",
-        "words_pool": "words in a pool."
+        "stats": "Stats"
+      },
+      "stats": {
+        "rows": "Number of rows",
+        "columns": "Number of columns",
+        "words_size": "Word Size",
+        "difficulty": "Difficulty",
+        "size": "Size"
       },
       "button": {
         "restart": "Restart",

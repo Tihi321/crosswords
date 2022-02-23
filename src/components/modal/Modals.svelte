@@ -8,6 +8,7 @@
   import Settings from "./modals/Settings.svelte";
   import VictoryModal from "./modals/VictoryModal.svelte";
   import RetryModal from "./modals/RetryModal.svelte";
+  import InfoModal from "./modals/InfoModal.svelte";
 
   const { modals } = useModals();
 
@@ -21,6 +22,7 @@
   $: anyModalActive = !isEmpty(activeModals);
   $: activeSettingsModal = includes(activeModals, EModals.Settings);
   $: activeGameModal = includes(activeModals, EModals.Game);
+  $: activeInfoModal = includes(activeModals, EModals.Info);
   $: activeVictoryModal = includes(activeModals, EModals.Victory);
   $: activeRetryModal = includes(activeModals, EModals.Retry);
 </script>
@@ -37,6 +39,9 @@
   {/if}
   {#if activeGameModal}
     <GameModal />
+  {/if}
+  {#if activeInfoModal}
+    <InfoModal />
   {/if}
 </div>
 

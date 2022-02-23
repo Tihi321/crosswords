@@ -7,6 +7,7 @@
   "modal": {
     "labels": {
       "close": "Zatvori",
+      "reveal": "Prikaži tablicu (također možete kliknuti izvan prozora)",
       "save": "Spremi"
     },
     "game": {
@@ -16,13 +17,30 @@
         "restart_game": "Počni ponovo"
       }
     },
+    "info": {
+      "title": "Info",
+      "labels": {
+        "author": "Autor",
+        "license": "Licenca",
+        "contact": "Kontakt",
+        "repository": "Kod"
+      },
+      "rules": {
+        "intro": "Riječi idu sa lijeva na desno i od gore prema dolje. Svaka riječ ima početnu i krajnju poziciju označenu. Kad su riječi unešena sva slova, riječ se zaključa i nije više moguće promjeniti slova. Kod zaključane riječi svako slovo ima 3 stanja, slovo je pogođeno i na pravoj poziciji se nalazi, slovo postoji u riječi no nije na pravoj poziciji, i slovo se ne nalazi u riječi",
+        "retry": "Ukoliko su sve riječi zaključane, riječi se ponovo otključaju, sve pogođene riječi ostaju uspješno zaključane. Ponavljanja se broje",
+        "word_starts": "riječ počinje sa lijeva ili od gore",
+        "word_ends": "riječ završava sa lijeva ili od gore",
+        "letter_correct": "slovo je pogođeno i na pravoj poziciji se nalazi",
+        "letter_incorrect_place": "slovo posotji u riječi no nalazi je na pogrešnom mjestu",
+        "wrong_letter": "slovo ne postoji u riječi"
+      }
+    },
     "settings": {
       "title": "Opcije",
       "menu": {
         "view_settings": "Izled",
         "game_settings": "Pravila",
-        "dev_settings": "Prilagođeno",
-        "about": "Info"
+        "dev_settings": "Prilagođeno"
       },
       "sub_modals": {
         "view_settings": {
@@ -76,13 +94,6 @@
             "word_limit": "Fond riječi",
             "custom_endpoint": "Prilagođen endpoint"
           }
-        },
-        "about": {
-          "labels": {
-            "author": "Autor",
-            "license": "Licenca",
-            "repository": "Kod"
-          }
         }
       }
     },
@@ -90,10 +101,14 @@
       "title": "Pobjeda",
       "labels": {
         "retires": "Ponavljanja",
-        "intro": "Uspješno si prešao/la križaljku sa",
-        "rows": "redova i",
-        "columns": "stupaca, i fondom od",
-        "words_pool": "riječi."
+        "stats": "Statistika"
+      },
+      "stats": {
+        "rows": "Broj redova",
+        "columns": "Broj kolumni",
+        "words_size": "Fond riječi",
+        "difficulty": "Težina",
+        "size": "Veličina"
       },
       "button": {
         "restart": "Ponovi",

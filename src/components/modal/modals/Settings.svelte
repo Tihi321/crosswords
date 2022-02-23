@@ -6,7 +6,6 @@
   import GameSettings from "../settings/GameSettings.svelte";
   import DevSettings from "../settings/DevSettings.svelte";
   import ViiewSettings from "../settings/ViiewSettings.svelte";
-  import About from "../settings/About.svelte";
 
   const { closeModal } = useModals();
   const { settings } = useSettings();
@@ -42,13 +41,6 @@
           {$t("modal.settings.menu.dev_settings")}
         </li>
       {/if}
-      <li
-        class:selected={$settings.settingsRoute === ESettingsModalRoutes.About}
-        class="menu-item"
-        on:click={() => ($settings.settingsRoute = ESettingsModalRoutes.About)}
-      >
-        {$t("modal.settings.menu.about")}
-      </li>
     </ul>
     <div class="content">
       {#if $settings.settingsRoute === ESettingsModalRoutes.ViewSettings}
@@ -59,9 +51,6 @@
       {/if}
       {#if $settings.settingsRoute === ESettingsModalRoutes.DevSettings}
         <DevSettings />
-      {/if}
-      {#if $settings.settingsRoute === ESettingsModalRoutes.About}
-        <About />
       {/if}
     </div>
   </div>

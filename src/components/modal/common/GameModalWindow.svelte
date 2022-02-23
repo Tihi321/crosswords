@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { t } from "svelte-i18n";
   import ModalWindow from "../common/ModalWindow.svelte";
 
   export let title: string;
@@ -9,11 +10,13 @@
   };
 </script>
 
-<ModalWindow on:close={toggleBackdrop} {title} showClose={false}>
-  <div class="container">
-    <slot />
-  </div>
-</ModalWindow>
+<span class="game-window">
+  <ModalWindow on:close={toggleBackdrop} {title} closeTitle={$t("modal.labels.reveal")}>
+    <div class="container">
+      <slot />
+    </div>
+  </ModalWindow>
+</span>
 
 <style lang="scss">
   @import "src/styles/all";
@@ -21,8 +24,11 @@
   .container {
     display: flex;
     flex-direction: column;
-    background-color: $game-modal-bg-color;
-    max-width: $game-modal-content-width;
-    border-radius: 5px;
+  }
+
+  .game-window {
+    :global(.window) {
+      max-width: $game-modal-width;
+    }
   }
 </style>

@@ -19,7 +19,7 @@
 <div class="info">
   <Accordion open={true}>
     <ul class="content">
-      {#each wordsDetails as { index, description, success, name }}
+      {#each wordsDetails as { index, description, success }}
         <li class="row">
           <div class="index" class:success>{index}</div>
           <div class="description">{description}</div>
