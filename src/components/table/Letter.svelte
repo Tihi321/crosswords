@@ -22,6 +22,10 @@
       value: event.target.value as string,
     });
   };
+
+  const onClick = () => {
+    dispatch("click");
+  };
 </script>
 
 <LetterContainer>
@@ -30,7 +34,13 @@
       {letter}
     </div>
   {:else}
-    <input class="input letter" on:input={onInput} maxlength={1} bind:this={inputRef} />
+    <input
+      class="input letter"
+      on:input={onInput}
+      on:click={onClick}
+      maxlength={1}
+      bind:this={inputRef}
+    />
   {/if}
 </LetterContainer>
 

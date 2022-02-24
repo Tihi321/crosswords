@@ -19,10 +19,13 @@ export type TFocusChar = {
   itemIndex: number;
 };
 
+export type TFocusSide = "Left" | "Top";
+
 export type TCrosswordItem = {
   char: string | ECrosswordInfo.EmptySpace;
   shownChar: string;
   show: boolean;
+  focusSide?: TFocusSide;
   focus: boolean;
   success: boolean;
   included: boolean;

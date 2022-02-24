@@ -28,11 +28,12 @@
       "rules": {
         "intro": "Words go from left to right and from top to bottom. Each word has defined start and end, once you add all letters in word, it gets locked. Locked word shows for each letter 3 states, guessed letter and position, guessed letter but not position and letter not in word.",
         "retry": "Once all letters are locked, you can retry, all locked letters are unlocked, all guessed words stay locked succesfully. Retries are counted.",
-        "word_starts": "word starts from left or top",
-        "word_ends": "word ends from left or top",
+        "word_starts": "start of the word",
+        "word_ends": "end of the word",
         "letter_correct": "letter correct in place",
         "letter_incorrect_place": "letter correct but not in correct place",
-        "wrong_letter": "letter not in word"
+        "wrong_letter": "letter not in word",
+        "writing_side": "side of letter filling up in continuos writing"
       }
     },
     "settings": {

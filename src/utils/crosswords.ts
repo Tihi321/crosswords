@@ -11,6 +11,7 @@ import type {
   TCrosswordTable,
   TCrosswordTableData,
   TFocusChar,
+  TFocusSide,
   TLettersInfo,
   TSettingOptions,
   TWordArray,
@@ -103,22 +104,38 @@ const getWordsTableData = (crosswordsTable: TCrosswordTable): TCrosswordTableDat
 export const checkIfInputExist = (item: TCrosswordItem) =>
   item && item.char && typeof item.char === "string" && !item.show;
 
-export const addCharInfo = (
-  tableData: TCrosswordTable,
-  lettersState: TLettersInfo,
-  focusItem: TFocusChar
-): TCrosswordTable => {
+export const addCharInfo = ({
+  tableData,
+  lettersState,
+  focusItem,
+  focusedItem,
+  focusSide,
+}: {
+  tableData: TCrosswordTable;
+  lettersState: TLettersInfo;
+  focusItem: TFocusChar;
+  focusedItem: TFocusChar;
+  focusSide: TFocusSide;
+}): TCrosswordTable => {
   const updatedData = map(tableData, (rowData: TCrosswordItems, rowIndex: number) =>
-    map(rowData, (itemData: TCrosswordItem, columnIndex: number) => ({
-      ...itemData,
-      shownChar: get(lettersState, [generateIndexKey(rowIndex, columnIndex), "shownChar"]),
-      success: get(lettersState, [generateIndexKey(rowIndex, columnIndex), "success"], false),
-      included: get(lettersState, [generateIndexKey(rowIndex, columnIndex), "included"], false),
-      show: !isEmpty(get(lettersState, [generateIndexKey(rowIndex, columnIndex)])),
-      focus:
+    map(rowData, (itemData: TCrosswordItem, columnIndex: number) => {
+      const focus =
         isEqual(get(focusItem, ["rowIndex"]), rowIndex) &&
-        isEqual(get(focusItem, ["itemIndex"]), columnIndex),
-    }))
+        isEqual(get(focusItem, ["itemIndex"]), columnIndex);
+      const focused =
+        isEqual(get(focusedItem, ["rowIndex"]), rowIndex) &&
+        isEqual(get(focusedItem, ["itemIndex"]), columnIndex);
+
+      return {
+        ...itemData,
+        shownChar: get(lettersState, [generateIndexKey(rowIndex, columnIndex), "shownChar"]),
+        success: get(lettersState, [generateIndexKey(rowIndex, columnIndex), "success"], false),
+        included: get(lettersState, [generateIndexKey(rowIndex, columnIndex), "included"], false),
+        show: !isEmpty(get(lettersState, [generateIndexKey(rowIndex, columnIndex)])),
+        focus,
+        focusSide: focused && focusSide,
+      };
+    })
   );
 
   return updatedData;

@@ -35,6 +35,7 @@
       </div>
       - {$t("modal.info.rules.word_ends")}
     </div>
+    <hr />
     <div class="letter-postions">
       <div class="letter-container">
         <IntoLetter show success />
@@ -52,6 +53,16 @@
         <IntoLetter show />
       </div>
       - {$t("modal.info.rules.wrong_letter")}
+    </div>
+    <hr />
+    <div class="letter-postions">
+      <div class="letter-container">
+        <IntoLetter focusSide="Left" hideNumbers />
+      </div>
+      <div class="letter-container">
+        <IntoLetter focusSide="Top" hideNumbers />
+      </div>
+      - {$t("modal.info.rules.writing_side")}
     </div>
     <hr />
     <ul class="info">

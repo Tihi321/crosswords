@@ -23,6 +23,7 @@ $letter-gap: var(--letter-gap-size);
 
 $square-size: var(--letter-square-size);
 $detail-number-size: calc(var(--letter-square-size) / 2);
+$detail-half-size: calc($detail-number-size / 2);
 
 $settings-modal-content-height: var(--settings-modal-content-height-size);
 $settings-modal-container-width: var(--settings-modal-container-width-size);

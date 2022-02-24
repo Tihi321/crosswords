@@ -1,11 +1,12 @@
 <script lang="ts">
+  import isEqual from "lodash/isEqual";
   import { createEventDispatcher } from "svelte";
   import type {
     TWordInputData,
     TCrosswordTable,
     TLettersInfo,
-    TCrosswordItem,
     TFocusChar,
+    TFocusSide,
   } from "../../types";
   import { ECrosswordInfo, EModals } from "../../constants";
   import { addCharInfo, checkIfInputExist } from "../../utils";
@@ -25,10 +26,17 @@
   export let wordsUsed: boolean = false;
   export let gameSuccess: boolean = false;
 
+  let focusItem: TFocusChar = {
+    rowIndex: 0,
+    itemIndex: 0,
+  };
+
   let focusedItem: TFocusChar = {
     rowIndex: 0,
     itemIndex: 0,
   };
+
+  let focusSide: TFocusSide = "Left";
 
   $: showWordsDetails = isNotHardDifficulty($gameSettings);
 
@@ -44,25 +52,34 @@
     }
   }
 
-  $: tableDataWithShow = addCharInfo(tableData, lettersState, focusedItem) as TCrosswordTable;
+  $: tableDataWithShow = addCharInfo({
+    tableData,
+    lettersState,
+    focusItem,
+    focusedItem,
+    focusSide,
+  }) as TCrosswordTable;
 
   const dispatch = createEventDispatcher();
 
   const setFocus = (rowIndex, itemIndex) => {
-    const nextLeftItem =
-      tableData[rowIndex] && checkIfInputExist(tableData[rowIndex][itemIndex + 1]);
+    if (focusSide === "Left") {
+      const nextLeftItem =
+        tableData[rowIndex] && checkIfInputExist(tableData[rowIndex][itemIndex + 1]);
 
-    if (nextLeftItem) {
-      focusedItem = {
-        rowIndex,
-        itemIndex: itemIndex + 1,
-      };
-    } else {
+      if (nextLeftItem) {
+        focusItem = {
+          rowIndex,
+          itemIndex: itemIndex + 1,
+        };
+      }
+    }
+    if (focusSide === "Top") {
       const nextBottomItem =
         tableData[rowIndex + 1] && checkIfInputExist(tableData[rowIndex + 1][itemIndex]);
 
       if (nextBottomItem) {
-        focusedItem = {
+        focusItem = {
           rowIndex: rowIndex + 1,
           itemIndex: itemIndex,
         };
@@ -78,12 +95,27 @@
       itemIndex,
     });
   };
+
+  const onClick = (rowIndex, itemIndex) => {
+    const sameLetter =
+      isEqual(focusedItem.itemIndex, itemIndex) && isEqual(focusedItem.rowIndex, rowIndex);
+    if (sameLetter) {
+      focusSide = focusSide === "Left" ? "Top" : "Left";
+    } else {
+      focusSide = "Left";
+    }
+
+    focusedItem = {
+      rowIndex,
+      itemIndex,
+    };
+  };
 </script>
 
 <div class="table">
   {#each tableDataWithShow as tableRow, rowIndex}
     <div class="row">
-      {#each tableRow as { left, char, shownChar, top, leftEnd, topEnd, show, success, included, focus }, itemIndex}
+      {#each tableRow as { left, char, shownChar, top, leftEnd, topEnd, show, success, included, focus, focusSide }, itemIndex}
         {#if char === ECrosswordInfo.EmptySpace}
           <BasicContainer><Empty /></BasicContainer>
         {:else}
@@ -93,8 +125,10 @@
             top={top && top}
             {leftEnd}
             {topEnd}
+            {focusSide}
             ><Letter
               on:input={(event) => onInput({ value: event.detail.value, rowIndex, itemIndex })}
+              on:click={() => onClick(rowIndex, itemIndex)}
               {success}
               {focus}
               secondary={included}

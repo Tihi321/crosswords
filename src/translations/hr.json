@@ -28,11 +28,12 @@
       "rules": {
         "intro": "Riječi idu sa lijeva na desno i od gore prema dolje. Svaka riječ ima početnu i krajnju poziciju označenu. Kad su riječi unešena sva slova, riječ se zaključa i nije više moguće promjeniti slova. Kod zaključane riječi svako slovo ima 3 stanja, slovo je pogođeno i na pravoj poziciji se nalazi, slovo postoji u riječi no nije na pravoj poziciji, i slovo se ne nalazi u riječi",
         "retry": "Ukoliko su sve riječi zaključane, riječi se ponovo otključaju, sve pogođene riječi ostaju uspješno zaključane. Ponavljanja se broje",
-        "word_starts": "riječ počinje sa lijeva ili od gore",
-        "word_ends": "riječ završava sa lijeva ili od gore",
+        "word_starts": "početak riječi",
+        "word_ends": "kraj riječi",
         "letter_correct": "slovo je pogođeno i na pravoj poziciji se nalazi",
         "letter_incorrect_place": "slovo posotji u riječi no nalazi je na pogrešnom mjestu",
-        "wrong_letter": "slovo ne postoji u riječi"
+        "wrong_letter": "slovo ne postoji u riječi",
+        "writing_side": "smjer popunjavanja slova prilikom nastavka pisanja"
       }
     },
     "settings": {

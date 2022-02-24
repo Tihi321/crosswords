@@ -1,6 +1,6 @@
 <script lang="ts">
   import BasicContainer from "./BasicContainer.svelte";
-  import type { TCrosswordWord } from "../../types";
+  import type { TCrosswordWord, TFocusSide } from "../../types";
   import Tooltip from "./Tooltip.svelte";
 
   export let left: TCrosswordWord = undefined;
@@ -9,6 +9,7 @@
   export let leftEnd: boolean = undefined;
   export let topEnd: boolean = undefined;
 
+  export let focusSide: TFocusSide = undefined;
   export let showDetails: boolean = true;
 
   $: leftIndex = left && left.index;
@@ -27,7 +28,13 @@
         </div>
       </Tooltip>
     {/if}
-    <div class="content" class:left-end={leftEnd} class:top-end={topEnd}>
+    <div
+      class="content"
+      class:left-end={leftEnd}
+      class:top-end={topEnd}
+      class:left-focus={focusSide === "Left"}
+      class:top-focus={focusSide === "Top"}
+    >
       <slot />
     </div>
     {#if leftIndex}
@@ -57,7 +64,7 @@
     }
 
     :global(.tooltip-container) {
-      position: static;
+      position: static !important;
     }
   }
 
@@ -71,6 +78,13 @@
 
     &.left-end.top-end {
       box-shadow: -4px -4px 0 0 $crossword-details-effects-color inset;
+    }
+
+    &.top-focus {
+      box-shadow: 0 4px 0 0 $crossword-details-focus-color inset;
+    }
+    &.left-focus {
+      box-shadow: 4px 0 0 0 $crossword-details-focus-color inset;
     }
   }
 
@@ -91,13 +105,13 @@
 
   .left {
     top: 50%;
-    left: -10px;
-    transform: translateY(-60%);
+    right: 100%;
+    transform: translate($detail-half-size, -50%);
   }
 
   .top {
-    top: -10px;
-    left: 50%;
-    transform: translateX(-60%);
+    bottom: 100%;
+    right: 50%;
+    transform: translate(50%, $detail-half-size);
   }
 </style>

@@ -11,6 +11,7 @@ $regent-color: rgba(123, 140, 149, 1);
 
 $orange-semi-color: rgba(255, 152, 0, 0.6);
 $cerulean-semi-color: rgba(3, 169, 244, 0.6);
+$carribean-semi-color: rgba(6, 214, 160, 0.6);
 $dusty-semi-color: rgba(153, 153, 153, 0.6);
 $dove-semi-color: rgba(102, 102, 102, 0.6);
 
@@ -54,6 +55,7 @@ $theme-colors: (
     dark: $dark-color,
     vivid: $vivid-color,
     success: $carribean-color,
+    success-semi: $carribean-semi-color,
     warn: $orange-color,
     failure: $pomegranate-color,
   ),
@@ -75,6 +77,7 @@ $crossword-empty-bg-color: var(--neutral-color);
 $crossword-details-color: var(--light-color);
 $crossword-details-bg-color: var(--tertiary-color);
 $crossword-details-effects-color: var(--tertiary-semi-color);
+$crossword-details-focus-color: var(--success-semi-color);
 
 $details-index-border-color: var(--primary-color);
 $details-success-bg-color: var(--success-color);
