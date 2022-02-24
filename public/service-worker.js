@@ -30,7 +30,7 @@ const PRECACHE_URLS = [
     'images/touch/krizko144.png',
     'images/touch/krizko168.png',
     'images/touch/krizko192.png',
-    'favicon.ico'
+    'images/favicon.png'
 
 ];
 
