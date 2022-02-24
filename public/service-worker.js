@@ -21,7 +21,7 @@ const PRECACHE_URLS = [
     'index.html',
 
     // manifest file
-    'manifest/manifest.json',
+    'manifest.json',
 
     // assets
     'images/touch/krizko48.png',
