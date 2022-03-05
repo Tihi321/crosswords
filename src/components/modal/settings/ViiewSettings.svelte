@@ -2,13 +2,24 @@
   import { t } from "svelte-i18n";
   import map from "lodash/map";
   import { Options } from "ts-components-library";
-  import { useGameSettings, useTranslations, useTheme } from "../../../hooks";
+  import { getApiLanguageBasedOnPageLanguage, getLocalizedEndpoint } from "../../../utils";
+  import {
+    useGameSettings,
+    useTranslations,
+    useTheme,
+    useDevSettings,
+    useApiWords,
+    useGame,
+  } from "../../../hooks";
   import { EZoomLevel, ELanguages, EThemes } from "../../../constants";
   import OptionTitle from "../common/OptionTitle.svelte";
 
   const { gameSettings } = useGameSettings();
+  const { game } = useGame();
   const { locale } = useTranslations();
   const { theme } = useTheme();
+  const { devSettings } = useDevSettings();
+  const { fetchApiVocabularyWords } = useApiWords();
 
   const getTranslation = (value) => {
     switch (value) {
@@ -70,14 +81,23 @@
 
   const onLanguageChange = (event) => {
     $locale = event.detail.id;
+
+    const apiLanguaage = getApiLanguageBasedOnPageLanguage(event.detail.id);
+    $gameSettings.wordsLanguage = apiLanguaage;
+
+    if (!$devSettings.useCustomEndpoint) {
+      fetchApiVocabularyWords(getLocalizedEndpoint(apiLanguaage));
+    }
   };
 </script>
 
 <div>
-  <div class="option-group">
-    <OptionTitle title={$t("modal.settings.sub_modals.view_settings.labels.language")} />
-    <Options selected={selectedLanguage} items={languageItems} on:change={onLanguageChange} />
-  </div>
+  {#if !$game.started}
+    <div class="option-group">
+      <OptionTitle title={$t("modal.settings.sub_modals.view_settings.labels.language")} />
+      <Options selected={selectedLanguage} items={languageItems} on:change={onLanguageChange} />
+    </div>
+  {/if}
   <div class="option-group">
     <OptionTitle title={$t("modal.settings.sub_modals.view_settings.labels.theme")} />
     <Options selected={selectedTheme} items={themeItems} on:change={onThemeChange} />

@@ -1,6 +1,6 @@
 <script lang="ts">
   import Crossword from "../components/crossword/Crossword.svelte";
-  import Menu from "../components/menu/Menu.svelte";
+  import Home from "../components/home/Home.svelte";
   import { useGame } from "../hooks";
 
   const { game } = useGame();
@@ -9,5 +9,5 @@
 {#if $game.started}
   <Crossword />
 {:else}
-  <Menu />
+  <Home />
 {/if}

@@ -14,7 +14,7 @@
 <style lang="scss">
   @import "src/styles/all";
   .button {
-    @extend %colored-button;
+    @extend %round-button;
     color: $colored-button-color;
     width: 100%;
 

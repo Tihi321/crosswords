@@ -1,29 +1,77 @@
 <script lang="ts">
+  import { t } from "svelte-i18n";
   import Logo from "../common/Logo.svelte";
   import InfoIcon from "../icons/InfoIcon.svelte";
   import CogIcon from "../icons/CogIcon.svelte";
-  import { useGame, useModals } from "../../hooks";
+  import ColoredButton from "../common/ColoredButton.svelte";
+  import {
+    useGame,
+    useModals,
+    useApiWords,
+    useDevSettings,
+    useGameSettings,
+    useSettings,
+    useCrosswordGame,
+  } from "../../hooks";
   import { EModals } from "../../constants";
 
-  const { game } = useGame();
+  const { game, startGame } = useGame();
   const { openModal } = useModals();
+  const { endGame, resetGame } = useGame();
+  const { apiWords } = useApiWords();
+  const { devSettings } = useDevSettings();
+  const { gameSettings } = useGameSettings();
+  const { settings } = useSettings();
+  const { generateNewCrosswordData } = useCrosswordGame();
 
-  const openGameModal = () => {
-    openModal(EModals.Game);
+  const openSettingsModal = () => {
+    if ($game.started) {
+      openModal(EModals.Game);
+    } else {
+      openModal(EModals.Settings);
+    }
   };
 
   const openInfoModal = () => {
     openModal(EModals.Info);
   };
+
+  function resetGameCallback() {
+    resetGame();
+    generateNewCrosswordData({
+      wordsState: $apiWords,
+      settingsState: $settings,
+      gameSettingsState: $gameSettings,
+      devSettingsState: $devSettings,
+    });
+  }
 </script>
 
 <header class="header">
   <div class="container">
     <div class="logo"><Logo /></div>
-    <div class="buttons">
-      {#if $game.started}
-        <button class="icon-button" on:click={openGameModal}><CogIcon /></button>
+    <ul class="menu">
+      {#if !$game.started}
+        <li class="menu-item">
+          <button class="start-button" on:click={startGame} on:click
+            >{$t("game_menu.start_game")}</button
+          >
+        </li>
+      {:else}
+        <li class="menu-item">
+          <ColoredButton
+            type="warn"
+            on:click={resetGameCallback}
+            title={$t("game_menu.restart_game")}
+          />
+        </li>
+        <li class="menu-item">
+          <ColoredButton type="failure" on:click={endGame} title={$t("game_menu.end_game")} />
+        </li>
       {/if}
+    </ul>
+    <div class="icon-buttons">
+      <button class="icon-button" on:click={openSettingsModal}><CogIcon /></button>
       <button class="icon-button" on:click={openInfoModal}><InfoIcon /></button>
     </div>
   </div>
@@ -37,12 +85,12 @@
 
   .container {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
   }
 
-  .buttons {
+  .icon-buttons {
     @extend %flex-centered;
   }
   .icon-button {
@@ -57,5 +105,21 @@
   }
   .logo {
     max-width: 50px;
+  }
+
+  .menu {
+    display: flex;
+    align-items: center;
+    margin: 0;
+  }
+
+  .start-button {
+    @extend %round-button;
+    color: $button-color;
+    border: 2px solid $button-color;
+  }
+
+  .menu-item:nth-child(odd) {
+    margin-right: 10px;
   }
 </style>

@@ -1,8 +1,16 @@
 {
   "title": "Krizko",
-  "main_menu": {
-    "title": "Nova igra",
-    "settings": "Opcije"
+  "home": {
+    "message": "Dobrodošli, igra Krizko je mješavinu križaljke i wordle-a, više o pravilima pročitajte u info sekciji",
+    "labels": {
+      "rules": "Pravila igre",
+      "settings": "Opcije"
+    }
+  },
+  "game_menu": {
+    "start_game": "Nova igra",
+    "end_game": "Završi",
+    "restart_game": "Počni ponovo"
   },
   "modal": {
     "labels": {
@@ -10,19 +18,13 @@
       "reveal": "Prikaži tablicu (također možete kliknuti izvan prozora)",
       "save": "Spremi"
     },
-    "game": {
-      "title": "Opcije",
-      "label": {
-        "end_game": "Završi",
-        "restart_game": "Počni ponovo"
-      }
-    },
     "info": {
       "title": "Info",
       "labels": {
         "author": "Autor",
         "license": "Licenca",
         "contact": "Kontakt",
+        "components": "Komponente",
         "repository": "Kod"
       },
       "rules": {

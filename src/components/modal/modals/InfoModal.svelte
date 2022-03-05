@@ -82,6 +82,10 @@
         <span class="label">{$t("modal.info.labels.repository")}:</span>
         <a href="https://github.com/Tihi321/crosswords" target="_blank">Github</a>
       </li>
+      <li class="info-item">
+        <span class="label">{$t("modal.info.labels.components")}:</span>
+        <a href={"/design"} target="_blank">Storybook</a>
+      </li>
     </ul>
   </div>
 </ModalWindow>

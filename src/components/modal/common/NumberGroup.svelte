@@ -62,7 +62,7 @@
   }
 
   .button {
-    @include contrast-button("small");
+    @include contrast-button;
     padding: 0;
 
     &.left {

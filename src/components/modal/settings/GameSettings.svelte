@@ -2,15 +2,12 @@
   import { t } from "svelte-i18n";
   import { Options } from "ts-components-library";
   import map from "lodash/map";
-  import { getLocalizedEndpoint } from "../../../utils";
-  import { useGameSettings, useDevSettings, useApiWords } from "../../../hooks";
-  import { EGameDifficulty, ETableSize, EWordsLanguages } from "../../../constants";
+  import { useGameSettings } from "../../../hooks";
+  import { EGameDifficulty, ETableSize } from "../../../constants";
   import OptionTitle from "../common/OptionTitle.svelte";
   import TitleToggle from "../common/TitleToggle.svelte";
 
   const { gameSettings, settings } = useGameSettings();
-  const { devSettings } = useDevSettings();
-  const { fetchApiVocabularyWords } = useApiWords();
 
   const getTranslation = (value) => {
     switch (value) {
@@ -26,10 +23,6 @@
         return $t("modal.settings.sub_modals.game_settings.size.medium");
       case ETableSize.Big:
         return $t("modal.settings.sub_modals.game_settings.size.big");
-      case EWordsLanguages.Croatian:
-        return $t("modal.settings.sub_modals.game_settings.languages.croatian");
-      case EWordsLanguages.English:
-        return $t("modal.settings.sub_modals.game_settings.languages.english");
 
       default:
         break;
@@ -45,22 +38,6 @@
     id: $gameSettings.size,
     value: getTranslation($gameSettings.size),
   };
-
-  $: selectedAPILanguageItem = {
-    id: $gameSettings.wordsLanguage,
-    value: getTranslation($gameSettings.wordsLanguage),
-  };
-
-  const languageAPIItems = [
-    {
-      id: EWordsLanguages.Croatian,
-      value: $t("modal.settings.sub_modals.game_settings.languages.croatian"),
-    },
-    {
-      id: EWordsLanguages.English,
-      value: $t("modal.settings.sub_modals.game_settings.languages.english"),
-    },
-  ];
 
   const difficultyItems = map(Object.values(EGameDifficulty), (key) => ({
     id: key,
@@ -79,14 +56,6 @@
   const onSizeChange = (event) => {
     $gameSettings.size = event.detail.id;
   };
-
-  const onLanguageAPIChange = (event) => {
-    $gameSettings.wordsLanguage = event.detail.id;
-
-    if (!$devSettings.useCustomEndpoint) {
-      fetchApiVocabularyWords(getLocalizedEndpoint(event.detail.id));
-    }
-  };
 </script>
 
 <div>
@@ -101,14 +70,6 @@
   <div class="option-group">
     <OptionTitle title={$t("modal.settings.sub_modals.game_settings.labels.size")} />
     <Options selected={selectedSizeItem} items={sizeItems} on:change={onSizeChange} />
-  </div>
-  <div class="option-group">
-    <OptionTitle title={$t("modal.settings.sub_modals.game_settings.labels.words_language")} />
-    <Options
-      selected={selectedAPILanguageItem}
-      items={languageAPIItems}
-      on:change={onLanguageAPIChange}
-    />
   </div>
   <div class="option-group">
     <TitleToggle

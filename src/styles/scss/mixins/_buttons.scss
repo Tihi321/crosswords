@@ -1,13 +1,8 @@
-@mixin contrast-button($size: "small") {
+@mixin contrast-button() {
   color: $button-color;
   transition: 0.2s color ease;
   font-weight: bold;
-
-  @if $size == "small" {
-    font-size: $default-font-size;
-  } @else {
-    font-size: $big-font-size;
-  }
+  font-size: $default-font-size;
 
   &:hover {
     color: $button-hover-color;
