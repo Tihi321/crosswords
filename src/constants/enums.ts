@@ -4,11 +4,11 @@ export enum EThemes {
 }
 
 export enum ELocalStorage {
-  Theme = "crossword/ts-theme",
-  Language = "crossword/ts-language",
-  Settings = "crossword/ts-settings",
-  DevSettings = "crossword/ts-dev-settings",
-  GameSettings = "crossword/ts-game-settings",
+  Theme = "krizko/ts-theme",
+  Language = "krizko/ts-language",
+  Settings = "krizko/ts-settings",
+  DevSettings = "krizko/ts-dev-settings",
+  GameSettings = "krizko/ts-game-settings",
 }
 
 export enum EModals {
