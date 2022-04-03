@@ -33,7 +33,7 @@
         "word_starts": "početak riječi",
         "word_ends": "kraj riječi",
         "letter_correct": "slovo je pogođeno i na pravoj poziciji se nalazi",
-        "letter_incorrect_place": "slovo posotji u riječi no nalazi je na pogrešnom mjestu",
+        "letter_incorrect_place": "slovo postoji u riječi no nalazi je na pogrešnom mjestu",
         "wrong_letter": "slovo ne postoji u riječi",
         "writing_side": "smjer popunjavanja slova prilikom nastavka pisanja"
       }
