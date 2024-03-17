@@ -96,9 +96,6 @@
       transform: rotate(180deg);
     }
   }
-  .logo {
-    max-width: 50px;
-  }
 
   .menu {
     display: flex;
